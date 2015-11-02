@@ -1,0 +1,53 @@
+---
+title: "Variables aleatories discretes. Problema 3"
+output: pdf_document
+---
+
+3. Una companyia d'assegurances de vaixells de càrrega té assegurats un total de 1000 vaixells, el valor unitari dels quals és de 10 milions d’euros. Les clàusules de les assegurances cobreixen la pèrdua total d'un vaixell. La probabilitat que un vaixell tingui un sinistre total en el decurs d'un any és igual a 0.001. La legislació vigent obliga a la companyia a tenir un capital mínim destinat al pagament de sinistres que cobreixi els possibles sinistres amb probabilitat 0.999. Es demana:
+
+------------------
+
+a. Quin haurà de ser el capital anual mínim que haurà de tenir la companyia destinat al pagament de sinistres? [50 milions d’euros]
+
+Sigui $K$ la variable aleatoria que compta el nombre de vaixells assegurats per la companyia que tenen sinistre durant un any. Amb la informacio que ens dona l'enunciat podem modelar aquesta variable aleatoria mitjançant un distribucio binomial amb paràmetres $n=1000$ i $p=0.001$, ho escrivim com $K \sim Bin(n=1000, p=0.001)$. La despesa que tindrà la companyia asseguradora en milions d'euros vé donat per la variable aleatoria $10 K$ (cost del vaixell multiplicat pel nombre de vaixells sinistrats). La legislació obliga a tenir cobert els sinistres amb una probabilitat del 0.999. Si definim $C$ el capital de l'empresa asseguradora, el requisit legislatiu equival a
+
+\[
+P( \{ 10 K \leq C \} ) \geq 0.999,
+\]
+
+o sigui, que la probabilitat de tenir un capital superior a les despeses sigui de com a mínim 0.999. L'expressió la podem deixar en funció de la variable aleatoria $K$ com
+
+\[
+P( \{ K \leq \frac{C}{10} \} ) \geq 0.999.
+\]
+
+Per calcular quin és el valor $\frac{C}{10}$ que fa que es compleixi l'anterior igualtat, enlloc de treballar amb $K$ com a una variable aleatoria Binomial $Bin(n,p)$, aproximarem $K$ per una variable aleatoria Poisson $Pois(n\times p)$. Això ho podem fer sempre que tinguem un valor molt gran de $n$ i una probabilitat molt $p$ petita. Fixeu-vos que és el nostre cas.
+
+Mireu el següent gràfic on es mostra la probabilitat $P(\{K=i\})$, per $i=1\dots 10$, considerant $K \sim Bin(1000,0.001)$ i $K \sim Pois(1)$. Com veieu, en el nostre cas, aquesta aproximació és molt bona.
+
+```{r, fig.width=7, fig.height=5}
+plot(dbinom(0:10, size = 1000, prob = 0.001), 
+     ylab="", pch=20, xlab="Vaixells sinistrats", 
+     main='Aproximació Poisson d\'una Binomial')
+points(dpois(0:10, lambda=1), pch=3, col=2)
+legend('topright', c('Bin(1000, 0.001)', 'Pois(1)'), 
+       pch=c(20,3), col=1:2, bty='n')
+```
+
+Així doncs, treballarem amb la hipotesi que $K$ segueix una distribució Poisson amb paràmetre $\lambda = 1000 \cdot 0.001 = 1$, i.e. $K \sim Pois(\lambda=1)$.
+
+A les taules de l'assignatura (pàgina 12) que per una variable aleatoria Poisson $K$ trobem que $P(K \leq 5) = 0.999$. Per tant, serà suficient tenir un capital $C$ que compleixi $\frac{C}{10} \geq 5$, d'on treiem que el capital ha de ser de com a mínim $50$ milions d'euros.
+
+-------------------------
+
+b. Si la companyia té unes despeses fixes anuals de 6 milions d’euros i vol tenir un benefici anual mitjà de 4 milions d’euros, quan haurà de cobrar a cada vaixell en concepte de prima d'assegurança? [0.02 milions d’euros]
+
+Si volem tenir un benefici de 4 milions d'euros, el balanç d'ingressos ($1000 I$) i despeses ($6 + 10 X$) haurà de ser positiu i igual a $4$. Per tant,
+
+\[
+4 := E[ 1000 I - 6 - 10 X ] = 1000 I - 6 - 10 E[X] = 1000 I - 6 - 10 = 1000 I - 16
+\]
+
+d'on treiem que l'ingrés per vaixell que hauria de rebre la companyia és de $I=\frac{20}{1000}=0.02$ milions d'euros ($20.000$).
+
+

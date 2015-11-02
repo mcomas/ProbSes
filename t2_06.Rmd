@@ -1,0 +1,60 @@
+---
+title: "Problema 5"
+output: html_document
+---
+
+La llargada de les peces fabricades per una determinada màquina s'ajusta a una distribució normal de mitjana 150 cm i desviació tipus 0.4 cm. Les peces es consideren acceptables si la seva llargada pertany a l'interval obert (149.2,150.4).
+
+
+Denotarem per $X$ la variable aleatoria que denota la llargada d'una peça. L'enunciat segueix una distribució normal amb paràmetres $\mu=150$ i desviació tipus $\sigma=0.4$, i.e. $X \sim N(\mu=150, \sigma=0.4)$.
+
+Es demana:
+
+ * La proporció de peces defectuoses que contindrà la mostra. [18.14%]
+
+La proporció de peces defectuoses que esperem vindrà donat per
+
+\[
+\begin{array}{rcl}
+P(\{X \leq 149.2\} \cup \{X \geq 150.4\} ) &=& P(X \leq 149.2) + (1-P(X \leq 150.4)) \\
+&=& 1+P(X \leq 149.2) - P(X \leq 150.4)
+\end{array}
+\]
+
+Sabem que per una variable aleatoria normal $X \sim N(\mu, \sigma)$ el procés d'estandarditzar $Z = \frac{X-\mu}{\sigma}$ ens porta a que la v.a. $Z$ sigui normal amb mitjana $0$ i desviació tipus $1$, i.e. $Z \sim N(0,1)$. Tenin en compte això, tenim
+
+\[
+\begin{array}{rcl}
+1+P(X \leq 149.2) - P(X \leq 150.4) &=& 1+P(\frac{X-150}{0.4} \leq \frac{149.2-150}{0.4}) -P(\frac{X-150}{0.4} \leq \frac{150.4-150}{0.4}) \\
+&=& 1 + P(Z \leq -2) -P(Z \leq 1) \\
+&=& 1 + 0.02275013 -0.8413447 = 0.1814054
+\end{array}
+\]
+
+ * Trobeu un interval [150-\delta.150+\delta] que contingui el 95% de la producció. [149.216,150.784]
+
+Volem que es compleixi $P(150 - \delta \leq X \leq 150 - \delta) = 0.95$.
+
+\[
+\begin{array}{rcl}
+0.95 &=& P(150 - \delta \leq X \leq 150 - \delta) \\
+&=& P(150 + \delta \leq X) - P(150 - \delta \leq X) \\
+&=& P(\frac{(150 + \delta)-150}{0.4} \leq \frac{X-150}{0.4}) - P(\frac{(150 - \delta)-150}{0.4} \leq \frac{X-150}{0.4}) \\
+&=& P(\frac{\delta}{0.4} \leq Z) - P(\frac{-\delta}{0.4} \leq Z)  \\
+&=& P(\frac{\delta}{0.4} \leq Z) - (1-P(\frac{\delta}{0.4} \leq Z)) = 2 P(\frac{\delta}{0.4} \leq Z) - 1
+\end{array}
+\]
+
+D'on treiem que $P(\frac{\delta}{0.4} \leq Z) = \frac{0.95 + 1}{2} = 0.975$. A les taules veiem que $P(1.96 \leq Z) = 0.975$, per tant, tenim que
+
+\[
+\frac{\delta}{0.4} = 1.96 \implies \delta = 0.784
+\]
+
+ * Si s'escull una mostra a l'atzar de 50 peces, calculeu la probabilitat que la mostra contingui exactament 44 peces acceptables [0.0847]
+
+De l'apartat a) sabem que la probabilitat que una peça sigui acceptable és $0.8185946$. Sigui $Y$ la variable aleatoria que compta el nombre de peces acceptable després d'agafar a l'atzar 50 peces. La v.a. $Y$ es pot modelar mitjançant una distribució binomial amb paràmetre $n=50$ i $p=0.8185946$. Per tant,
+
+\[
+P(Y = 44) = \binom{50}{44} 0.8185946^44 (1-0.8185946)^6 = 0.08473734.
+\]

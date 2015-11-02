@@ -1,0 +1,57 @@
+---
+title: "Variables aleatories discretes. Problema 4"
+output: pdf_document
+---
+
+4. Una companyia aèria ha estimat que un 12% - en mitjana - de les places reservades en els vols regulars no es cobreixen. Per aquest motiu decideix acceptar reserves per un 10% més de les places disponibles en els avions, que són de 450 places. Calcular la proporció de vols en que hi haurà algun passatger que, havent efectuat reserva, es quedarà sense plaça. Especifiqueu  les hipòtesis realitzades per a resoldre el problema. [1.96%]
+
+------------------
+
+Segons l'enunciat, tenim que la probabilitat de que un plaça no es cobreixi és $p= 0.12$. Si es decideix acceptar un 10% més de places disponibles, equival a dir que s'acceptaràn $450 + 45=495$ reserves.
+
+
+Suposant les assumpcions:
+
+ * sempre es fan 495 reserves i 
+ * el fet que dues reserves diferents no es cobreixin és independent.
+ 
+ 
+Podem modelar la variable aleatoria $X$ que compte el nombre de places reservades no cobertes amb una distribució Binomial $X \sim Bin(495, 0.12)$
+
+\[
+P(\{ X < 45 \}) = P(\{ X \leq 44 \})
+\]
+
+Qualsevol variable aleatoria es pot aproximar amb una variable normal
+
+Si $n p > 5$ i $n (1-p) > 5$ la distribució normal amb mitjana $n p$ i desviació estàndar $\sqrt{n p (1-p)}$, i.e $N(np, \sqrt{np(1-p)})$ aproxima bastant bé la distrubció Binomial amb paràmetres $n$ i $p$, i.e $Bin(n,p)$.
+
+
+```{r, fig.width=7, fig.height=5}
+plot(dbinom(0:100, size = 495, prob = 0.12), 
+     ylab="", pch=20, xlab="Reserves no coberta", 
+     main='Aproximació Normal d\'una Binomial')
+lines(dnorm(0:100, 495*0.12, sqrt(495*0.12*0.88)), pch=3, col=2)
+legend('topleft', c('Bin(495, 0.12)', 'N(59.4, 7.23)'), 
+       lty=1, col=1:2, bty='n')
+```
+
+Quant approximem una variable aleatoria discreta $X_d$ amb una altre variable aleatoria contínua $X_c$ es sol corregir aquesta aproximació amb les següent equivalències com
+
+ * $P(X_d=k) \approx P( k-0.5 < X_c < k+0.5)$, 
+ * $P(X_d > k) \approx P( X_c > k+0.5)$, 
+ * $P(X_d \geq k) \approx P( X_c > k-0.5)$, 
+ * $P(X_d < k) \approx P( X_c < k-0.5)$ i 
+ * $P(X_d \leq k) \approx P( X_c < k+0.5)$.
+
+Així doncs, podem reescriure $P(\{ X \leq 44 \})$ com 
+
+\[
+P(\{ X_c < 44.5 \})
+\]
+
+on $X_c \sim N(495 \times 0.12, \sqrt{ 495 \times 0.12 \times 0.88})$. Treballant amb les taules de la pàgina 15 i la variable aleatoria $X_c$ estandarditzada $Z := \frac{X_c - \mu}{\sigma} \sim N(0,1)$, tenim
+
+\[
+P(\{ X_c < 44.5 \} ) = P(\{ \frac{X_c - 59.4}{7.23} < \frac{44.5 - 59.4}{7.23} \}) = P(Z < -2.06) = 0.0197.
+\]

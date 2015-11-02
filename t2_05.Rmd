@@ -1,0 +1,67 @@
+---
+title: "Problema 5"
+output: html_document
+---
+
+La vida d'una bombeta - expressada en hores - ve donada per una variable aleatòria de funció de densitat:
+
+$$
+f(x) = \left\{ 
+\begin{aligned}
+0.001 e^{-0.001 x} & & \mbox{si $x \geq 0$} \\
+0\;\;\;\; & & \mbox{si $x < 0$}
+\end{aligned}
+\right.
+$$
+
+Es demana:
+
+ * a. De quin tipus és aquesta distribució de probabilitat?
+
+Aquesta funció de densitat és la d'una [distribució exponencial](https://en.wikipedia.org/wiki/Exponential_distribution). Aquesta distribució que completament determinada a partir d'un única paràmetre que es sol denotar amb la lletra $\lambda$. El paràmetre $\lambda$ es coneix amb el nom de taxa.
+
+```{r, fig.width=7, fig.height=5}
+fexp = function(x, lambda) ifelse(x < 0, 0, lambda * exp(-lambda * x))
+x<-seq(-100, 10000, length.out = 1000)
+plot(x, fexp(x, lambda=0.001), type='p', cex=0.1, ylab='f', main='Funció distribució amb paràmetre 0.001')
+```
+
+ * b. Probabilitat que la bombeta duri entre 100 i 1000 hores. [ 0.537]
+
+Sigui $X$ la variable aleatoria que denota el temps que dura una bombeta. Sabem que $X\sim exp(\lambda=0.001)$. La funció de distribució o de densitat acumulada de la variable aleatoria $X$ és
+
+$$
+F(x) = P(X \leq x) = \left\{ 
+\begin{aligned}
+1 -  e^{-0.001 x} & & \mbox{si $x \geq 0$} \\
+0\;\;\;\; & & \mbox{si $x < 0$}
+\end{aligned}
+\right.
+$$
+
+Utilizant la funció de distribució tenim
+
+$$
+\begin{array}{rcl}
+P(100 \leq X \leq 1000) &=& P(X \leq 1000) - P(X \leq 100)\\
+                        &=& F(1000) - F(100) \\
+                        &=& 1 -  e^{-0.001 1000} - (1 -  e^{-0.001 100}) = 0.536958
+\end{array}
+$$
+
+ * c. Probabilitat que la bombeta duri més de 1000 hores. [ 0.368]
+
+Utilitzant la funció de distribució tenim
+
+$$
+\begin{array}{rcl}
+P(X > 1000) &=& 1 - P(X \leq 1000) \\
+                        &=& 1 - F(1000)\\
+                        &=& 1 - (1 -  e^{-0.001 1000}) = 0.3678794
+\end{array}
+$$
+
+ * d. a vida mitjana de les bombetes. [1000]
+
+La vida mitjana de les bombetes vé donada per l'esperança de la variable aleatória $X$. Per una distribució exponencial amb paràmetre $\lambda$, l'esperança vé donada per $E[X] = \frac{1}{\lambda}$. En el nostre cas tenim que l'esperança és $E[X] = \frac{1}{0.001} = 1000$.
+
