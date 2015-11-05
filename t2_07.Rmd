@@ -5,21 +5,32 @@ output: pdf_document
 
 El temps de vida T d'un determinat component electrònic es pot considerar que s'ajusta a una llei exponencial. La vida mitjana d'aquests components és de 2000 dies.
 
- * a) L'empresa que comercialitza aquests components vol donar als seus compradors una garantia d'un temps mínim de funcionament. Si com a màxim vol haver de reparar en període de garantia un 15% dels components venuts, quin és, com a màxim, el temps mínim de funcionament que l'empresa pot garantir? [325 dies]
+-----------------
 
-Sigui $T$ la v.a. "temps de durafa d'un component electrònic". A l'enunciat se'ns comenta que $T$ segueix una distribució exponencial. També ens diuen que $E[X] = 2000$. Com que sabem que per una distribució exponencial $E[X] = \frac{1}{\lambda}$ tindrem que el paràmetre vindrà donat per $\lambda=\frac{1}{2000}=0.0005$.
+a) L'empresa que comercialitza aquests components vol donar als seus compradors una garantia d'un temps mínim de funcionament. Si com a màxim vol haver de reparar en període de garantia un 15% dels components venuts, quin és, com a màxim, el temps mínim de funcionament que l'empresa pot garantir? [325 dies]
 
-Volem que trobar un cert temps $t$ pel qual $P(T>t) = 0.15$ o equivalentment, $0.85 = P(T\leq t) = e^{-0.0005 t}$.
+Sigui $T$ la v.a. que denota el "temps de durada d'un component electrònic". A l'enunciat es diu que $T$ segueix una distribució exponencial i que el valor mitja de la durada del component és $E[X] = 2000$. Com que sabem que per una distribució exponencial $E[X] = \frac{1}{\lambda}$ tindrem que el paràmetre vindrà donat per $\lambda=\frac{1}{2000}=0.0005$.
+
+Volem trobar un cert temps $t$ pel qual 
+
+\[
+0.15 = P(T \leq t) = F_{Exp(0.0005)}(t) = 1 - e^{-0.0005 t}.
+\]
+
+
+Aleshores tenim
 
 $$
 e^{-0.0005 t} = 0.85 \iff t = \frac{log(0.85)}{-0.0005} = 325.03.
 $$
 
+-----------------
+
 Un determinat "kit" consta de la connexió en sèrie de dos d'aquests components electrònics. Per tal que el "kit" funcioni correctament, els dos components electrònics han de funcionar correctament.
 
 Es demana:
 
- * b) Caracteritzeu la v.a. $T^*$ que proporciona el temps de vida del "kit". Busqueu l'expressió de la seva funció de densitat i comproveu que es tracta d’una llei exponencial. [$F_{T^*}(t)=1-e^{-t/1000}$; $f_{T^*}(t)=1/1000 e^{-t/1000}$]
+b) Caracteritzeu la v.a. $T^*$ que proporciona el temps de vida del "kit". Busqueu l'expressió de la seva funció de densitat i comproveu que es tracta d’una llei exponencial. [$F_{T^*}(t)=1-e^{-t/1000}$; $f_{T^*}(t)=1/1000 e^{-t/1000}$]
 
 \[
 \begin{array}{rcl}
@@ -32,27 +43,33 @@ P(T^* \leq t) &=& 1 - P(T^* > t)\\
 \end{array}
 \]
 
-Per tant, la v.a. aleatoria té la mateixa funció de distribució que una variable aleatoria exponencial amb paràmetre $\lambda=2 \times 0.0005 = 0.001$.
+Per tant, la v.a. té la mateixa funció de distribució que una v.a. exponencial amb paràmetre $\lambda=2 \times 0.0005 = 0.001$.
 
- * c. Calculeu la probabilitat que el "kit" funcioni correctament més de 1000 dies. [0.368]
+---------------------
+
+c. Calculeu la probabilitat que el "kit" funcioni correctament més de 1000 dies. [0.368]
 
 \[
 P(T^* > 1000) = 1 - P(T^* \leq 1000) = 1 - F_{T^*}(1000) = 1 - (1 - e^{-0.001 \times1000}) = e^{-1}
 \]
 
- * d. Repetiu els dos apartats anteriors b) i c) en el supòsit que el "kit" té els dos components electrònics connectats en paral·lel i que, per tant, funciona correctament sempre que hi hagi com a mínim un component que funcioni correctament. (NOTA: En aquests cas, la v.a. T* no segueix una lleis exponencial)  [$F_{T^*}(t)=1-2e^{-t/2000}+e^{-t/1000}$; $f_{T^*}(t)=1/1000 (e^{-t/2000}-e^{-t/1000})$; 0.845]
+---------------
+
+d. Repetiu els dos apartats anteriors b) i c) en el supòsit que el "kit" té els dos components electrònics connectats en paral·lel i que, per tant, funciona correctament sempre que hi hagi com a mínim un component que funcioni correctament. (NOTA: En aquests cas, la v.a. T* no segueix una lleis exponencial)  [$F_{T^*}(t)=1-2e^{-t/2000}+e^{-t/1000}$; $f_{T^*}(t)=1/1000 (e^{-t/2000}-e^{-t/1000})$; 0.845]
 
 Sigui T^* el temps de vida del "kit" format amb dos component connectats en paral·lel. Tenim que
 
 \[
-\begin{matrix}{rcl}
-F(t) &=& P(T^* \leq t) = P(\{T_1 \leq t\} \cap \{T_2 \leq t \}) \\
+\begin{array}{rcl}
+F(t) &=& P(T^* \leq t) = P(\{T_1 \leq t\} \cap \{T_2 \leq t \}) \\ \\
 &=& F(t)^2 = (1-e^{-0.0005t})^2 = 1 - 2 e^{-0.0005t} + e^{-0.001t}
-\end{matrix}
+\end{array}
 \]
 
+Per calcular la funció de densitat necessitem derivar la funció de distribució
+
 \[
-f(t) = - 2 (-0.0005) e^{-0.0005t} + (-0.001) e^{-0.001t} = 0.001 e^{-0.0005t} - 0.001  e^{-0.001t}
+f(t) = \frac{d}{dt} F(t) = - 2 (-0.0005) e^{-0.0005t} + (-0.001) e^{-0.001t} = 0.001 e^{-0.0005t} - 0.001  e^{-0.001t}
 \]
 
 Per calcular la probabilitat
