@@ -1,6 +1,6 @@
 ---
 title: "Problema 5"
-output: html_document
+output: pdf_document
 ---
 
 La vida d'una bombeta - expressada en hores - ve donada per una variable aleatòria de funció de densitat:
@@ -18,12 +18,13 @@ Es demana:
 
  * a. De quin tipus és aquesta distribució de probabilitat?
 
-Aquesta funció de densitat és la d'una [distribució exponencial](https://en.wikipedia.org/wiki/Exponential_distribution). Aquesta distribució que completament determinada a partir d'un única paràmetre que es sol denotar amb la lletra $\lambda$. El paràmetre $\lambda$ es coneix amb el nom de taxa.
+Aquesta funció de densitat és la d'una [distribució exponencial](https://en.wikipedia.org/wiki/Exponential_distribution). Aquesta distribució que completament determinada a partir d'un únic paràmetre que es sol denotar amb la lletra $\lambda$. El paràmetre $\lambda$ es coneix amb el nom de taxa.
 
 ```{r, fig.width=7, fig.height=5}
 fexp = function(x, lambda) ifelse(x < 0, 0, lambda * exp(-lambda * x))
 x<-seq(-100, 10000, length.out = 1000)
-plot(x, fexp(x, lambda=0.001), type='p', cex=0.1, ylab='f', main='Funció distribució amb paràmetre 0.001')
+plot(x, fexp(x, lambda=0.001), type='p', cex=0.1, ylab='f', 
+     main='Funció distribució amb paràmetre 0.001')
 ```
 
  * b. Probabilitat que la bombeta duri entre 100 i 1000 hores. [ 0.537]

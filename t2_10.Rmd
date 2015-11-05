@@ -1,43 +1,50 @@
 ---
-title: "Problema 10"
-author: "Marc Comas-Cufí"
-date: "November 2, 2015"
-output: html_document
+title: "Problema 10. Variable aleatoria contínues"
+output: pdf_document
 ---
 
 Suposeu Un circuit electrònic té quatre transistors. El temps de vida de cada un dels transistors és independent i segueix una distribució exponencial de paràmetres $\lambda_1 = 0.00006$, $\lambda_2 = 0.00003$, $\lambda_3=0.00012$ i $\lambda_4 = 0.000018$ (fallades per minut).
 
 a. Quina serà l’esperança de vida del circuit electrònic si els transistors estan organitzats en sèrie?
 
+Si denotem per $T^*$ el temps de vida del circuit, i per $T_i$ el temps de vida del transistor $i$ tenim que
 \[
 \begin{array}{rcl}
 P(T^* > t) &=& P(\{T_1 > t\} \cap \{T_2 > t\} \cap \{T_3 > t\} \cap \{T_4 > t\}) \\
 &=& P(T_1 > t) P(T_2 > t) P (T_3 > t) P(T_4 > t) \\
 &=& [1-P(T_1 \leq t)][1-P(T_2 \leq t)][1-P(T_3 \leq t)][1-P(T_4 \leq t)]\\
-&=& [1-F_1(t)][1-F_2(t)][1-F_3(t)][1-F_4(t)] \\
+&=& [1-F_{Exp(\lambda_1)}(t)][1-F_{Exp(\lambda_2)}(t)][1-F_{Exp(\lambda_3)}(t)][1-F_{Exp(\lambda_4)}(t)] \\
 &=& e^{-0.00006 t} e^{-0.00003 t} e^{-0.00012 t} e^{-0.000018 t} \\
-&=& e^{-(0.00006+0.00003+0.00012+0.000018) t}
+&=& e^{-(0.00006+0.00003+0.00012+0.000018) t} = e^{-0.000228 t}
 \end{array}
 \]
 
-D'on treiem que $F_{T^*} = P(T^* \leq t) = 1 - e^{-0.000228 t}$. O dit d'altre manera, la  v.a. $T^*$ segueix segueix una distribució exponencial amb paràmetre $\lambda = 0.000228$. Això ens permet dir que $E[T^*] = \frac{1}{0.000228} = 4385.965$.
+D'on treiem que $F_{T^*} = P(T^* \leq t) = 1 - e^{-0.000228 t}$, o dit d'altre manera, la  v.a. $T^*$ segueix segueix una distribució exponencial amb paràmetre $\lambda = 0.000228$. L'esperança de la v.a. $T^{*}$ serà 
+\[
+E[T^*] = \frac{1}{0.000228} = 4385.965.
+\]
 
 
 b. Quina és la fiabilitat del circuit electrònic si els transistors estan organitzats en paral·lel?
+
+Si denotem per $T^*$ el temps de vida del circuit muntat en paral·lel,
 
 \[
 \begin{array}{rcl}
 P(T^* > t) &=& 1 - P(T^* \leq t) \\
 &=& 1 - P(\{T_1 \leq t\} \cap \{T_2 \leq t\} \cap \{T_3 \leq t\} \cap \{T_4 \leq t\}) \\
 &=& 1 - P(T_1 \leq t) P(T_2 \leq t) P(T_3 \leq t) P(T_4 \leq t) \\
-&=& 1- F_1(t) F_2(t) F_3(t) F_4(t)
+&=& 1- F_{Exp(\lambda_1)}(t) F_{Exp(\lambda_2)}(t) F_{Exp(\lambda_3)}(t) F_{Exp(\lambda_4)}(t) \\
+&=& 1-(1-e^{-0.00006 t}) (1-e^{-0.00003 t}) (1-e^{-0.00012 t}) (1-e^{-0.000018 t}) )
 \end{array}
 \]
 
+
 c. En el supòsit anterior, dibuixeu la gràfica d’R(t) al llarg del temps?
 
-```{r}
-R = function(x) 1 - (1-exp(-0.00006 * x)) * (1-exp(-0.00003 * x)) * (1-exp(-0.00012 * x)) * (1-exp(-0.000018 * x))
+```{r, fig.width=5, fig.height=4}
+R = function(x) 1 - (1-exp(-0.00006 * x)) * (1-exp(-0.00003 * x)) * 
+  (1-exp(-0.00012 * x)) * (1-exp(-0.000018 * x))
 x = seq(0, 300000, length.out=100)
 plot(x, R(x), type='l', xlab='Temps en minuts')
 ```

@@ -1,8 +1,6 @@
 ---
 title: "Problema 7"
-author: "Marc Comas-Cufí"
-date: "November 2, 2015"
-output: html_document
+output: pdf_document
 ---
 
 El temps de vida T d'un determinat component electrònic es pot considerar que s'ajusta a una llei exponencial. La vida mitjana d'aquests components és de 2000 dies.
