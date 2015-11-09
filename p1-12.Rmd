@@ -1,0 +1,28 @@
+---
+output: html_document
+---
+
+12. En una certa instal·lació industrial, dues màquines M1 i M2 ocupen respectivament el 10% i el 90% de la producció total d'un determinat article. La probabilitat que la primera màquina fabriqui una peça defectuosa és p1 = 0.01, i la probabilitat que fabriqui una peça defectuosa la segona màquina és p2 = 0.05. Agafant a l'atzar una peça de la producció d'un dia, s'observa que és defectuosa. Quina és la probabilitat que aquesta peça procedeixi de la primera màquina?
+
+```{r}
+library(ggplot2)
+df = data.frame(
+  'prop' = c(0.1 * 0.01, 0.1 * 0.99, 0.9 * 0.05, 0.9 * 0.95),
+  'maq' = c('M1', 'M1', 'M2', 'M2'),
+  'def' = c('defect', 'correct', 'defect', 'correct')
+)
+ggplot() + 
+  geom_bar(data = df, aes(x = maq, y=prop, fill = def), colour="black", stat="identity") +
+  scale_fill_manual(values = c("defect" = terrain.colors(2)[1],"correct" = terrain.colors(2)[2]))
+```
+
+```{r}
+ggplot() + 
+  geom_bar(data = subset(df, def == 'defect'), aes(x = maq, y=prop, fill = def), colour="black", stat="identity") +
+  scale_fill_manual(values = c("defect" = terrain.colors(2)[1],"correct" = terrain.colors(2)[2]))
+```
+
+```{r}
+library(ggplot2)
+```
+

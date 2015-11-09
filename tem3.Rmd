@@ -1,0 +1,38 @@
+---
+title: "Tema 3"
+author: "Marc Comas-Cufí"
+date: "October 22, 2015"
+output: html_document
+---
+
+2.5 En una cadena de producció, una màquina d’envasament automàtic omple els 
+envasos amb un determinat producte. La quantitat introduïda en l'envàs es una v.a. X 
+de mitjana 81.5 g i desviació tipus 8 g. El pes dels envasos buits es distribueix segons 
+una v.a. de mitjana 14.5 g i desviació tipus 6 g. Ambdues distribucions són normals i 
+independents. Es demana: 
+ 
+a) La funció de densitat del pes dels envasos plens.
+
+Sigui $X$ la v.a. que defineix la quantitat introduïda en l'envàs, tenim que $X \sim N(\mu=81.5, \sigma=8)$. Sigui $Y$ la v.a. que defineix el pes de l'envàs buit, tenim que $Y \sim N(\mu=14.5, \sigma=6)$.
+
+La suma de dues normals $X_1 \sim N(\mu_1, \sigma_1)$ i $X_2 \sim N(\mu_2, \sigma_2)$ també és una normal 
+\[
+X_1+X_2 \sim N(\mu = \mu_1+\mu_2, \sigma = \sqrt{\sigma_1^2+ \sigma_2^2}).
+\]
+
+Tenint en compte l'anterior propietat, tenim que la suma de el contingut i l'envàs seguirà una distribució normal amb paràmetres
+
+\[
+X+Y \sim N(\mu=81.5+14.5, \sigma=\sqrt{8^2+6^2}) = N(\mu=96, \sigma=10).
+\]
+
+
+b) Si els paquets es distribueixen en caixes de cartró de 40 unitats el pes de les quals es 
+distribueix segons una v.a. normal de mitjana 520 g i desviació tipus 50 g, calculeu la 
+funció de densitat del pes de les caixes plenes. 
+
+Sigui $W$ la v.a. que defineix el pes de la caixa de cartró, tenim que $W \sim N(\mu=520, \sigma=50)$.
+
+\[
+40 (X+Y) + W \sim N(40 \times 96 + 520, \sqrt{40 \times 10^2 + 50^2})
+\]

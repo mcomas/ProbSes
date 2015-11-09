@@ -1,0 +1,64 @@
+---
+title: "T3 Problema  1.5"
+output: html_document
+---
+
+La duració $X$ de les bombones de butà de 40 kg es distribueix segons una llei $N(200,20)$ hores. Es demana:
+
+a) Calculeu la probabilitat que una bombeta duri més de 220 hores
+
+Per simplificar, denotem per $Z$ la variable aleatoria estandarditzada $\frac{X-200}{20} \sim N(0,1)$. Tenim que
+
+\[
+\begin{array}{rcl}
+P(X < 220) 
+&=& 1- P(X\leq 220) \\
+&=& 1-P(\frac{X-200}{20} \leq \frac{220-200}{20})\\
+&=& 1-P(Z \leq 1) \\
+&=& 1- F_Z(1) = 1 - 0.8413447 = 0.1586553
+\end{array}
+\]
+
+b) Quin és el temps de vida minima que es pot garantir amb un risc d'equivocar-nos del 20%?
+
+Sigui $l$ el temps de vida que volem garantir. Equivocar-nos equival a dir que el temps de vida és inferior al que hem garantit. Tenim que 
+
+\[
+P(X \leq t) = 0.20
+\]
+
+o estandarditzant,
+
+\[
+P( \frac{X-200}{20} \leq \frac{t-200}{20}) = P(Z \leq \frac{t}{20} - 10) = F_Z(\frac{t}{20} - 10) = 0.20.
+\]
+
+
+Sabem, utilitzant les taules, que $F_Z(-0.85) = 0.1977$ i que $F_Z(-0.84) = 0.2005$. Necessitem calcular el $z$ que faci $F_Z(z) = 0.20$· Si interpolem linealment,
+
+\[
+\frac{-0.85 -z}{0.1977 - 0.2} = \frac{-0.85 -(-0.84)}{0.1977 - 0.2005}
+\]
+
+treiem que 
+\[
+z = -0.8418,
+\]
+
+i per tant
+
+\[
+F_Z(-0.8418) \approx 0.20
+\]
+
+c) Si una bombona porta 160h funcionant, quina és la probabilitat que duri més de 220h?
+
+d) Calculeu la probabilitat que ele temps de vida total de 25 bombones sigui com a mínim de 5200 hores.
+
+En el mercat existeix un altre tipus de bombones de 10 kg, el temps de vida $Y$ de les quals es distribueix segons una llei $Y\simN(50,80)$ hores.
+
+e) Quina duració total es pot garantir, amb un risc del 5%, si disposem de 4 bombones de 40 kg?
+
+f) I si tenim 16 bombones de 10 kg?
+
+g) Quina conclusió traieu d'aquests resultats?

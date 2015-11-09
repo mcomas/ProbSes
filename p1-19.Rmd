@@ -1,0 +1,69 @@
+---
+title: "p1-19"
+author: "Marc Comas"
+date: "October 13, 2015"
+output: html_document
+---
+
+S’ha utilitzat quatre components electrònics, idèntics i independents, del model CE-123 per a construir tres circuits diferents (Figures A, B, i C). Segons les especificacions del fabricant del component CE-123, la probabilitat que un d’aquests elements funcioni correctament és igual a 0.95. Calculeu en cada cas, quant val la probabilitat que el circuit funcioni correctament.
+
+
+$$P( \{A_1 \cup A_2 \cup A_3\} \cap A_4)$$
+
+$$P(A_1 \cup A_2 \cup A_3) P(A_4)$$
+
+$$(1-P( \{A_1 \cup A_2 \cup A_3\}^c)) P(A_4)$$
+
+$$(1-P(A_1^c)P(A_2^c)P(A_3^c))) P(A_4)$$
+
+$$(1-(1-p)(1-p)(1-p)) p$$
+
+$$1-(1-3p+3p^2-p^3)$$
+
+$$3p-3p^2+p^3$$
+
+----------------
+
+$$P(\{A_1 \cup A_2\} \cap \{A_3 \cup A_4\})$$
+
+  * 
+
+$$(P(A_1) + P(A_2) - P(A_1\cap A_2)) (P(A_3) + P(A_4) - P(A_3\cap A_4))$$
+
+$$(p + p - p^2) (p + p - p^2)$$
+
+$$(2p - p^2)^2$$
+
+$$4p^2 - 4 p^2 + p ^4$$
+
+$$p ^4$$
+
+  *
+  
+$$P(\{A_1 \cup A_2\}^c \cap \{A_3 \cup A_4\}^c)$$
+
+$$(1-P(\{A_1^c \cap A_2^c\}) (1-P(\{A_3^c \cap A_4^c\}))$$
+
+$$(1-(1-p)^2)  (1-(1-p)^2)$$
+
+$$1-2(1-p)^2+(1-p)^4$$
+
+$$1-2(1-2p+p^2)+(1-4p+6p^2-4p^3+p^4)$$
+
+$$1-2+4p-2p^2+1-4p+6p^2-4p^3+p^4$$
+
+$$p^4$$
+
+--------------------------------
+
+$$P( \{A_1 \cup A_2 \cup A_3 \cup A_4\})$$
+
+$$1-P( \{A_1 \cup A_2 \cup A_3 \cup A_4\}^c)$$
+
+$$1-P( A_1^c \cap A_2^c \cap A_3^c \cap A_4^c)$$
+
+$$1-(1-p)^4$$
+
+$$1-(1-4p+6p^2-4p^3+p^4)$$
+
+$$p^4-4p^3+6p^2-4p$$

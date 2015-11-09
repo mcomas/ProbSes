@@ -20,7 +20,7 @@ Es demana:
 
 a. De quin tipus és aquesta distribució de probabilitat?
 
-Aquesta funció de densitat és la d'una [distribució exponencial](https://en.wikipedia.org/wiki/Exponential_distribution). Aquesta distribució queda completament determinada a partir d'un únic paràmetre $\lambda$ conegut com a _taxa_.
+Aquesta funció de densitat és la d'una [distribució exponencial](https://en.wikipedia.org/wiki/Exponential_distribution). Aquesta distribució queda completament determinada a partir d'un únic paràmetre $\lambda$ conegut com a _taxa_ d'event (en aquest cas taxa bombetes que deixen de funcionar).
 
 ```{r, fig.width=7, fig.height=5}
 fexp = function(x, lambda) ifelse(x < 0, 0, lambda * exp(-lambda * x))
@@ -33,10 +33,10 @@ plot(x, fexp(x, lambda=0.001), type='p', cex=0.1, ylab='f',
 
 b. Probabilitat que la bombeta duri entre 100 i 1000 hores. [ 0.537]
 
-Sigui $X$ la v.a. que modela el temps que dura una bombeta, sabem que $X\sim exp(\lambda=0.001)$. La funció de distribució o de densitat acumulada de la variable aleatoria $X$ és
+Sigui $X$ la v.a. que modela el temps que dura una bombeta, sabem que $X\sim Exp(\lambda=0.001)$. La funció de distribució o de densitat acumulada de la variable aleatoria $X$ és
 
 $$
-F(x) = P(X \leq x) = \left\{ 
+F_{Exp(\lambda)}(x) = P(X \leq x) = \left\{ 
 \begin{aligned}
 1 -  e^{-0.001 x} & & \mbox{si $x \geq 0$} \\
 0\;\;\;\; & & \mbox{si $x < 0$}
@@ -47,9 +47,10 @@ $$
 Utilizant la funció de distribució tenim que
 
 $$
+\arraycolsep=1.4pt\def\arraystretch{2.2}
 \begin{array}{rcl}
 P(100 \leq X \leq 1000) &=& P(X \leq 1000) - P(X \leq 100)\\
-                        &=& F(1000) - F(100) \\
+                        &=& F_{Exp(\lambda)}(1000) - F_{Exp(\lambda)}(100) \\
                         &=& 1 -  e^{-0.001 1000} - (1 -  e^{-0.001 100}) = 0.536958
 \end{array}
 $$
@@ -61,16 +62,17 @@ c. Probabilitat que la bombeta duri més de 1000 hores. [ 0.368]
 Utilitzant la funció de distribució anterior tenim que
 
 $$
+\arraycolsep=1.4pt\def\arraystretch{2.2}
 \begin{array}{rcl}
 P(X > 1000) &=& 1 - P(X \leq 1000) \\
-                        &=& 1 - F(1000)\\
+                        &=& 1 - F_{Exp(\lambda)}(1000)\\
                         &=& 1 - (1 -  e^{-0.001 1000}) = 0.3678794
 \end{array}
 $$
 
 -----------------
 
-d. a vida mitjana de les bombetes. [1000]
+d. La vida mitjana de les bombetes. [1000]
 
 La vida mitjana de les bombetes vé donada per l'esperança de la variable aleatória $X$. Per una distribució exponencial amb paràmetre $\lambda$, l'esperança vé donada per $E[X] = \frac{1}{\lambda}$. En el nostre cas tenim que l'esperança és $E[X] = \frac{1}{0.001} = 1000$.
 

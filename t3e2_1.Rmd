@@ -1,0 +1,73 @@
+---
+title: "T3 Ex. 2.1"
+author: "Marc Comas"
+date: "October 13, 2015"
+output: html_document
+---
+
+Sigui $X$ una variable aleatòria contínua amb funció de densitat:
+
+$$
+f(x) = \left\{ 
+\begin{aligned}
+\frac{1+x^2}{12} & & \mbox{si $x \in [0,3]$} \\
+0\;\;\;\; & & \mbox{si $x \notin [0,3]$}
+\end{aligned}
+\right.
+$$
+
+Es demana:
+
+a) Comproveu que $f(x) és efectivament una funció de densitat
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+fx = function(x) ifelse(x < 0 | 3 < x, 
+                        0, 
+                        (1+x^2)/12 )
+Fx = function(x) ifelse(x < 0 | 3 < x, 
+                        ifelse(x < 0, 0, 1), 
+                        (x+x^3/3)/12 )
+df = data_frame('x' = seq(-1, 4, length=1000),
+                'f' = fx(x),
+                'F' = Fx(x))
+
+ggplot(data=df) + 
+  geom_line(aes(x=x, y=f)) + 
+  geom_line(aes(x=x, y=F), col='red') + theme_bw()
+```
+
+```{r}
+library(manipulate)
+
+p1 = function(to=2){
+  df = data_frame('x' = seq(-1, to, length=1000),
+                'f' = fx(x),
+                'F' = Fx(x))
+  print(ggplot(data=df) + 
+    geom_point(aes(x=x, y=F), col='red', size=2) + 
+    geom_point(aes(x=x, y=f), size=2) + 
+    coord_cartesian(xlim=c(-1,4), ylim=c(0,1.1)) + 
+    theme_bw())
+}
+
+manipulate(p1(to = to), to = slider(-1, 4, step=0.01))
+
+
+
+```
+
+b) Determineu la funció de distribució $F$
+
+c) Representeu gràficament sobre uns mateixos eixos les funcions f(x) i F(x)
+
+d) Calculeu la probabilitat que $X$ prengui un valor entre 1 i 2
+
+e) Calculeu la probabilitat que $X$ prengui un valor menor que 1
+
+f) Si se sap que $X > 1$, trobeu la probabilitat que $X$ sigui major que 2
+
+g) Calculeu l'esperança i la variància de $X$
+
