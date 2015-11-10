@@ -1,0 +1,44 @@
+---
+title: "T4 2.10"
+output: pdf_document
+---
+
+En un procés industrial es control la resistència a la tensió de certes peces metàl·liques. S'ha mesurat la resistència de 30 mostres, de 6 elements cada una, i s'ha obtingut una mitjana igual a $\bar{x} = 200$ i una desviació igual a $s=5$.
+
+Es demana:
+
+Per $n=6$ tenim $A=1.225$, $A_2=0.483$, $A_3=1.287$, $c_4 =0.9515$, $B_3=0.030$, $B_4=1.970$, $B_5=0.029$, $B_6=1.874$.
+
+
+$n$   | $A$    | $A_2$ | $A_3$  | $C_4$  |  $B_3$   | $B_4$    | $B_5$   | $B_6$
+------| -------|-------|------- | -------| ---------| ---------|---------|---------
+6     | 1.225  |0.483  |  1.287 | 0.9515 |   0.030  | 1.970    | 0.029   |  1.874
+
+
+a) Calculeu, a partir d'auestes mostres, els límits de control per a la mitjana i per a la desviació.
+
+Interval per la mitjana
+
+\[
+\hat{\sigma} = \frac{5}{0.9515} = 5.254861
+\]
+
+Límits per $\mu$:
+
+\[
+\bar{x} \pm A_3 s = 200 \pm 1.287 \times 5 = 200 \pm 6.435
+\]
+
+
+Límits per $\sigma$:
+
+\[
+[B_3 \bar{s}, B_4 \bar{s}] = [ 0.030*5, 1.970*5 ]
+\]
+
+
+b) S'ha conclòs que el procés està sota control. Determineu l'índex de capacitat si els límits de tolerància són $200 \pm 5$.
+
+c) Quantes peces metàl·liques defectuoses produeix aquest procés? (NOTA: s'entén que una peça és defectuosa si sobrepasa els límits de tolerància)
+
+d) En un moment concret es desajusta el procés i es fabriquen peces metàl·liques amb mitjana 199, però sense modificar-se'n la variància. Quina és la probabilitat de detectat el desajust en la següent mostra que es prengui de 6 elements?

@@ -1,0 +1,10 @@
+---
+title: "T4 2.4"
+output: html_document
+---
+
+Un investigador estima sempre el valor de la mitjana $\mu$ d'una població fent servir intervals de confiança del 90%. Després de 400 estimacions, quin és el nombre aproximat d'intervals de confiança que contindran el vertades valor de $\mu$?
+
+\[
+0.9 \times 400 = 360.
+\]
