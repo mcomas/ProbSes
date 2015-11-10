@@ -1,0 +1,42 @@
+---
+title: "Problema 12"
+output: html_document
+---
+
+Tres components estan organitzats en sèrie. Els seus respectius temps de vida són mútuament independents i  segueixen una distribució exponencial de paràmetres $\lambda_1 = 0.003$, $\lambda_2 = 0.01$ i $\lambda_3 = 0.008$.
+
+a) Trobeu la fiabilitat i la taxa instantània de falla del sistema.
+
+\[
+\begin{array}{rcl}
+F_X(t) = P(X \leq t) &=& 1 - P(X > t) \\
+&=& 1 - P(\{X_1 > t\} \cap \{X_2 > t\} \cap \{X_3 > t\}) \\
+&=& 1 - P(\{X_1 > t\})P(\{X_2 > t\})P(\{X_3 > t\}) \\
+&=& 1 - (1-P(\{X_1 \leq t\}) (1-P(\{X_2 \leq t\}) (1-P(\{X_3 \leq t\}) \\
+&=& 1 - (1-F_{Exp(\lambda_1)}(t)) (1-F_{Exp(\lambda_2)}(t)) (1-F_{Exp(\lambda_3)}(t)) \\
+&=& 1 - (1-(1-e^{-\lambda_1 t})) (1-(1-e^{-\lambda_2 t})) (1-(1-e^{-\lambda_3 t})) \\
+&=& 1 - e^{-(\lambda_1+\lambda_2+\lambda_3)t} = F_{Exp(\lambda_1+\lambda_2+\lambda_3)}(t)
+\end{array}
+\]
+
+La taxa instantània de fallada del kit amb els tres components és la suma de cada un dels kits
+
+\[
+\lambda = \lambda_1 + \lambda_2 + \lambda_3 = 0.021
+\]
+
+b) Quina és l’esperança $\lambda$ de vida del sistema?
+
+El valor esperat d'una v.a. $X$ exponencial amb paràmetre $\lambda$ és igual $E[X] = \frac{1}{\lambda} = 47.62$.
+
+c) Avalueu $R(E[X])$.
+
+\[
+\begin{array}{rcl}
+R(E[X]) &=& P(X > E[X])\\
+&=& 1 - P(X \leq E[X]) \\
+&=& 1 - F_{Exp(\lambda)} \\
+&=& 1 - (1-e^{-\lambda \frac{1}{\lambda}}) = e^{-1}
+\end{array}
+\]
+

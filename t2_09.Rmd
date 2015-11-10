@@ -1,0 +1,21 @@
+---
+title: "Problema 9"
+output: html_document
+---
+
+Una xarxa de distribució elèctrica funciona malament quan la tensió depassa la capacitat de la xarxa. Si la tensió es distribueix segons una llei $N(\mu=100, \sigma^2=400)$, i la capacitat segons una llei $N(\mu = 140, \sigma^2 = 100)$, calculeu la probabilitat que la xarxa funcioni incorrectament suposant que la tensió i la capacitat varien independentment. [0.037]
+
+Si $X$ és la tensio de la xarxa i $Y$ és la capacitat de la xarxa. La tindrem que diferència 
+
+\[
+X-Y \sim N(\mu = 100 - 140, \sigma^2 = 400 + 100) = N(\mu=-40, \sigma = 22.36).
+\]
+
+Volem calcular la probabilitat que
+
+$$
+\begin{array}{rcl}
+P(X-Y > 0) &=& P\left(\frac{(X-Y) - (-40)}{22.36} > \frac{0 - (-40)}{22.36}\right) \\
+&=& P\left(Z > 1.79 \right) = 1 - F_Z(1.79) = 0.0367.
+\end{array}
+$$

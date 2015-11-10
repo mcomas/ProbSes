@@ -1,0 +1,82 @@
+---
+title: "Problema 11"
+output: html_document
+---
+
+Sigui X una variable aleatòria amb funció de densitat $f(x) = (x e^{-x/\beta}) / \beta^2$ amb $0 < x \leq \infty$.
+
+```{r}
+x = seq(0, 50, 0.01)
+f = function(x, beta) x * exp(-x/beta) / (beta^2)
+plot(x, f(x, 1), type='l', ylab='f(x)', main='Funció de densitat')
+points(x, f(x,2), type='l', col='red')
+points(x, f(x,3), type='l', col='blue')
+legend('topright', 
+       c(expression(paste(beta,'=1')), expression(paste(beta,'=2')), expression(paste(beta,'=3'))), 
+       col=c('black', 'red', 'blue'), lty = 1, bty = 'n')
+```
+
+
+a) Calculeu $R(x)$ i $\lambda(x)$.
+
+Primerament calcularem la integral de la funció de densitat
+
+\[
+\begin{array}{rcl}
+\int (x e^{-x/\beta}) / \beta^2 dx &=& -\frac{1}{\beta} \int x (-\frac{1}{\beta} e^{-x/\beta}) \\
+&=& -\frac{1}{\beta} \left( x e^{-x/\beta} - \int e^{-x/\beta} dx \right) \\
+&=& -\frac{1}{\beta}  x e^{-x/\beta} - \int -\frac{1}{\beta}  e^{-x/\beta} dx \\
+&=& -\frac{1}{\beta}  x e^{-x/\beta} - e^{-x/\beta} = -\left( 1 +\frac{x}{\beta} \right) e^{-x/\beta} 
+\end{array}
+\]
+
+Amb la funció 
+
+\[
+\begin{array}{rcl}
+R(t) &=& P(X > t) \\
+&=& \int_t^\infty f(x) dx \\
+&=& \int_t^\infty (x e^{-x/\beta}) / \beta^2 dx \\
+&=& \left[ \lim_{x\rightarrow \infty} -\left( 1 +\frac{x}{\beta} \right) e^{-x/\beta}\right] - \left[-\left( 1 +\frac{t}{\beta} \right) e^{-t/\beta}\right] \\
+&=& \left( 1 +\frac{t}{\beta} \right) e^{-t/\beta}
+\end{array}
+\]
+
+
+La taxa instantànea vé donada per
+
+\[
+\begin{array}{rcl}
+\lambda(t) &=& \frac{f(t)}{R(t)} \\
+&=& \frac{\left(t e^{-t/\beta}\right) / \beta^2}{\left( 1 +\frac{t}{\beta} \right) e^{-t/\beta}} \\
+&=& \frac{t}{\beta^2 (1 + \frac{t}{\beta})} = \frac{t}{\beta^2 + \beta t}
+\end{array}
+\]
+
+b) Dibuixeu una gràfica al llarg del temps d' $R(x)$ i $\lambda(x)$.
+
+```{r}
+x = seq(0, 50, 0.01)
+R = function(t, beta) ( 1 + t/beta ) * exp(-t/beta)
+plot(x, R(x, 1), type='l', ylab='R(x)', main='Funció de fiabilitat')
+points(x, R(x,2), type='l', col='red')
+points(x, R(x,3), type='l', col='blue')
+legend('topright', 
+       c(expression(paste(beta,'=1')), expression(paste(beta,'=2')), expression(paste(beta,'=3'))), 
+       col=c('black', 'red', 'blue'), lty = 1, bty = 'n')
+```
+
+
+```{r}
+x = seq(0, 50, 0.01)
+lambda = function(t, beta) t / (beta^2 + beta * t)
+plot(x, lambda(x, 1), type='l', ylab=expression(lambda(x)), main='Taxa instantània', ylim=c(0,1))
+abline(h=1, lty=3)
+points(x, lambda(x,2), type='l', col='red')
+abline(h=1/2, lty=3, col='red')
+points(x, lambda(x,3), type='l', col='blue')
+abline(h=1/3, lty=3, col='blue')
+legend('topright', 
+       c(expression(paste(beta,'=1')), expression(paste(beta,'=2')), expression(paste(beta,'=3'))), 
+       col=c('black', 'red', 'blue'), lty = 1, bty = 'n')
+```
