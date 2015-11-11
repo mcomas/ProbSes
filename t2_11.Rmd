@@ -1,6 +1,6 @@
 ---
 title: "Problema 11"
-output: html_document
+output: pdf_document
 ---
 
 Sigui X una variable aleatòria amb funció de densitat $f(x) = (x e^{-x/\beta}) / \beta^2$ amb $0 < x \leq \infty$.
