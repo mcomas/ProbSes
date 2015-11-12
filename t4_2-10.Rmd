@@ -7,38 +7,62 @@ En un procés industrial es control la resistència a la tensió de certes peces
 
 Es demana:
 
-Per $n=6$ tenim $A=1.225$, $A_2=0.483$, $A_3=1.287$, $c_4 =0.9515$, $B_3=0.030$, $B_4=1.970$, $B_5=0.029$, $B_6=1.874$.
-
-
 $n$   | $A$    | $A_2$ | $A_3$  | $C_4$  |  $B_3$   | $B_4$    | $B_5$   | $B_6$
 ------| -------|-------|------- | -------| ---------| ---------|---------|---------
 6     | 1.225  |0.483  |  1.287 | 0.9515 |   0.030  | 1.970    | 0.029   |  1.874
 
 
-a) Calculeu, a partir d'auestes mostres, els límits de control per a la mitjana i per a la desviació.
-
-Interval per la mitjana
+a) Calculeu, a partir d'aquestes mostres, els límits de control per a la mitjana i per a la desviació.
 
 \[
-\hat{\sigma} = \frac{5}{0.9515} = 5.254861
+\hat{\sigma} = \frac{s}{c_4} = \frac{5}{0.9515} = 5.254861
 \]
 
 Límits per $\mu$:
 
 \[
-\bar{x} \pm A_3 s = 200 \pm 1.287 \times 5 = 200 \pm 6.435
+\bar{x} \pm A_3 s = 200 \pm 1.287 \times 5 = 200 \pm 6.435 = [193.565, 206.435]
 \]
 
 
 Límits per $\sigma$:
 
 \[
-[B_3 \bar{s}, B_4 \bar{s}] = [ 0.030*5, 1.970*5 ]
+[B_3 \bar{s}, B_4 \bar{s}] = [ 0.030\times 5, 1.970\times 5 ] = [ 0.15, 9.85]
 \]
 
 
 b) S'ha conclòs que el procés està sota control. Determineu l'índex de capacitat si els límits de tolerància són $200 \pm 5$.
 
+La capacitat vindrà donada per
+
+\[
+C_p = \frac{USL-LSL}{6\sigma} = \frac{10}{6 \times 5.254861} = 0.3171667
+\]
+
 c) Quantes peces metàl·liques defectuoses produeix aquest procés? (NOTA: s'entén que una peça és defectuosa si sobrepasa els límits de tolerància)
 
+Si denotem $X$ la resistència de la peça i suposem que $X \sim N(\mu=200, \sigma=5.254861)$ (aquest supòsit no es diu enlloc) tindrem:
+
+\[
+\begin{array}{rcl}
+P(\{\text{ peça defectuosa }\}) &=& 1 - P(195 \leq X \leq 205 ) \\
+&=& 1 - [P(X \leq 205) - P(X \leq 195)] \\
+&=& 1 - [P(Z \leq 0.9515) - P(Z \leq -0.9515)] \\
+&=& 1 - [F_Z(0.9515)-F_Z(-0.9515)] \\
+&=& 1 - (0.8293 - 0.17068) = 0.34138
+\end{array}
+\]
+
 d) En un moment concret es desajusta el procés i es fabriquen peces metàl·liques amb mitjana 199, però sense modificar-se'n la variància. Quina és la probabilitat de detectat el desajust en la següent mostra que es prengui de 6 elements?
+
+Tenim que $\hat{X_6}\sim N(\mu=199, \sigma=5.254861/\sqrt{6})$
+
+\[
+\begin{array}{rcl}
+1 - P( 193.565 < \hat{X_6} < 206.435) &=& 1 - [P(\hat{X_6} \leq 206.435) - P(\hat{X_6} \leq 193.565)] \\
+&=& 1 - [P(Z \leq \frac{206.435-199}{5.254861/\sqrt{6}}) - P(Z \leq \frac{193.565-199}{5.254861/\sqrt{6}})] \\
+&=& 1 - [F_Z(3.465735)-F_Z(-2.533459)] = 0.00591154
+\end{array}
+\]
+
