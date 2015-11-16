@@ -1,0 +1,36 @@
+---
+title: "Problema 11"
+output: pdf_document
+---
+
+Es vol estimar la mitjana $\mu$ del pes dels fulls de paper que es produeixen en una cadena de producció. S'escullen a l'atzar 22 d'aquests fulls i s'obté una mitjana mostral de $\bar{x}=2.4$ dg. Es demana:
+
+----------
+
+ a) Si la desviació estàndard del pes d'una fulla de paper és de 0.2 dg, trobeu un interval de confiança del 95% del valor de $\mu$. [(2.32,2.48)]
+
+\[
+\mu \in \left(\bar{x} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \bar{x} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right) \mbox{ amb 95\% confiança}
+\]
+
+\[
+\mu \in \left(2.4 - 1.96 \frac{0.2}{\sqrt{22}}, 2.4 + 1.96 \frac{0.2}{\sqrt{22}}\right) \mbox{ amb 95\% confiança}
+\]
+
+\[
+\mu \in \left(2.316, 2.484 \right) \mbox{ amb 95\% confiança}
+\]
+
+b.	Si la desviació estàndard és desconeguda però la desviació estàndard corregida  $s^*$ de la nostra mostra és igual a 0.2 dg, determineu l'interval de confiança del 95% del valor de $\mu$. [(2.31,2.49)]
+
+\[
+\mu \in \left(\bar{x} - t_{n-1,\alpha/2} \frac{s^*}{\sqrt{n}}, \bar{x} + t_{n-1,\alpha/2} \frac{s^*}{\sqrt{n}}\right) \mbox{ amb 95\% confiança}
+\]
+
+\[
+\mu \in \left(2.4 - 2.20 \frac{0.2}{\sqrt{22}}, 2.4 + 2.20 \frac{0.2}{\sqrt{22}}\right) \mbox{ amb 95\% confiança}
+\]
+
+\[
+\mu \in \left(2.306, 2.494 \right) \mbox{ amb 95\% confiança}
+\]

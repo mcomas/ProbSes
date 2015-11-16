@@ -1,0 +1,37 @@
+---
+title: "Problema 19"
+output: pdf_document
+---
+
+
+
+Una empresa d’explotació làctia vol contrastar amb un experiment si la producció de llet de les vaques canvia si s’afegeix un determinat compost químic ABC a l’aigua que beuen els animals. Amb aquest objectiu s’escullen 20 vaques de les mateixes característiques –raça, edat, etc.- i es divideixen aleatòriament en 10 grups de 2 vaques. Cada grup de 2 vaques és assignat a una determinada granja. Les dues vaques d’una mateixa granja reben el mateix tipus i quantitat d’aliment amb l’única diferència que una vaca beu aigua “normal” i l’altra aigua amb el compost ABC. Per decidir quina vaca beu l’aigua “normal”, es fa un sorteig entre les dues vaques de cada granja. Després de 5 mesos es recull informació sobre la mitjana de la producció diària de llet –expressada en kg- de cadascuna de les 20 vaques que han participat en l’experiment. Els resultats obtinguts són els següents:
+
+```{r, include=F}
+df = data.frame(
+  'Granja' = 1:10,
+  'Aigua.normal' = c(21.3, 23.6, 26.9, 21.9, 27.2, 26.0, 22.0, 25.7, 23.7, 25.2),
+  'Aigua.ABC'    = c(27.5, 21.7, 31.5, 29.3, 24.5, 24.0, 24.5, 21.3, 33.1, 30.0)
+)
+```
+
+```{r, echo=F}
+knitr::kable(df<-transform(df, 'Dif.' = Aigua.ABC-Aigua.normal))
+```
+
+
+Calculeu, a un nivell de confiança del 95%, un interval d’estimació de la diferència de mitjanes. [(-5,84; 1,06)]
+
+Per cada parella podem calcular-ne la diferència.
+
+
+
+```{r}
+(n<-NROW(df))
+(x<-mean(df$Dif.))
+(s<-sd(df$Dif.))
+c(x-abs(qt(0.025, n-1)) * s / sqrt(n), 
+  x+abs(qt(0.025, n-1)) * s / sqrt(n))
+```
+
+

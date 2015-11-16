@@ -1,0 +1,49 @@
+---
+title: "Problema 14"
+output: pdf_document
+---
+
+14. En un sondeig d'opinió es pregunta a una mostra de 100 persones a quin dels dos candidats - A o B - pensen votar. Un total de 55 persones recolzen el candidat A mentre que els altres 45 recolzen B. Es demana:
+
+----------
+
+ a) Calculeu, a un nivell de confiança del 95%, un interval d'estimació de la proporció de vots per a cadascun dels dos candidats. Apliqueu el supòsit de "màxima indeterminació".
+
+\[
+p \in \left(\hat{p} - z_{\alpha/2} \frac{ \sqrt{p (1-p)}}{\sqrt{n}}, \hat{p} + z_{\alpha/2} \frac{ \sqrt{p (1-p)}}{\sqrt{n}}\right) \mbox{ amb 95\% confiança}
+\]
+
+Si treballem considerant màxima indeterminació, estarem considerant que $p = 0.5$.
+
+\[
+p_A \in \left(0.55 - z_{\alpha/2} \frac{ 0.5}{\sqrt{n}}, 0.55 + z_{\alpha/2} \frac{0.5}{\sqrt{n}}\right) \mbox{ amb 95\% confiança}
+\]
+
+\[
+p_B \in \left(0.45 - z_{\alpha/2} \frac{ 0.5}{\sqrt{n}}, 0.45 + z_{\alpha/2} \frac{0.5}{\sqrt{n}}\right) \mbox{ amb 95\% confiança}
+\]
+
+\[
+p_A \in \left(0.55 - 1.96 \frac{ 0.5}{10}, 0.55 + 1.96 \frac{0.5}{10}\right);\;\;
+p_B \in \left(0.45 - 1.96 \frac{ 0.5}{10}, 0.45 + 1.96 \frac{0.5}{10}\right)
+\]
+
+\[
+p_A \in \left(0.452, 0.648\right);\;\;
+p_B \in \left(0.352, 0.548\right)
+\]
+
+
+ b) Quina hauria de ser la mida mínima de la mostra perquè una proporció mostral igual a 0.55 pel candidat A "asseguri", a un nivell de confiança del 95%, la victòria d'aquest candidat?
+
+\[
+0.5 < 0.55 - z_{\alpha/2} \frac{ 0.5}{\sqrt{n}}
+\]
+
+\[
+0.5 < 0.55 - 1.96 \frac{ 0.5}{\sqrt{n}}
+\]
+
+\[
+\left( \frac{1.96 \times 0.5}{0.05} \right)^2 < n \iff 384.16 < n
+\]

@@ -1,0 +1,21 @@
+---
+title: "Problema 5"
+output: pdf_document
+---
+
+
+Per quant s'ha de multiplicar la mida $n$ d'una mostra si volem reduir a la quarta part l'error estàndard de l'estimació puntual $\bar{x}_n$ de la mitjana $\mu$ d'una població?
+
+L'error estàndard amb $n_0$ vé donat per
+
+\[
+SE_{\bar{x}_{n_0}} = \frac{s}{\sqrt{n_0}}.
+\]
+
+La pregunta plantejada equival doncs a preguntar quina és la $n$ tal que $SE_{\bar{x}_{n}} = SE_{\bar{x}_{n_0}}/4$. Equivalentment
+
+\[
+\frac{s}{\sqrt{n}} = \frac{s}{\sqrt{n_0}}/4.
+\]
+
+D'on aïllant $n = \frac{1}{4^2} n_0$.
