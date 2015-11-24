@@ -1,0 +1,64 @@
+---
+title: "Problema 20"
+output: html_document
+---
+
+En un procés industrial es controla la resistència a la tensió de certes peces metàl·liques. S’ha mesurat la resistència ($x_i$) de 30 mostres de 6 elements cada una i s’ha obtingut una mitjana igual a 200 i una desviació igual a 5.
+
+```{r, include=F}
+knitr::opts_chunk$set(results='hold', comment = '  ')
+cc = data.frame(
+  n = 6,
+  A = 1.225,
+  A2 = 0.483,
+  A3 = 1.287,
+  c4 = 0.9515,
+  B3 = 0.030,
+  B4 = 1.970,
+  B5 = 0.029,
+  B6 = 1.874,
+  d2 = 2.534,
+  d3 = 0.848,
+  D1 = 0,
+  D2 = 5.078,
+  D3 = 0,
+  D4 = 2.004)
+Xm = 200
+Sm = 5
+```
+
+```{r, echo=F, results='asis'}
+knitr::kable(cc)
+```
+
+Es demana:
+
+a) Calculeu, a partir d’aquestes mostres els límits de control per a la mitjana i per a la desviació. 
+
+```{r}
+c('IC_mitjana' = CC <- c(Xm-cc$A3 * Sm, Xm+cc$A3 * Sm))
+```
+
+```{r}
+c('IC_desviacio' = CC <- c(cc$B3 * Sm, cc$B4 * Sm))
+```
+
+b) S’ha conclòs que el procés està sota control. Determineu l’índex de capacitat si els límits de tolerància són $200\pm5$
+
+```{r}
+c('sigma' = sigma <- Sm/cc$c4)
+c('Cp' = 5*2/ (6*sigma))
+```
+
+c) Quantes peces metàl·liques defectuoses produeix aquest procés? (Nota: s’entén que una peça és defectuosa si sobrepassa els límits de tolerància). [1-P(195<X<205)=0.3413]
+
+```{r}
+1 - pnorm(205, 200, 5.254861) + pnorm(195, 200, 5.254861)
+```
+
+d) En un moment concret es desajusta el procés i es fabriquen peces metàl·liques amb mitjana 199, però sense modificar-se’n la variància. Quina és la probabilitat de detectar el desajust en la següent mostra de 6 elements que es prengui? [1-P(193.564<X<206.436)=2.7x10-3]
+
+```{r}
+1 - (pnorm(206.435, 199, 5.254861/sqrt(6)) - pnorm(193.565, 199, 5.254861/sqrt(6)))
+```
+

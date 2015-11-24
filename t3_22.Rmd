@@ -1,0 +1,106 @@
+---
+title: "Problema 22"
+output: html_document
+---
+
+El diàmetre de les varetes metàl·liques VM032 és una característica important en la seva qualitat i és important realitzar-ne un control en el seu procés de producció. D’acord amb el disseny original, les especificacions per al diàmetre de les varetes són 0.50350±0.0010 polzades. És a dir, al voltant de 0.50polzades. La taula següent mostra els valors de les mitjanes ($\bar{x}$) i dels rangs ($R$) per a 20 mostres de 5 varetes cada una fabricades en un màquina-torn específic. Noteu que els valors que apareixen per a la mitjana en la taula són només les tres darreres xifres de la mesura. És a dir, 342 significa 0.50342. Els valors de R cal multiplicar-los per 10-4, és a dir, 8 representa 0.0008.
+
+```{r, include=F}
+knitr::opts_chunk$set(results='hold', comment = '  ')
+X = data.frame(
+  id = 1:20,
+  x = c(342, 316, 318, 334, 350, 321, 326, 338, 348, 386,
+           354, 340, 360, 372, 352, 334, 350, 344, 339, 340)/100000+0.5,
+  R = c(3,4,4,5,4,2,7,9,10,4,8,6,4,7,3,10,4,7,8,4)/10000)
+cc = data.frame(
+  n = 5,
+  A = 1.342,
+  A2 = 0.577,
+  A3 = 1.427,
+  c4 = 0.9400,
+  B3 = 0,
+  B4 = 2.089,
+  B5 = 0,
+  B6 = 1.964,
+  d2 = 2.326,
+  d3 = 0.864,
+  D1 = 0,
+  D2 = 4.918,
+  D3 = 0,
+  D4 = 2.115)
+```
+
+```{r, echo=F, results='asis'}
+knitr::kable(cbind(X[1:5,], X[6:10,]))
+```
+
+```{r, echo=F, results='asis'}
+knitr::kable(cc)
+```
+
+Es demana:
+
+a) Trobeu els límits de control del gràfic $\bar{X}$ i, si cal, reviseu-los, eliminant les mostres fora de control.
+
+Utilitzant mostres de mida $5$, 
+```{r}
+c('Xm' = Xm <- mean(X$x))
+c('Rm' = Rm <- mean(X$R))
+c('IC' = CC <- c(Xm-cc$A2 * Rm, Xm+cc$A2 * Rm))
+c('out' = which(X$x<CC[1] | CC[2]<X$x))
+```
+
+```{r}
+c('sigma' = sigma <- Rm/cc$d2)
+```
+
+Podem veure com l'observació $10$ està fora de control. Si l'eleminem de la mostra. Podem recalcular els límits obtenint
+
+```{r}
+X2 = X[-10,]
+c('Xm' = Xm <- mean(X2$x))
+c('Rm' = Rm <- mean(X2$R))
+c('IC' = CC <- c(Xm-cc$A2 * Rm, Xm+cc$A2 * Rm))
+c('out' = which(X2$x<CC[1] | CC[2]<X2$x))
+```
+
+b) Calculeu l’índex de capacitat del procés.
+
+```{r}
+c('sigma' = sigma <- Rm/cc$d2)
+c('Cp' = 0.0020/ (6*sigma))
+```
+
+c) Quin percentatge de varetes metàl·liques defectuoses està produint el procés?
+
+```{r}
+1-pnorm(0.5045, mean = 0.5034095, sd = 0.0002429063) +
+  pnorm(0.5025, mean = 0.5034095, sd =  0.0002429063)
+```
+
+```{r}
+1-pnorm(0.5045, mean = 0.5034095, sd = 0.0002466398) +
+  pnorm(0.5025, mean = 0.5034095, sd =  0.0002466398)
+```
+
+Treballant amb l'estimació de $\hat{\sigma}$ donada per tota la mostra.
+
+\[
+\begin{array}{rcl}
+1 - P(0.5025 < X < 0.5045) &=& 1 - (P(X < 0.5045) - P(X < 0.5025)) \\
+&=& 1 - P(Z < \frac{0.5045-0.5034095}{0.0002429063}) + P(Z < \frac{0.5025-0.5034095}{0.0002429063}) \\
+&=& 1 - P(Z < 4.489385) + P(Z < -3.744242) \\
+&=& 9.4041e-05
+\end{array}
+\]
+
+Treballant amb l'estimació de $\hat{\sigma}$  donanda per la mostra després de treure la peça fora de control.
+
+\[
+\begin{array}{rcl}
+1 - P(0.5025 < X < 0.5045) &=& 1 - (P(X < 0.5045) - P(X < 0.5025)) \\
+&=& 1 - P(Z < \frac{0.5045-0.5034095}{0.0002466398}) + P(Z < \frac{0.5025-0.5034095}{0.0002466398}) \\
+&=& 1 - P(Z < 4.421428) + P(Z < -3.687564) \\
+&=& 0.0001181081
+\end{array}
+\]

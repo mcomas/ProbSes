@@ -1,0 +1,86 @@
+---
+title: "Problema 24"
+output: html_document
+---
+
+En una empresa envasadora de cerveses s’han realitzat gràfics de control, basats en mostres de 4 ampolles, per a la mitjana i el rang del contingut (cm3) en cervesa de les ampolles que comercialitza. Aquests diagrames han proporcionat la següent informació: Diagrama de la mitjana, UCL= 330.99, CCL= 328, LCL= 325.01; Diagrama del rang, UCL= 9.4, CCL= 4.1, LCL=0. S’ha confirmat que el procés està sota control. 
+
+Es demana:
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(results='hold', comment = '  ')
+cc = data.frame(
+  n = 4,
+  A = 1.500,
+  A2 = 0.729,
+  A3 = 1.628,
+  c4 = 0.9213,
+  B3 = 0,
+  B4 = 2.266,
+  B5 = 0,
+  B6 = 2.08,
+  d2 = 2.059,
+  d3 = 0.880,
+  D1 = 0,
+  D2 = 4.698,
+  D3 = 0,
+  D4 = 2.282)
+```
+
+```{r, echo=F, results='asis'}
+knitr::kable(cc)
+```
+
+a) Calculeu una estimació de la desviació típica del procés.
+
+ * Del centres dels intervals per la mitjana i pel rang obtenim que $\bar{x} = 328$ i $\bar{R} = 4.1$.
+
+ * Directament, podem estimar la desviació, $\hat{\sigma}$, com 
+\[
+\hat{\sigma} = \frac{\bar{R}}{d_2} = \frac{4.1}{2.059} = 1.991258.
+\]
+
+b) Si a partir de les dades del diagrama de rang, construïm un diagrama de control per a la desviació típica, quin límits tindria?
+
+Ja hem vist que $\hat{\sigma} = 1.991258$. D'aquí en treiem que 
+
+\[
+\hat{s} = c_4 \hat{\sigma} = 1.834546.
+\]
+
+
+```{r}
+c(1.834546 * cc$B3, 1.834546 * cc$B4)
+```
+
+c) Si se suposa que aquestes ampolles volen vendre’s com ampolles d’un terç de litre i que les especificacions que desitja el fabricant per al contingut de les ampolles són $333\pm 8$ cm3 ¿quin és l’índex de capacitat real? Quin percentatge d’ampolles no compleixen les especificacions? Quina correcció caldria fer en el procés d’envasatge per a augmentar aquest percentatge? 
+
+\[
+C_u = \frac{UCL-\hat{x}}{3 \sigma} = 2.176179
+\]
+
+```{r}
+(341-328)/(3*1.991258)
+```
+
+\[
+C_l = \frac{\hat{x}-LCL}{2 \sigma} = 0.5021951
+\]
+
+```{r}
+(328-325)/(3*1.991258)
+```
+
+D'on $C_k = \min \{ C_l, C_u \} = 0.5021951$.
+
+Per calcular el percentatge d'ampolles que no compleixen les especificacions cal calcular
+
+\[
+1-P(325 < X < 341)
+\]
+
+```{r}
+1 - diff(pnorm(c(325, 341), mean = 328, sd = 1.991258))
+```
+
+Per augmentar el percentatge caldria acostar la mitjana a $333$.
