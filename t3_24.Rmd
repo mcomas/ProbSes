@@ -1,6 +1,6 @@
 ---
 title: "Problema 24"
-output: html_document
+output: pdf_document
 ---
 
 En una empresa envasadora de cerveses s’han realitzat gràfics de control, basats en mostres de 4 ampolles, per a la mitjana i el rang del contingut (cm3) en cervesa de les ampolles que comercialitza. Aquests diagrames han proporcionat la següent informació: Diagrama de la mitjana, UCL= 330.99, CCL= 328, LCL= 325.01; Diagrama del rang, UCL= 9.4, CCL= 4.1, LCL=0. S’ha confirmat que el procés està sota control. 
@@ -27,13 +27,15 @@ cc = data.frame(
   D4 = 2.282)
 ```
 
+a) Calculeu una estimació de la desviació típica del procés.
+
+Utilitzarem la següent fila de les taules:
+
 ```{r, echo=F, results='asis'}
 knitr::kable(cc)
 ```
 
-a) Calculeu una estimació de la desviació típica del procés.
-
- * Del centres dels intervals per la mitjana i pel rang obtenim que $\bar{x} = 328$ i $\bar{R} = 4.1$.
+ * Del centres dels intervals per la mitjana i pel rang obtenim que $\bar{\bar{x}} = 328$ i $\bar{R} = 4.1$.
 
  * Directament, podem estimar la desviació, $\hat{\sigma}$, com 
 \[
@@ -42,18 +44,21 @@ a) Calculeu una estimació de la desviació típica del procés.
 
 b) Si a partir de les dades del diagrama de rang, construïm un diagrama de control per a la desviació típica, quin límits tindria?
 
-Ja hem vist que $\hat{\sigma} = 1.991258$. D'aquí en treiem que 
+Ja hem vist que $\hat{\sigma} = 1.991258$. D'aquí podem aproximar el valor $\hat{s}$ mitjançant 
 
 \[
-\hat{s} = c_4 \hat{\sigma} = 1.834546.
+\bar{s} \approx c_4 \hat{\sigma} = 1.834546. 
 \]
 
+I d'aquí podem calcular els límits inferior i superior $\bar{s} B_3$ i $\bar{s} B_4$
 
 ```{r}
 c(1.834546 * cc$B3, 1.834546 * cc$B4)
 ```
 
 c) Si se suposa que aquestes ampolles volen vendre’s com ampolles d’un terç de litre i que les especificacions que desitja el fabricant per al contingut de les ampolles són $333\pm 8$ cm3 ¿quin és l’índex de capacitat real? Quin percentatge d’ampolles no compleixen les especificacions? Quina correcció caldria fer en el procés d’envasatge per a augmentar aquest percentatge? 
+
+L'index de capacitat inferior és
 
 \[
 C_u = \frac{UCL-\hat{x}}{3 \sigma} = 2.176179
@@ -63,6 +68,8 @@ C_u = \frac{UCL-\hat{x}}{3 \sigma} = 2.176179
 (341-328)/(3*1.991258)
 ```
 
+L'index de capacitat superior és
+
 \[
 C_l = \frac{\hat{x}-LCL}{2 \sigma} = 0.5021951
 \]
@@ -71,16 +78,32 @@ C_l = \frac{\hat{x}-LCL}{2 \sigma} = 0.5021951
 (328-325)/(3*1.991258)
 ```
 
-D'on $C_k = \min \{ C_l, C_u \} = 0.5021951$.
-
-Per calcular el percentatge d'ampolles que no compleixen les especificacions cal calcular
+L'index de capacita real vindrà donat pel mínim de les dos quantitats anterior.
 
 \[
-1-P(325 < X < 341)
+C_k = \min \{ C_l, C_u \} = 0.5021951.
 \]
+
+Si denotem per $X$ la v.a. "contingut de l'ampolla envasada", i si suposem que $X \sim N(328, 1.991258)$. Per calcular el percentatge d'ampolles que no compleixen les especificacions podem fer-ho calculant
+
+\[
+\begin{array}{rcl}
+P(\{ 325 < X < 341\}^c) &=& 1-P(325 < X < 341) \\
+&=& 1-(F_Z(\frac{341-328}{1.991258}) - F_Z(\frac{325-328}{1.991258})) \\
+&=& 1 - (1-0.0659585) = 0.0659585.
+\end{array}
+\]
+
+D'on tenim un percentage de peces defectuoses del $6.59585$%.
+
+Amb R podem fer-ho mitjançant la comanda
 
 ```{r}
 1 - diff(pnorm(c(325, 341), mean = 328, sd = 1.991258))
 ```
 
-Per augmentar el percentatge caldria acostar la mitjana a $333$.
+Per augmentar el percentatge caldria acostar la mitjana a $333$. Poguen arribar a un $0.0058$% de peces defectuoses
+
+```{r}
+1 - diff(pnorm(c(325, 341), mean = 333, sd = 1.991258))
+```

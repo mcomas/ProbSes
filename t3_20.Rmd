@@ -1,6 +1,6 @@
 ---
 title: "Problema 20"
-output: html_document
+output: pdf_document
 ---
 
 En un procés industrial es controla la resistència a la tensió de certes peces metàl·liques. S’ha mesurat la resistència ($x_i$) de 30 mostres de 6 elements cada una i s’ha obtingut una mitjana igual a 200 i una desviació igual a 5.
