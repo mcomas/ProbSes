@@ -1,6 +1,6 @@
 ---
 title: "Tema 5. Problema 2.6"
-output: html_document
+output: pdf_document
 ---
 
 ```{r, include=FALSE}
