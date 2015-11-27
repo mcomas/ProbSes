@@ -1,0 +1,46 @@
+---
+title: "Problema 9"
+output: pdf_document
+---
+
+```{r, include=FALSE}
+library(dplyr)
+library(tidyr)
+df = data_frame(
+  id = 1:6,
+  prev   = c(12, 29, 16, 37, 28, 15),
+  post = c(10, 28, 17, 35, 25, 16),
+  diff = post - prev
+)
+```
+
+En un empresa es vol estudiar si la implantació d'un nou pla de seguretat en el treball és realment efectiu. Amb aquesta intenció s'han calculat les hores de treball setmanals perdudes per accidents laborals --abans i després de la implantació del pla-- en les sis plantes de producció de les que es composa l'empresa.
+
+Aquests són els valors obtinguts de les hores setmanals perdudes:
+
+```{r, echo=FALSE}
+knitr::kable(df %>% setNames(c('Planta', 'Abans del pla' , 'Després del pla', 'Diferència')))
+```
+
+Confirmen aquestes dades l'eficàcia del pla de seguretat? Espcifiqueu les hipòtesis teòriques necessàries per aplicar el contrast.
+
+```{r, echo=FALSE}
+summ = function(.data) .data %>% 
+  summarise(
+    n = n(),
+    mean = mean(value),
+    sd = sd(value),
+    min = min(value),
+    median = median(value),
+    max = max(value))
+
+df %>% 
+  gather(key=variable, value=value, prev:diff) %>% 
+  group_by(variable) %>% 
+  summ
+```
+
+```{r}
+t.test(df$diff, alternative = 'less')
+```
+
