@@ -2,3 +2,52 @@
 title: "Problema 6"
 output: pdf_document
 ---
+
+La duració mitjana d'unes certes peces en les que intervenen diferents materials és igual a 1800 h. Variant un d'aquests materials, la vida mitjana d'una mostra de 10 peces ha resultat ser igual a 2000 h amb una desviació tipus mostral $s^*=150 h$. 
+Creieu que el canvi del material ha incrementat significativament la vida mitjana de les peces?
+
+Ens estem preguntant si és possible que si per la v.a. X="duració de la peça"
+
+\[
+\mu = E[X] > 1800
+\]
+
+tenint en compte que acabem d'observar una mostra de 10 peces amb una mitjana mostral $\bar{x} = 2000$ i una desviació mostral de $s^*=150$. Plantajarem el següent contrast d'hipotesis
+
+\[
+\begin{array}{lr}
+H_0: & \mu \leq 1800\\
+H_1: & \mu >  1800
+\end{array}
+\]
+
+on volem contrastar si suposant que es compleix $H_0$ i després de veure aquesta mostra, tenim motius per no creure'ns $H_0$ i passar a creure $H_1$.
+
+Per això calculem l'estadístic de contrast
+
+\[
+t = \frac{\bar{x}-\mu_0}{s/\sqrt{n}} = \frac{2000-1800}{150/\sqrt{10}} = 4.21
+\]
+
+el qual si es complis $H_0$ hauria de seguir la distribució $t_{9}$.
+
+Si mirem la distribució i hi mirem l'estadístic de contrast, és fàcil observar que el valor obtingut és bastant "extrem" per ser un valor aleatori d' una distribució $t_9$.
+
+
+```{r}
+x = seq(-6, 6, length.out=100)
+plot(x, dt(x, 9), type='l', main='Distribució t amb 9 graus de llibertat')
+segments(x0 = 4.21, x1 = 4.21, y0 = 0, y1 = dt(4.21, 9), col=2, lwd=2)
+segments(x0 = qt(0.05,9, lower.tail = F), x1 = qt(0.05,9, lower.tail = F), 
+         y0 = 0, y1 = dt(qt(0.05,9, lower.tail = F), 9), col=3, lwd=2)
+```
+
+
+Com mesurem quant "extrem" és l'observació que hem observat? Per això calculem la probabilitat d'obtenir observacions tant "extremes" com l'observada. Per "extremes" entendrem aquelles que siguin més favorables a $H_1$. En el nostre cas, seran totes aquelles que siguin superior a $2000$, o equivalentment, aquelles que siguin superiors $4.21$. Si $T$ és una v.a. $T \sim t_9$ tenim
+
+\[
+P\left(\{ \text{observar valors de la mitjana més "extrems"} \} \right) = P(T > 4.21) < P(T > 1.83) = 0.05
+\]
+
+Per tant, podem concloure que $P\left(\{ \text{observar valors de la mitjana més "extrems"} \} \right)$ és més petit que $0.05$.
+
