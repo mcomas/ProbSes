@@ -1,0 +1,29 @@
+---
+title: "Problemes 10"
+output: pdf_document
+---
+
+```{r, include=FALSE}
+
+```
+
+MOLTNET S.A. produeix un mateix tipus de detergent en dues plantes, una a Granollers i l'altra a Getafe. A Granollers fan servir matèria prima del proveïdor A, i a Getafe fan servir matèria prima del proveïdor B. Un investigador, per comparar la influència dels dos proveïdors en la producció, recull les quantitats de detergent produïdes en les dues plantes durant 25 dies. Els resultats obtinguts són els següents: $n_B=25$, $\bar{x}_A = 130$, $s_A = 4.5$, $n_B=25$, $\bar{x}_B = 127.2$, $s_B = 3.1$.
+
+Es demana:
+a. 	En base a aquest estudi, quin dels dos proveïdors es preferible? [t=2,56, p-valor=0.014]
+
+Anem a contrastar si hi han diferències entre ells.
+
+```{r,  results='hold', comment=' '}
+c('sp2' = sp2 <- (  (25-1) * 4.5^2 + (25-1) * 3.1 ^2  ) / (25 + 25 - 2) )
+c('t' = t.val <- (130 - 127.2) / ( sqrt(sp2) * sqrt(1/25+1/25)) )
+c('p.value' = 2*pt(-t.val, 25+25-2))
+```
+
+```{r, results='hold', comment=' '}
+c('t_48_0.025' = qt(1-0.025, 48))
+```
+
+b. 	Creieu que el disseny d'aquesta investigació és correcte? Per què?
+
+Molts altres factors poden influir. Per exemple, els treballador d'una planta poden ser menys productius.

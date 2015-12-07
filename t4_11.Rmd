@@ -1,0 +1,31 @@
+---
+title: "Problemes 11"
+output: pdf_document
+---
+
+Un partit polític afirma que el seu candidat a la presidència es recolzat pel 55% dels electors. Es pren una mostra de 1000 electors dels quals un 51% recolzen l'esmentat candidat. Jutgeu l'afirmació que realitza el partit.
+
+Partim amb una mostra de $n=1000$. Volem contrastar la hipotesi del partit polític. 
+
+\[
+\begin{array}{lr}
+H_0: & p \geq 0.55\\
+H_1: & p <  0.55
+\end{array}
+\]
+
+Sabem que pel teorema central del límit que una v.a. $P \sim Bin(n, p_0)$,
+\[
+z = \frac{P-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} \sim N(0,1)
+\]
+
+```{r, results='hold', comment=' '}
+c('z.val' = z <- (0.51 - 0.55) / (sqrt(0.55*(1-0.55)/1000)))
+c('p.value' = pnorm(z))
+```
+
+
+```{r, results='hold', comment=' '}
+qnorm(1-0.05)
+```
+
