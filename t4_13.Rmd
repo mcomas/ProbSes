@@ -1,0 +1,20 @@
+---
+title: "Problema 13"
+output: pdf_document
+---
+
+13.	Per contrastar la hipòtesi $H_0:\mu=1$  vers  $H_1: \mu=2$  es disposa només d'una sola observació $x$  procedent d'una distribució de Poisson. Es pren com regió a crítica o de rebuig de la $H_0$, la regió  $R_1= [ x \geq 4]$. 
+Calculeu les probabilitats dels errors de tipus I i II.
+
+
+Sigui $R$ l'esdeveniment es rebutja el constrat. Per l'error tipus I tenim
+
+\[
+P(R | H_0) = P(X \geq 4 | X \sim Pois(\lambda=1)) = 1 - F_{Pois(\lambda=1)}(3) = 1-0.981 = 0.019
+\]
+
+Per l'error tipus II tenim
+
+\[
+P(R^c | H_1) = P(X < 4 | X \sim Pois(\lambda=2)) = F_{Pois(\lambda=2)}(3) = 0.857
+\]

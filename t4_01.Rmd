@@ -1,0 +1,69 @@
+---
+title: "Problema 1"
+output: pdf_document
+---
+
+Un procés industrial fabrica peces les longituds de les quals es distribueixen segons una llei normal $N(\mu=190 mm, \sigma=10 mm)$. Es vol realitzar un contrast de la hipòtesi $H_0: \mu=190$ vers la hipòtesi contrària a partir d'una mostra de mida $n=5$, a un nivell de significació $\alpha=0.05$. Es demana:
+a.	
+a.1.	Indiqueu l'estadístic a utilitzar per a realitzar el contrast.
+
+En cas de que no disposem de la desviació $\sigma$ l'estadístic de contrast seria
+
+\[
+\frac{\bar{x}-190}{s/\sqrt{5}}
+\]
+
+i aquest seguiria una distribució $t_4$. Suposarem que $\sigma$ és coneguda, i que de fet aquesta és la real $\sigma=10$. En aquesta situació l'estadístic de contrast és
+
+\[
+\frac{\bar{x}-190}{\sigma/\sqrt{5}}
+\]
+
+i aquest segueix un ditribució $N(0,1)$.
+
+
+a.2.	Calculeu, amb l’ajuda de les corbes característiques, la probabilitat $\beta$ de cometre un error de tipus II quan $\mu=180 mm$. [0.394]
+
+La probabilitat de cometre error tipus II en el cas hipotètic que es tingués $\mu=180$. Vindrà donada per la probabilitat
+
+\[
+\begin{array}{rcl}
+P( R^c \;|\; H_1 ) &=& P\left( \left|\frac{\bar{x}-190}{10/\sqrt{5}}\right| \leq z_{\alpha/2} \;|\;  \bar{x} \sim N(180, 10/\sqrt{5}) \right) \\
+&=& P\left( 190 - 1.96 \frac{10}{\sqrt{5}} \leq \bar{x} \leq  190 + 1.96 \frac{10}{\sqrt{5}} \;|\;  \bar{x} \sim N(180, 10/\sqrt{5}) \right)\\
+&=& P\left( 181.2346 \leq \bar{x} \leq  198.7654 \;|\;  \bar{x} \sim N(180, 10/\sqrt{5}) \right)
+\end{array}
+\]
+
+```{r}
+diff(pnorm(c(181.2346, 198.7654), mean = 180, sd = 10/sqrt(5)))
+```
+Si ens ajudem de la taula, tenim que utilitzant $d=\frac{\mu_1 -\mu_0}{\sigma} = 1$ la probabilitat és aproximadament $0.4$.
+
+a.3.	Si la mostra obtinguda ha resultat ser igual a 187, 212, 195, 208 i 200, es demana quina decisió cal prendre i el valor crític p d'aquest contrast. [p=0.02]
+
+La mitjana mostral és $\hat{x} = 200.4$. D'on tenim l'estadístic de contrast
+
+\[
+\frac{200.4-190}{10/\sqrt{5}} = 2.325511
+\]
+que segueix una distribució $N(0,1)$. 
+
+Hem vist que la zona d'acceptació d'$H_0$ era $[-1.96 \leq x \leq 1.96]$ per tant, l'estadístic de contrast està fora de la zona d'acceptació i rebutjem $H_0$. Per a calcular el p-valor exactament, necessitem calcular la probabilitat
+
+\[
+P( \{Z < -2.32551 \} \cup \{2.32551 < Z\}) = 2 \times P(\{Z < -2.32551 \}) = 2 \times 0.01 = 0.02
+\]
+
+
+b. 	Suposeu ara que la variància poblacional es desconeguda. Realitzeu novament el contrast sobre la mostra anterior i indiqueu la decisió adoptada.
+
+La mitjana mostral és $\hat{x} = 200.4$ i la desviació mostral és $s_X=10.015. D'on tenim l'estadístic de contrast
+
+\[
+\frac{200.4-190}{10.015/\sqrt{5}} = 2.322028
+\]
+que segueix una distribució $t_4$. 
+
+Al tenir que $t_{4,0.025} = 2.776 > 2.322028$ no tenim motius estadístics per rebutjar $H_0$.
+
+[2.32<t0.025(v=4)=2.776]
