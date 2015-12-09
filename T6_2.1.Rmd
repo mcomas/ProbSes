@@ -1,0 +1,36 @@
+---
+title: "Tema 6. Exercici 2.1"
+output: html_document
+---
+
+Per tal de preveure, en funció dels anys d'antiguitat, el nombre de reparacions per mes d'un determinat model de màquina, s'escull una mostra aleatòria de 8 d'aquestes màquines. S'han observat durant un període d'aproximadamanet un any i s'ha calculat el nombre de reparacions per mes. Les dades obtingudes són les següents:
+
+```{r}
+library(dplyr)
+library(tidyr)
+d = data.frame(X   = c(2.3, 2.5, 3.4, 4.1, 4.7, 5.1, 5.8, 6.0),
+               Y = c(2.1, 2.6, 4.3, 4.7, 5.0, 5.8, 6.4, 7.2))
+```
+
+```{r}
+SX = sqrt( with(d, sum( (X-mean(X))^2 ))/9 )
+SY = sqrt( with(d, sum( (Y-mean(Y))^2 ))/9 )
+SXY = with(d, sum( (X-mean(X)) * (Y-mean(Y)) ))/9
+(r<-SXY / (SX*SY))
+```
+
+```{r}
+plot(d)
+```
+
+```{r}
+(b1 <- SXY / (SX*SY) * SY / SX)
+```
+
+```{r}
+(b0 <-  with(d, mean(Y) - b1 * mean(X)))
+```
+
+```{r}
+b0 + 5 * b1
+```
