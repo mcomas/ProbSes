@@ -1,0 +1,63 @@
+---
+title: "Exercises"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
+---
+
+```{r, echo=FALSE, include=FALSE}
+rmd <- list.files(pattern = '*.Rmd', recursive = F, include.dirs = F)
+sel = substr(rmd, 1, 2) %in% c('t2')
+chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
+cat(chunks, sep = '\n')
+```
+
+```{r child = 't2_03.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_04.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_05.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_06.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_07.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_08.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_09.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_10.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_11.Rmd'}
+```
+
+--------------------
+
+```{r child = 't2_12.Rmd'}
+```
