@@ -1,13 +1,17 @@
 ---
-title: "Variables aleatories discretes. Problema 3"
+title: "Variables aleatories. Problema 3"
 output: pdf_document
 ---
 
-3. Una companyia d'assegurances de vaixells de càrrega té assegurats un total de 1000 vaixells, el valor unitari dels quals és de 10 milions d’euros. Les clàusules de les assegurances cobreixen la pèrdua total d'un vaixell. La probabilitat que un vaixell tingui un sinistre total en el decurs d'un any és igual a 0.001. La legislació vigent obliga a la companyia a tenir un capital mínim destinat al pagament de sinistres que cobreixi els possibles sinistres amb probabilitat 0.999. Es demana:
+# Problema 3
 
-------------------
+> Una companyia d'assegurances de vaixells de càrrega té assegurats un total de 1000 vaixells, el valor unitari dels quals és de 10 milions d’euros. Les clàusules de les assegurances cobreixen la pèrdua total d'un vaixell. La probabilitat que un vaixell tingui un sinistre total en el decurs d'un any és igual a 0.001. La legislació vigent obliga a la companyia a tenir un capital mínim destinat al pagament de sinistres que cobreixi els possibles sinistres amb probabilitat 0.999. Es demana:
+>
+> a. Quin haurà de ser el capital anual mínim que haurà de tenir la companyia destinat al pagament de sinistres? [50 milions d’euros]
+>
+> b. Si la companyia té unes despeses fixes anuals de 6 milions d’euros i vol tenir un benefici anual mitjà de 4 milions d’euros, quan haurà de cobrar a cada vaixell en concepte de prima d'assegurança? [0.02 milions d’euros]
 
-a. Quin haurà de ser el capital anual mínim que haurà de tenir la companyia destinat al pagament de sinistres? [50 milions d’euros]
+a.
 
 Sigui $K$ la variable aleatoria que compta el nombre de vaixells assegurats per la companyia que tenen sinistre durant un any. Amb la informacio que ens dona l'enunciat podem modelar aquesta variable aleatoria mitjançant un distribucio binomial amb paràmetres $n=1000$ i $p=0.001$, ho escrivim com $K \sim Bin(n=1000, p=0.001)$. La despesa que tindrà la companyia asseguradora en milions d'euros vé donat per la variable aleatoria $10 K$ (cost del vaixell multiplicat pel nombre de vaixells sinistrats). La legislació obliga a tenir cobert els sinistres amb una probabilitat del 0.999. Si definim $C$ el capital de l'empresa asseguradora, el requisit legislatiu equival a
 
@@ -38,9 +42,7 @@ Així doncs, treballarem amb la hipotesi que $K$ segueix una distribució Poisso
 
 A les taules de l'assignatura (pàgina 12) que per una variable aleatoria Poisson $K$ trobem que $P(K \leq 5) = 0.999$. Per tant, serà suficient tenir un capital $C$ que compleixi $\frac{C}{10} \geq 5$, d'on treiem que el capital ha de ser de com a mínim $50$ milions d'euros.
 
--------------------------
-
-b. Si la companyia té unes despeses fixes anuals de 6 milions d’euros i vol tenir un benefici anual mitjà de 4 milions d’euros, quan haurà de cobrar a cada vaixell en concepte de prima d'assegurança? [0.02 milions d’euros]
+b.
 
 Si volem tenir un benefici de 4 milions d'euros, el balanç d'ingressos ($1000 I$) i despeses ($6 + 10 X$) haurà de ser positiu i igual a $4$. Per tant,
 

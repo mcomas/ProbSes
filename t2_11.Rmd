@@ -1,9 +1,15 @@
 ---
-title: "Problema 11"
+title: "Variables aleatories. Problema 11"
 output: pdf_document
 ---
 
-Sigui X una variable aleatòria amb funció de densitat $f(x) = (x e^{-x/\beta}) / \beta^2$ amb $0 < x \leq \infty$.
+# Problema 11
+
+> Sigui X una variable aleatòria amb funció de densitat $f(x) = (x e^{-x/\beta}) / \beta^2$ amb $0 < x \leq \infty$.
+> 
+> a. Calculeu $R(x)$ i $\lambda(x)$.
+>
+> b. Dibuixeu una gràfica al llarg del temps d' $R(x)$ i $\lambda(x)$.
 
 ```{r}
 x = seq(0, 50, 0.01)
@@ -15,9 +21,6 @@ legend('topright',
        c(expression(paste(beta,'=1')), expression(paste(beta,'=2')), expression(paste(beta,'=3'))), 
        col=c('black', 'red', 'blue'), lty = 1, bty = 'n')
 ```
-
-
-a) Calculeu $R(x)$ i $\lambda(x)$.
 
 Primerament calcularem la integral de la funció de densitat
 
@@ -53,7 +56,7 @@ La taxa instantànea vé donada per
 \end{array}
 \]
 
-b) Dibuixeu una gràfica al llarg del temps d' $R(x)$ i $\lambda(x)$.
+b.
 
 ```{r}
 x = seq(0, 50, 0.01)

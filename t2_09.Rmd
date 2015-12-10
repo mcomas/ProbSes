@@ -1,9 +1,11 @@
 ---
-title: "Problema 9"
+title: "Variables aleatories. Problema 9"
 output: pdf_document
 ---
 
-Una xarxa de distribució elèctrica funciona malament quan la tensió depassa la capacitat de la xarxa. Si la tensió es distribueix segons una llei $N(\mu=100, \sigma^2=400)$, i la capacitat segons una llei $N(\mu = 140, \sigma^2 = 100)$, calculeu la probabilitat que la xarxa funcioni incorrectament suposant que la tensió i la capacitat varien independentment. [0.037]
+# Problema 9
+
+> Una xarxa de distribució elèctrica funciona malament quan la tensió depassa la capacitat de la xarxa. Si la tensió es distribueix segons una llei $N(\mu=100, \sigma^2=400)$, i la capacitat segons una llei $N(\mu = 140, \sigma^2 = 100)$, calculeu la probabilitat que la xarxa funcioni incorrectament suposant que la tensió i la capacitat varien independentment. [0.037]
 
 Si $X$ és la tensio de la xarxa i $Y$ és la capacitat de la xarxa. La tindrem que diferència 
 

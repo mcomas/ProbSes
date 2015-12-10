@@ -1,20 +1,24 @@
 ---
-title: "Problema 8"
+title: "Variables aleatories. Problema 8"
 output: pdf_document
 ---
 
-En una cadena de producció, una màquina d’envasament automàtic omple els envasos amb un determinat producte. La quantitat introduïda en l'envàs es una v.a. X de mitjana 81.5 g i desviació tipus 8 g. El pes dels envasos buits es distribueix segons una v.a. de mitjana 14.5 g i desviació tipus 6 g. Ambdues distribucions són normals i independents. Es demana:
+# Problema 8
 
+> En una cadena de producció, una màquina d’envasament automàtic omple els envasos amb un determinat producte. La quantitat introduïda en l'envàs es una v.a. X de mitjana 81.5 g i desviació tipus 8 g. El pes dels envasos buits es distribueix segons una v.a. de mitjana 14.5 g i desviació tipus 6 g. Ambdues distribucions són normals i independents. Es demana:
+>
+> a. La funció de densitat del pes dels envasos plens.
+> 
+> Si els paquets es distribueixen en caixes de cartró de 40 unitats el pes de les quals es distribueix segons una v.a. normal de mitjana 520 g i desviació tipus 50 g, calculeu:
+>
+> b) La funció de densitat del pes de les caixes plenes. 
 
-a) La funció de densitat del pes dels envasos plens.
+a.
 
 Si denotem per $X$ la v.a. del pes de la quantitat introduïda en l'envàs i per $Y$ la v.a. del pes de l'envàs buit. Tenim que la v.a. del conjunt és $X + Y \sim N(\mu=81.5+14.5, \sigma = \sqrt{8^2 +6^2}) = N(\mu = 96, \sigma=10)$
 
-----------------
 
-Si els paquets es distribueixen en caixes de cartró de 40 unitats el pes de les quals es distribueix segons una v.a. normal de mitjana 520 g i desviació tipus 50 g, calculeu:
-
-b) La funció de densitat del pes de les caixes plenes. 
+b.
 
 Si $C$ és la v.a. que modela el pes de la caixa de cartró, el conjunt vindrà donat per
 

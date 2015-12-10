@@ -1,11 +1,19 @@
 ---
-title: "Problema 12"
+title: "Variables aleatories. Problema 12"
 output: pdf_document
 ---
 
-Tres components estan organitzats en sèrie. Els seus respectius temps de vida són mútuament independents i  segueixen una distribució exponencial de paràmetres $\lambda_1 = 0.003$, $\lambda_2 = 0.01$ i $\lambda_3 = 0.008$.
+# Problema 12
 
-a) Trobeu la fiabilitat i la taxa instantània de falla del sistema.
+> Tres components estan organitzats en sèrie. Els seus respectius temps de vida són mútuament independents i  segueixen una distribució exponencial de paràmetres $\lambda_1 = 0.003$, $\lambda_2 = 0.01$ i $\lambda_3 = 0.008$.
+>
+> a. Trobeu la fiabilitat i la taxa instantània de falla del sistema.
+>
+> b. Quina és l’esperança $\lambda$ de vida del sistema?
+>
+> c. Avalueu $R(E[X])$.
+
+a.
 
 \[
 \begin{array}{rcl}
@@ -25,11 +33,11 @@ La taxa instantània de fallada del kit amb els tres components és la suma de c
 \lambda = \lambda_1 + \lambda_2 + \lambda_3 = 0.021
 \]
 
-b) Quina és l’esperança $\lambda$ de vida del sistema?
+b.
 
 El valor esperat d'una v.a. $X$ exponencial amb paràmetre $\lambda$ és igual $E[X] = \frac{1}{\lambda} = 47.62$.
 
-c) Avalueu $R(E[X])$.
+c.
 
 \[
 \begin{array}{rcl}

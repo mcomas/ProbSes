@@ -1,13 +1,25 @@
 ---
-title: "Problema 7"
+title: "Variables aleatories. Problema 7"
 output: pdf_document
 ---
 
-El temps de vida T d'un determinat component electrònic es pot considerar que s'ajusta a una llei exponencial. La vida mitjana d'aquests components és de 2000 dies.
+# Problema 7
 
------------------
+> El temps de vida T d'un determinat component electrònic es pot considerar que s'ajusta a una llei exponencial. La vida mitjana d'aquests components és de 2000 dies.
+>
+> a. L'empresa que comercialitza aquests components vol donar als seus compradors una garantia d'un temps mínim de funcionament. Si com a màxim vol haver de reparar en període de garantia un 15% dels components venuts, quin és, com a màxim, el temps mínim de funcionament que l'empresa pot garantir? [325 dies]
+>
+> Un determinat "kit" consta de la connexió en sèrie de dos d'aquests components electrònics. Per tal que el "kit" funcioni correctament, els dos components electrònics han de funcionar correctament.
+>
+> Es demana:
+>
+> b. Caracteritzeu la v.a. $T^*$ que proporciona el temps de vida del "kit". Busqueu l'expressió de la seva funció de densitat i comproveu que es tracta d’una llei exponencial. [$F_{T^*}(t)=1-e^{-t/1000}$; $f_{T^*}(t)=1/1000 e^{-t/1000}$]
+>
+> c. Calculeu la probabilitat que el "kit" funcioni correctament més de 1000 dies. [0.368]
+>
+> d. Repetiu els dos apartats anteriors b) i c) en el supòsit que el "kit" té els dos components electrònics connectats en paral·lel i que, per tant, funciona correctament sempre que hi hagi com a mínim un component que funcioni correctament. (NOTA: En aquests cas, la v.a. T* no segueix una lleis exponencial)  [$F_{T^*}(t)=1-2e^{-t/2000}+e^{-t/1000}$; $f_{T^*}(t)=1/1000 (e^{-t/2000}-e^{-t/1000})$; 0.845]
 
-a) L'empresa que comercialitza aquests components vol donar als seus compradors una garantia d'un temps mínim de funcionament. Si com a màxim vol haver de reparar en període de garantia un 15% dels components venuts, quin és, com a màxim, el temps mínim de funcionament que l'empresa pot garantir? [325 dies]
+a.
 
 Sigui $T$ la v.a. que denota el "temps de durada d'un component electrònic". A l'enunciat es diu que $T$ segueix una distribució exponencial i que el valor mitja de la durada del component és $E[X] = 2000$. Com que sabem que per una distribució exponencial $E[X] = \frac{1}{\lambda}$ tindrem que el paràmetre vindrà donat per $\lambda=\frac{1}{2000}=0.0005$.
 
@@ -26,11 +38,7 @@ $$
 
 -----------------
 
-Un determinat "kit" consta de la connexió en sèrie de dos d'aquests components electrònics. Per tal que el "kit" funcioni correctament, els dos components electrònics han de funcionar correctament.
-
-Es demana:
-
-b) Caracteritzeu la v.a. $T^*$ que proporciona el temps de vida del "kit". Busqueu l'expressió de la seva funció de densitat i comproveu que es tracta d’una llei exponencial. [$F_{T^*}(t)=1-e^{-t/1000}$; $f_{T^*}(t)=1/1000 e^{-t/1000}$]
+a.
 
 \[
 \begin{array}{rcl}
@@ -45,17 +53,13 @@ P(T^* \leq t) &=& 1 - P(T^* > t)\\
 
 Per tant, la v.a. té la mateixa funció de distribució que una v.a. exponencial amb paràmetre $\lambda=2 \times 0.0005 = 0.001$.
 
----------------------
-
-c. Calculeu la probabilitat que el "kit" funcioni correctament més de 1000 dies. [0.368]
+c.
 
 \[
 P(T^* > 1000) = 1 - P(T^* \leq 1000) = 1 - F_{T^*}(1000) = 1 - (1 - e^{-0.001 \times1000}) = e^{-1}
 \]
 
----------------
-
-d. Repetiu els dos apartats anteriors b) i c) en el supòsit que el "kit" té els dos components electrònics connectats en paral·lel i que, per tant, funciona correctament sempre que hi hagi com a mínim un component que funcioni correctament. (NOTA: En aquests cas, la v.a. T* no segueix una lleis exponencial)  [$F_{T^*}(t)=1-2e^{-t/2000}+e^{-t/1000}$; $f_{T^*}(t)=1/1000 (e^{-t/2000}-e^{-t/1000})$; 0.845]
+d.
 
 Sigui T^* el temps de vida del "kit" format amb dos component connectats en paral·lel. Tenim que
 

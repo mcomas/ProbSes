@@ -1,15 +1,23 @@
 ---
-title: "Problema 6"
+title: "Variables aleatories. Problema 6"
 output: pdf_document
 ---
 
-La llargada de les peces fabricades per una determinada màquina s'ajusta a una distribució normal de mitjana 150 cm i desviació tipus 0.4 cm. Les peces es consideren acceptables si la seva llargada pertany a l'interval obert (149.2,150.4).
+# Problema 6
 
-Es demana:
+> La llargada de les peces fabricades per una determinada màquina s'ajusta a una distribució normal de mitjana 150 cm i desviació tipus 0.4 cm. Les peces es consideren acceptables si la seva llargada pertany a l'interval obert (149.2,150.4).
+> 
+> Es demana:
+>
+> a. La proporció de peces defectuoses que contindrà la mostra. [18.14%]
+>
+> b. Trobeu un interval $[150-\delta.150+\delta]$ que contingui el 95% de la producció. [149.216,150.784]
+>
+> c. Si s'escull una mostra a l'atzar de 50 peces, calculeu la probabilitat que la mostra contingui exactament 44 peces acceptables [0.0847]
+>
 
---------------------
 
-a) La proporció de peces defectuoses que contindrà la mostra. [18.14%]
+a.
 
 Denotarem per $X$ la variable aleatoria que denota la llargada d'una peça. L'enunciat segueix una distribució normal amb paràmetres $\mu=150$ i desviació tipus $\sigma=0.4$, i.e. $X \sim N(\mu=150, \sigma=0.4)$.
 
@@ -32,9 +40,7 @@ Sabem que per una variable aleatoria normal $X \sim N(\mu, \sigma)$ el procés d
 \end{array}
 \]
 
--------------------------
-
-b) Trobeu un interval $[150-\delta.150+\delta]$ que contingui el 95% de la producció. [149.216,150.784]
+b.
 
 Volem que es compleixi $P(150 - \delta \leq X \leq 150 - \delta) = 0.95$.
 
@@ -54,9 +60,7 @@ D'on treiem que $P(\frac{\delta}{0.4} \leq Z) = \frac{0.95 + 1}{2} = 0.975$. A l
 \frac{\delta}{0.4} = 1.96 \implies \delta = 0.784.
 \]
 
------------------------------
-
-c) Si s'escull una mostra a l'atzar de 50 peces, calculeu la probabilitat que la mostra contingui exactament 44 peces acceptables [0.0847]
+c.
 
 De l'apartat a) sabem que la probabilitat que una peça sigui acceptable és $0.8185946$. Sigui $Y$ la variable aleatoria que compta el nombre de peces acceptable després d'agafar a l'atzar 50 peces. La v.a. $Y$ es pot modelar mitjançant una distribució binomial amb paràmetre $n=50$ i $p=0.8185946$. Per tant,
 

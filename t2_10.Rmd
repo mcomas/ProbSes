@@ -1,13 +1,18 @@
 ---
-title: "Problema 10. Variable aleatoria contínues"
+title: "Variables aleatories. Problema 10"
 output: pdf_document
 ---
 
-Suposeu Un circuit electrònic té quatre transistors. El temps de vida de cada un dels transistors és independent i segueix una distribució exponencial de paràmetres $\lambda_1 = 0.00006$, $\lambda_2 = 0.00003$, $\lambda_3=0.00012$ i $\lambda_4 = 0.000018$ (fallades per minut).
+# Problema 10
 
------------------------
-
-a) Quina serà l’esperança de vida del circuit electrònic si els transistors estan organitzats en sèrie?
+> Suposeu Un circuit electrònic té quatre transistors. El temps de vida de cada un dels transistors és independent i segueix una distribució exponencial de paràmetres $\lambda_1 = 0.00006$, $\lambda_2 = 0.00003$, $\lambda_3=0.00012$ i $\lambda_4 = 0.000018$ (fallades per minut).
+>
+> a. Quina serà l’esperança de vida del circuit electrònic si els transistors estan organitzats en sèrie?
+>
+> b. Quina és la fiabilitat del circuit electrònic si els transistors estan organitzats en paral·lel?
+>
+> c. En el supòsit anterior, dibuixeu la gràfica d’R(t) al llarg del temps?
+>
 
 Si denotem per $T^*$ el temps de vida del circuit, i per $T_i$ el temps de vida del transistor $i$ tenim que
 \[
@@ -26,9 +31,8 @@ D'on treiem que $F_{T^*} = P(T^* \leq t) = 1 - e^{-0.000228 t}$, o dit d'altre m
 E[T^*] = \frac{1}{0.000228} = 4385.965.
 \]
 
------------------------
 
-b) Quina és la fiabilitat del circuit electrònic si els transistors estan organitzats en paral·lel?
+b.
 
 Si denotem per $T^*$ el temps de vida del circuit muntat en paral·lel,
 
@@ -42,9 +46,7 @@ P(T^* > t) &=& 1 - P(T^* \leq t) \\
 \end{array}
 \]
 
-------------------
-
-c) En el supòsit anterior, dibuixeu la gràfica d’R(t) al llarg del temps?
+c.
 
 ```{r, fig.width=5, fig.height=4}
 R = function(x) 1 - (1-exp(-0.00006 * x)) * (1-exp(-0.00003 * x)) * 
