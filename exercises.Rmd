@@ -1,5 +1,5 @@
 ---
-title: "Exercises"
+title: "Exercicis"
 output:
   pdf_document:
     toc: yes
@@ -7,16 +7,31 @@ output:
     toc: yes
 ---
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, include=F}
 rmd <- list.files(pattern = '*.Rmd', recursive = F, include.dirs = F)
-
-cat('# Tema 2. Variables aleatories\n\n')
+print_text = function(x){
+cat('# Tema 2. Variables aleatories \n\n')
 sel = substr(rmd, 1, 2) %in% c('t2')
 chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
 cat(chunks, sep = '\n')
+
+cat('# Tema 3. Intervals de confiança i qualitat \n\n')
+sel = substr(rmd, 1, 2) %in% c('t3')
+chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
+cat(chunks, sep = '\n')
+
+cat('# Tema 4. Contrastos d\'hipotesis \n\n')
+sel = substr(rmd, 1, 2) %in% c('t4')
+chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
+cat(chunks, sep = '\n')
+
+}
+
+
+print_text()
 ```
 
-# Tema 2. Variables aleatories
+# Tema 2. Variables aleatories 
 
 ```{r child = 't2_03.Rmd'}
 ```
@@ -64,4 +79,83 @@ cat(chunks, sep = '\n')
 --------------------
 
 ```{r child = 't2_12.Rmd'}
+```
+
+--------------------
+
+# Tema 3. Intervals de confiança i qualitat 
+
+```{r child = 't3_05.Rmd'}
+```
+
+--------------------
+
+```{r child = 't3_11.Rmd'}
+```
+
+--------------------
+
+```{r child = 't3_14.Rmd'}
+```
+
+--------------------
+
+```{r child = 't3_16.Rmd'}
+```
+
+--------------------
+
+```{r child = 't3_19.Rmd'}
+```
+
+--------------------
+
+```{r child = 't3_20.Rmd'}
+```
+
+--------------------
+
+```{r child = 't3_22.Rmd'}
+```
+
+--------------------
+
+```{r child = 't3_24.Rmd'}
+```
+
+--------------------
+
+# Tema 4. Contrastos d'hipotesis 
+
+```{r child = 't4_01.Rmd'}
+```
+
+--------------------
+
+```{r child = 't4_06.Rmd'}
+```
+
+--------------------
+
+```{r child = 't4_09.Rmd'}
+```
+
+--------------------
+
+```{r child = 't4_10.Rmd'}
+```
+
+--------------------
+
+```{r child = 't4_11.Rmd'}
+```
+
+--------------------
+
+```{r child = 't4_13.Rmd'}
+```
+
+--------------------
+
+```{r child = 't4_14.Rmd'}
 ```

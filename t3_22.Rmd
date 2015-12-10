@@ -3,7 +3,9 @@ title: "Problema 22"
 output: pdf_document
 ---
 
-El diàmetre de les varetes metàl·liques VM032 és una característica important en la seva qualitat i és important realitzar-ne un control en el seu procés de producció. D’acord amb el disseny original, les especificacions per al diàmetre de les varetes són 0.50350±0.0010 polzades. És a dir, al voltant de 0.50polzades. La taula següent mostra els valors de les mitjanes ($\bar{x}$) i dels rangs ($R$) per a 20 mostres de 5 varetes cada una fabricades en un màquina-torn específic. Noteu que els valors que apareixen per a la mitjana en la taula són només les tres darreres xifres de la mesura. És a dir, 342 significa 0.50342. Els valors de R cal multiplicar-los per 10-4, és a dir, 8 representa 0.0008.
+## Problema 20
+
+> El diàmetre de les varetes metàl·liques VM032 és una característica important en la seva qualitat i és important realitzar-ne un control en el seu procés de producció. D’acord amb el disseny original, les especificacions per al diàmetre de les varetes són 0.50350±0.0010 polzades. És a dir, al voltant de 0.50polzades. La taula següent mostra els valors de les mitjanes ($\bar{x}$) i dels rangs ($R$) per a 20 mostres de 5 varetes cada una fabricades en un màquina-torn específic. Noteu que els valors que apareixen per a la mitjana en la taula són només les tres darreres xifres de la mesura. És a dir, 342 significa 0.50342. Els valors de R cal multiplicar-los per 10-4, és a dir, 8 representa 0.0008.
 
 ```{r, include=F}
 knitr::opts_chunk$set(results='hold', comment = '  ')
@@ -34,13 +36,21 @@ cc = data.frame(
 knitr::kable(cbind(X[1:5,], X[6:10,]))
 ```
 
+> Es demana:
+>
+> a. Trobeu els límits de control del gràfic $\bar{X}$ i, si cal, reviseu-los, eliminant les mostres fora de control.
+>
+> b. Calculeu l’índex de capacitat del procés.
+>
+> c. Quin percentatge de varetes metàl·liques defectuoses està produint el procés?
+>
+
+
 ```{r, echo=F, results='asis'}
 knitr::kable(cc)
 ```
 
-Es demana:
-
-a) Trobeu els límits de control del gràfic $\bar{X}$ i, si cal, reviseu-los, eliminant les mostres fora de control.
+a.
 
 Utilitzant mostres de mida $5$, 
 ```{r}
@@ -64,14 +74,14 @@ c('IC' = CC <- c(Xm-cc$A2 * Rm, Xm+cc$A2 * Rm))
 c('out' = which(X2$x<CC[1] | CC[2]<X2$x))
 ```
 
-b) Calculeu l’índex de capacitat del procés.
+b.
 
 ```{r}
 c('sigma' = sigma <- Rm/cc$d2)
 c('Cp' = 0.0020/ (6*sigma))
 ```
 
-c) Quin percentatge de varetes metàl·liques defectuoses està produint el procés?
+c.
 
 ```{r}
 1-pnorm(0.5045, mean = 0.5034095, sd = 0.0002429063) +

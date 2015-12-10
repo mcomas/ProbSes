@@ -3,8 +3,9 @@ title: "Problema 14"
 output: pdf_document
 ---
 
-14.	Una variable X té la següent distribució de probabilitat discreta:
+## Problema 14
 
+> Una variable X té la següent distribució de probabilitat discreta:
 
 |  X| Si $H_0$ certa | Si $H_1$ certa |
 |--:|------------:|------------:|
@@ -16,7 +17,7 @@ output: pdf_document
 |  6|         1/6 |        2/15 |
 
 
-Es decideix rebutjar $H_0$ si, en observar un valor de X, aquest resulta ser igual a 3 o 4. Calculeu les probabilitats dels errors de tipus I i II.
+> Es decideix rebutjar $H_0$ si, en observar un valor de X, aquest resulta ser igual a 3 o 4. Calculeu les probabilitats dels errors de tipus I i II.
 
 Sigui $R$ l'esdeveniment s'ha rebutjat o també, s'ha observat $X=3$ o $X=4$. Tenim que la probabilitat d'error tipus I és la probabilitat de rebutjar quan la hipotesi $H_0$ és certa, o sigui
 

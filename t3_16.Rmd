@@ -3,12 +3,18 @@ title: "Problema 16"
 output: pdf_document
 ---
 
-16. En la fabricació de bigues d'acer poden utilitzar-se dos aliatges A i B diferents. En una siderúrgia es vol comparar aquests dos aliatges pel que fa referència a la capacitat de càrrega de les bigues. Com a tal, cal entendre el pes màxim que es pot aplicar sobre la biga abans no es trenqui. S'han seleccionat dues mostres a l'atzar de bigues. En les bigues de la primera mostra s'ha utilitzat l'aliatge A mentre que en les de la segona s'ha utilitzat l'aliatge B. Els resultats obtinguts són els següents:
+## Problema 16
 
- * Aliatge A: $n_A = 11$, $\bar{x}_A = 43.7 Tm$, $s_A^2 = 24.4 Tm^2$
- * Aliatge B: $n_B = 17$, $\bar{x}_B = 48.5 Tm$, $s_B^2 = 19.9 Tm^2$
+> En la fabricació de bigues d'acer poden utilitzar-se dos aliatges A i B diferents. En una siderúrgia es vol comparar aquests dos aliatges pel que fa referència a la capacitat de càrrega de les bigues. Com a tal, cal entendre el pes màxim que es pot aplicar sobre la biga abans no es trenqui. S'han seleccionat dues mostres a l'atzar de bigues. En les bigues de la primera mostra s'ha utilitzat l'aliatge A mentre que en les de la segona s'ha utilitzat l'aliatge B. Els resultats obtinguts són els següents:
+>
+> * Aliatge A: $n_A = 11$, $\bar{x}_A = 43.7 Tm$, $s_A^2 = 24.4 Tm^2$
+> * Aliatge B: $n_B = 17$, $\bar{x}_B = 48.5 Tm$, $s_B^2 = 19.9 Tm^2$
+>
+> a. Feu una estimació, al nivell de confiança del 99%, de la diferència entre les mitjanes de les capacitats de càrrega dels dos aliatges. Especifiqueu els supòsits teòrics a tenir en compte per poder fer aquesta estimació.  [$-4.8 \pm 5.0$]
+>
+> b. A la vista del resultat anterior, es pot concloure que les mitjanes de les capacitats de càrrega dels dos aliatges són significativament diferents?
 
- a) Feu una estimació, al nivell de confiança del 99%, de la diferència entre les mitjanes de les capacitats de càrrega dels dos aliatges. Especifiqueu els supòsits teòrics a tenir en compte per poder fer aquesta estimació.  [$-4.8 \pm 5.0$]
+a.
 
 Si escrivim $n=n_A+n_B$,
 \[
@@ -30,7 +36,7 @@ nA = 11;nB = 17;xA = 43.7;xB = 48.5;vA = 24.4;vB = 19.9
 (e0 <- qt(0.01/2, nA+nB-2) * sqrt(vP) * sqrt(1/nA+1/nB))
 ```
 
- b) A la vista del resultat anterior, es pot concloure que les mitjanes de les capacitats de càrrega dels dos aliatges són significativament diferents?
+b.
 
 
 Amb un significació del 0.01, o amb una confiança del 99%, no podem concloure que hi hagin diferències entre els dos aliatges ja que amb l'interval $(-9.8, 0.2)$ no podem descartar el valor 0.

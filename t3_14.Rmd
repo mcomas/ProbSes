@@ -3,11 +3,15 @@ title: "Problema 14"
 output: pdf_document
 ---
 
-14. En un sondeig d'opinió es pregunta a una mostra de 100 persones a quin dels dos candidats - A o B - pensen votar. Un total de 55 persones recolzen el candidat A mentre que els altres 45 recolzen B. Es demana:
+## Problema 14
 
-----------
+> En un sondeig d'opinió es pregunta a una mostra de 100 persones a quin dels dos candidats - A o B - pensen votar. Un total de 55 persones recolzen el candidat A mentre que els altres 45 recolzen B. Es demana:
+>
+> a. Calculeu, a un nivell de confiança del 95%, un interval d'estimació de la proporció de vots per a cadascun dels dos candidats. Apliqueu el supòsit de "màxima indeterminació".
+>
+> b. Quina hauria de ser la mida mínima de la mostra perquè una proporció mostral igual a 0.55 pel candidat A "asseguri", a un nivell de confiança del 95%, la victòria d'aquest candidat?
 
- a) Calculeu, a un nivell de confiança del 95%, un interval d'estimació de la proporció de vots per a cadascun dels dos candidats. Apliqueu el supòsit de "màxima indeterminació".
+a.
 
 \[
 p \in \left(\hat{p} - z_{\alpha/2} \frac{ \sqrt{p (1-p)}}{\sqrt{n}}, \hat{p} + z_{\alpha/2} \frac{ \sqrt{p (1-p)}}{\sqrt{n}}\right) \mbox{ amb 95\% confiança}
@@ -34,7 +38,7 @@ p_B \in \left(0.352, 0.548\right)
 \]
 
 
- b) Quina hauria de ser la mida mínima de la mostra perquè una proporció mostral igual a 0.55 pel candidat A "asseguri", a un nivell de confiança del 95%, la victòria d'aquest candidat?
+b.
 
 \[
 0.5 < 0.55 - z_{\alpha/2} \frac{ 0.5}{\sqrt{n}}

@@ -3,7 +3,9 @@ title: "Problema 13"
 output: pdf_document
 ---
 
-13.	Per contrastar la hipòtesi $H_0:\mu=1$  vers  $H_1: \mu=2$  es disposa només d'una sola observació $x$  procedent d'una distribució de Poisson. Es pren com regió a crítica o de rebuig de la $H_0$, la regió  $R_1= [ x \geq 4]$. 
+## Problema 13
+
+> Per contrastar la hipòtesi $H_0:\mu=1$  vers  $H_1: \mu=2$  es disposa només d'una sola observació $x$  procedent d'una distribució de Poisson. Es pren com regió a crítica o de rebuig de la $H_0$, la regió  $R_1= [ x \geq 4]$. 
 Calculeu les probabilitats dels errors de tipus I i II.
 
 

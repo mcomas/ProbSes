@@ -3,8 +3,9 @@ title: "Problema 5"
 output: pdf_document
 ---
 
+## Problema 5
 
-Per quant s'ha de multiplicar la mida $n$ d'una mostra si volem reduir a la quarta part l'error estàndard de l'estimació puntual $\bar{x}_n$ de la mitjana $\mu$ d'una població?
+> Per quant s'ha de multiplicar la mida $n$ d'una mostra si volem reduir a la quarta part l'error estàndard de l'estimació puntual $\bar{x}_n$ de la mitjana $\mu$ d'una població?
 
 L'error estàndard amb $n_0$ vé donat per
 

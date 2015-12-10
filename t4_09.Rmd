@@ -3,6 +3,8 @@ title: "Problema 9"
 output: pdf_document
 ---
 
+## Problema 9
+
 ```{r, include=FALSE}
 library(dplyr)
 library(tidyr)
@@ -14,15 +16,15 @@ df = data_frame(
 )
 ```
 
-En un empresa es vol estudiar si la implantació d'un nou pla de seguretat en el treball és realment efectiu. Amb aquesta intenció s'han calculat les hores de treball setmanals perdudes per accidents laborals --abans i després de la implantació del pla-- en les sis plantes de producció de les que es composa l'empresa.
-
-Aquests són els valors obtinguts de les hores setmanals perdudes:
+> En un empresa es vol estudiar si la implantació d'un nou pla de seguretat en el treball és realment efectiu. Amb aquesta intenció s'han calculat les hores de treball setmanals perdudes per accidents laborals --abans i després de la implantació del pla-- en les sis plantes de producció de les que es composa l'empresa.
+>
+> Aquests són els valors obtinguts de les hores setmanals perdudes:
 
 ```{r, echo=FALSE}
 knitr::kable(df %>% setNames(c('Planta', 'Abans del pla' , 'Després del pla', 'Diferència')))
 ```
 
-Confirmen aquestes dades l'eficàcia del pla de seguretat? Espcifiqueu les hipòtesis teòriques necessàries per aplicar el contrast.
+> Confirmen aquestes dades l'eficàcia del pla de seguretat? Espcifiqueu les hipòtesis teòriques necessàries per aplicar el contrast.
 
 ```{r, echo=FALSE}
 summ = function(.data) .data %>% 

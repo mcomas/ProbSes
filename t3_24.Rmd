@@ -3,9 +3,18 @@ title: "Problema 24"
 output: pdf_document
 ---
 
-En una empresa envasadora de cerveses s’han realitzat gràfics de control, basats en mostres de 4 ampolles, per a la mitjana i el rang del contingut (cm3) en cervesa de les ampolles que comercialitza. Aquests diagrames han proporcionat la següent informació: Diagrama de la mitjana, UCL= 330.99, CCL= 328, LCL= 325.01; Diagrama del rang, UCL= 9.4, CCL= 4.1, LCL=0. S’ha confirmat que el procés està sota control. 
+## Problema 24
 
-Es demana:
+> En una empresa envasadora de cerveses s’han realitzat gràfics de control, basats en mostres de 4 ampolles, per a la mitjana i el rang del contingut (cm3) en cervesa de les ampolles que comercialitza. Aquests diagrames han proporcionat la següent informació: Diagrama de la mitjana, UCL= 330.99, CCL= 328, LCL= 325.01; Diagrama del rang, UCL= 9.4, CCL= 4.1, LCL=0. S’ha confirmat que el procés està sota control. 
+>
+> Es demana:
+>
+> a. Calculeu una estimació de la desviació típica del procés.
+>
+> b. Si a partir de les dades del diagrama de rang, construïm un diagrama de control per a la desviació típica, quin límits tindria?
+>
+> c. Si se suposa que aquestes ampolles volen vendre’s com ampolles d’un terç de litre i que les especificacions que desitja el fabricant per al contingut de les ampolles són $333\pm 8$ cm3 ¿quin és l’índex de capacitat real? Quin percentatge d’ampolles no compleixen les especificacions? Quina correcció caldria fer en el procés d’envasatge per a augmentar aquest percentatge? 
+
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(results='hold', comment = '  ')
@@ -27,7 +36,7 @@ cc = data.frame(
   D4 = 2.282)
 ```
 
-a) Calculeu una estimació de la desviació típica del procés.
+a.
 
 Utilitzarem la següent fila de les taules:
 
@@ -42,7 +51,7 @@ knitr::kable(cc)
 \hat{\sigma} = \frac{\bar{R}}{d_2} = \frac{4.1}{2.059} = 1.991258.
 \]
 
-b) Si a partir de les dades del diagrama de rang, construïm un diagrama de control per a la desviació típica, quin límits tindria?
+b.
 
 Ja hem vist que $\hat{\sigma} = 1.991258$. D'aquí podem aproximar el valor $\hat{s}$ mitjançant 
 
@@ -56,7 +65,7 @@ I d'aquí podem calcular els límits inferior i superior $\bar{s} B_3$ i $\bar{s
 c(1.834546 * cc$B3, 1.834546 * cc$B4)
 ```
 
-c) Si se suposa que aquestes ampolles volen vendre’s com ampolles d’un terç de litre i que les especificacions que desitja el fabricant per al contingut de les ampolles són $333\pm 8$ cm3 ¿quin és l’índex de capacitat real? Quin percentatge d’ampolles no compleixen les especificacions? Quina correcció caldria fer en el procés d’envasatge per a augmentar aquest percentatge? 
+c.
 
 L'index de capacitat inferior és
 
