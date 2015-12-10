@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 12"
 output: pdf_document
 ---
 
-# Problema 12
+## Problema 12
 
 > Tres components estan organitzats en sèrie. Els seus respectius temps de vida són mútuament independents i  segueixen una distribució exponencial de paràmetres $\lambda_1 = 0.003$, $\lambda_2 = 0.01$ i $\lambda_3 = 0.008$.
 >

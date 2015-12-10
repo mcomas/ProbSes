@@ -9,10 +9,14 @@ output:
 
 ```{r, echo=FALSE, include=FALSE}
 rmd <- list.files(pattern = '*.Rmd', recursive = F, include.dirs = F)
+
+cat('# Tema 2. Variables aleatories\n\n')
 sel = substr(rmd, 1, 2) %in% c('t2')
 chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
 cat(chunks, sep = '\n')
 ```
+
+# Tema 2. Variables aleatories
 
 ```{r child = 't2_03.Rmd'}
 ```

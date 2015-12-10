@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 3"
 output: pdf_document
 ---
 
-# Problema 3
+## Problema 3
 
 > Una companyia d'assegurances de vaixells de càrrega té assegurats un total de 1000 vaixells, el valor unitari dels quals és de 10 milions d’euros. Les clàusules de les assegurances cobreixen la pèrdua total d'un vaixell. La probabilitat que un vaixell tingui un sinistre total en el decurs d'un any és igual a 0.001. La legislació vigent obliga a la companyia a tenir un capital mínim destinat al pagament de sinistres que cobreixi els possibles sinistres amb probabilitat 0.999. Es demana:
 >

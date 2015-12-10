@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 7"
 output: pdf_document
 ---
 
-# Problema 7
+## Problema 7
 
 > El temps de vida T d'un determinat component electrònic es pot considerar que s'ajusta a una llei exponencial. La vida mitjana d'aquests components és de 2000 dies.
 >

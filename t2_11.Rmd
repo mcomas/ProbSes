@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 11"
 output: pdf_document
 ---
 
-# Problema 11
+## Problema 11
 
 > Sigui X una variable aleatòria amb funció de densitat $f(x) = (x e^{-x/\beta}) / \beta^2$ amb $0 < x \leq \infty$.
 > 

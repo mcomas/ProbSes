@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 10"
 output: pdf_document
 ---
 
-# Problema 10
+## Problema 10
 
 > Suposeu Un circuit electrònic té quatre transistors. El temps de vida de cada un dels transistors és independent i segueix una distribució exponencial de paràmetres $\lambda_1 = 0.00006$, $\lambda_2 = 0.00003$, $\lambda_3=0.00012$ i $\lambda_4 = 0.000018$ (fallades per minut).
 >

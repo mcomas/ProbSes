@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 6"
 output: pdf_document
 ---
 
-# Problema 6
+## Problema 6
 
 > La llargada de les peces fabricades per una determinada màquina s'ajusta a una distribució normal de mitjana 150 cm i desviació tipus 0.4 cm. Les peces es consideren acceptables si la seva llargada pertany a l'interval obert (149.2,150.4).
 > 

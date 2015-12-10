@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 4"
 output: pdf_document
 ---
 
-# Problema 4
+## Problema 4
 
 > Una companyia aèria ha estimat que un 12% - en mitjana - de les places reservades en els vols regulars no es cobreixen. Per aquest motiu decideix acceptar reserves per un 10% més de les places disponibles en els avions, que són de 450 places. Calcular la proporció de vols en que hi haurà algun passatger que, havent efectuat reserva, es quedarà sense plaça. Especifiqueu  les hipòtesis realitzades per a resoldre el problema. [1.96%]
 

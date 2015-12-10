@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 5"
 output: pdf_document
 ---
 
-# Problema 5
+## Problema 5
 
 > La vida d'una bombeta - expressada en hores - ve donada per una variable aleatòria de funció de densitat:
 >

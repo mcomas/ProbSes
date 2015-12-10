@@ -3,7 +3,7 @@ title: "Variables aleatories. Problema 8"
 output: pdf_document
 ---
 
-# Problema 8
+## Problema 8
 
 > En una cadena de producció, una màquina d’envasament automàtic omple els envasos amb un determinat producte. La quantitat introduïda en l'envàs es una v.a. X de mitjana 81.5 g i desviació tipus 8 g. El pes dels envasos buits es distribueix segons una v.a. de mitjana 14.5 g i desviació tipus 6 g. Ambdues distribucions són normals i independents. Es demana:
 >
