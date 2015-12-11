@@ -1,11 +1,7 @@
 PackratFormat: 1.4
-PackratVersion: 0.4.4
+PackratVersion: 0.4.6.1
 RVersion: 3.2.2
-Repos: CRAN=https://cran.rstudio.com/,
-    BioCsoft=http://bioconductor.org/packages/3.2/bioc,
-    BioCann=http://bioconductor.org/packages/3.2/data/annotation,
-    BioCexp=http://bioconductor.org/packages/3.2/data/experiment,
-    BioCextra=http://bioconductor.org/packages/3.2/extra
+Repos: CRAN=https://www.icesi.edu.co/CRAN
 
 Package: BH
 Source: CRAN
@@ -123,6 +119,10 @@ Source: CRAN
 Version: 1.5
 Hash: bdc4d48c3135e8f3b399536ddf160df4
 
+Package: manipulate
+Source: CRAN
+Version: 1.0.1
+
 Package: markdown
 Source: CRAN
 Version: 0.7.7
@@ -148,7 +148,7 @@ Hash: aed7d17407538df551a57caf6289c8bf
 Package: plyr
 Source: CRAN
 Version: 1.8.3
-Hash: 52c8f33727f85cf27dec392f28d94853
+Hash: 5cf4672c5940e265f2602d5d806d303d
 Requires: Rcpp
 
 Package: proto
@@ -159,7 +159,7 @@ Hash: 05d7ad64db29a39d1b02c4b9f1f4edb2
 Package: reshape2
 Source: CRAN
 Version: 1.4.1
-Hash: 7a0744bdaff4aeef700d31f26a31e9e1
+Hash: 193899598711fc9776f383bbdf266118
 Requires: Rcpp, plyr, stringr
 
 Package: rmarkdown
@@ -171,7 +171,7 @@ Requires: caTools, htmltools, knitr, yaml
 Package: scales
 Source: CRAN
 Version: 0.3.0
-Hash: d1a44123ba586ee1c4b21eadf7186991
+Hash: 323f8f5a7f2823f19bd3fd3c15fc196a
 Requires: RColorBrewer, Rcpp, dichromat, labeling, munsell, plyr
 
 Package: stringi
@@ -184,6 +184,12 @@ Source: CRAN
 Version: 1.0.0
 Hash: 2676dd5f88890910962b733b0f9540e1
 Requires: magrittr, stringi
+
+Package: tidyr
+Source: CRAN
+Version: 0.3.1
+Hash: 1606e7bf29585ceb6ae1c309d8695793
+Requires: Rcpp, lazyeval, magrittr, stringi, dplyr
 
 Package: yaml
 Source: CRAN
