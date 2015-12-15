@@ -5,20 +5,66 @@ output: pdf_document
 
 ## Problema 21
 
+> Una empresa publicitària vol estudiar fins a quin punt la durada dels anuncis publicitaris a la televisió influeix en la memòria del missatge per part de l'espectador. Amb aquesta finalitat, s'escull una mostra de 200 estudiants universitaris que són dividits aleatòriament en 3 grups per tal de dur a terme la següent experimentació. El primer grup (57 estudiants) visiona un programa de televisió el qual s'interromp per passar un anunci de 30 segons de durada d'una determinada marca de colònia. El segon grup (74 estudiants) visiona el mateix programa de televisió amb el mateix anunci publicitari, però resumit en 25 segons de durada. Finalment, el tercer grup (69 estudiants) fa el mateix però amb una versió encara més reduïda de l'anunci que només dura 20 segons. Dos dies més tard es pregunta als estudiants si recorden o no la marca de colònia de l'anunci. Els resultats obtinguts es resumeixen en la següent taula:
+
+
+```{r, echo=FALSE}
+tab <- matrix(c(15, 42,
+                32, 42,
+                10, 59), nrow=2)
+colnames(tab) = c('30 segons', '25 segons', '20 segons')
+rownames(tab) = c('si', 'no')
+knitr::kable(tab)
+```
+
+> A la vista d'aquestes dades, diríeu que la memòria del missatge publicitari és independent de la seva durada? 
+
+Si calculem les marginals:
+
+```{r, echo=FALSE}
+knitr::kable(addmargins(tab))
+```
+
+Les freqüències esperades són:
+
+```{r, results='asis', echo=FALSE}
+tab.exp <- matrix(sprintf('(%d·%d)/%d',
+               matrix(apply(tab, 1, sum), nrow=2, ncol=3),
+               matrix(apply(tab, 2, sum), nrow=2, ncol=3, byrow = T), sum(tab)), nrow=2, ncol=3)
+colnames(tab.exp) = c('30 segons', '25 segons', '20 segons')
+rownames(tab.exp) = c('si', 'no')
+knitr::kable(tab.exp)
+```
+
+obtenint 
+
+```{r, echo=FALSE}
+test <- chisq.test(tab)
+knitr::kable(test$expected)
+```
+
+
+Per comparar els valor observats amb els esperats calcularem  l'estadístic de contrast $\chi^2$. 
+
+\[
+\chi^2 = \frac{(O_i-E_i)^2}{E_i}
+\]
+
+En el nostre cas tenim
+
+```{r, echo=FALSE, results='asis'}
+cat('$$\n')
+cat(paste(sprintf("\\frac{(%d-%0.2f)^2}{%0.2f}", tab, test$expected, test$expected), collapse='+'))
+cat('$$\n')
+```
+
+que és igual a `r test$statistic`.
+
+Tot el contrast el podríem fer amb R mitjançant les comandes:
+
 ```{r}
 tab <- matrix(c(15, 42,
                 32, 42,
                 10, 59), nrow=2)
-colnames(tab) = c('30', '25', '20')
-rownames(tab) = c('si', 'no')
-```
-
-```{r}
-addmargins(tab)
-```
-
-```{r}
-test <- chisq.test(tab)
-test$expected
-test
+chisq.test(tab)
 ```

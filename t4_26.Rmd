@@ -1,0 +1,122 @@
+---
+title: "Problema 26"
+output: pdf_document
+---
+
+## Problema 26
+
+> En una determinada zona rural, els pagesos tenen a la seva disposició només quatre tipus d'adobs produïts per quatre fàbriques diferents. A l'etiqueta dels sacs, cada fabricant assegura que l'efecte d'aquell adob és superior al dels altres tres adobs. S'han escollit quatre finques molt properes que tenen la mateixa qualitat de terra i que tenen sengles plantacions de pomeres de les mateixes característiques. Cada finca ha estat adobada amb un tipus d'adob diferent. Al final de la collita, s'ha escollit a l'atzar en cada finca una mostra de pomeres, i s'ha pesat la quantitat total (en kg) de fruita produïda pels arbres escollits. Els resultats obtinguts són els següents:
+
+```{r, include=FALSE}
+library(dplyr)
+
+pes1 = c(80, 72, 40, 59)
+pes2 = c(75, 52, 43, 90, 31)
+pes3 = c(83, 79, 68, 92)
+pes4 = c(100, 41, 37, 60, 53, 72)
+df = data.frame(pes = c(pes1, pes2, pes3, pes4),
+                finca = c(rep(1:4, times = sapply(list(pes1,pes2,pes3,pes4), length))))
+```
+
+```{r, echo=FALSE, comment="        "}
+for(i in 1:4){
+  with(subset(df, finca == i), cat('Finca', i, paste(pes, collapse=', '), '\n'))
+}
+```
+
+> Creieu que menteixen els fabricants dels adobs? (Feu en primer lloc un estudi preliminar, gràfic i numèric, seguidament feu el contrast d’hipòtesis)
+
+Primerament podem calcular les mitjanes i desviacions de les nostres dades.
+
+```{r, echo=FALSE}
+(res <- df %>% 
+  group_by(finca) %>%
+  summarise(
+    n = n(),
+    mean = mean(pes),
+    sd = sd(pes) )) %>% knitr::kable()
+```
+
+Un gràfic que ens pot ajudar a veure diferències vé donat pel diagrama de caixa.
+
+```{r, fig.width=4.5, fig.height=3.5}
+boxplot(pes~finca, data=df, xlab='Finca', ylab='Pes', main='Diagrames de caixa')
+```
+
+Anem a realitzar el contrast ANOVA. Per això serà necessari calcular 
+
+  * __la suma dels quadrats dels tractament (SSTract)__
+
+Aquesta suma vé definida per la suma
+
+
+```{r, echo=FALSE, results='asis'}
+cat('\\[\n\\begin{array}{rcl}')
+cat('\\sum_{j=1}^4 n_j  \\;(\\bar{y}-\\bar{y}_j)^2 &=& ', paste(sprintf("%d \\;(%0.2f - %0.2f)^2", res$n, mean(df$pes), res$mean), collapse=' + '), '\\\\')
+cat(sprintf('& = & %5.4f', sum(res$n * (mean(df$pes) - res$mean)^2)))
+cat('\\end{array}\\]')
+```
+
+  * __la suma dels quadrats dels errors (SSError)__
+
+Per calcular la suma dels quadrats dels errors necessitem calcular
+
+\[
+SSError = \sum_{j=1}^4 \sum_{i \in \text{Finca j}}  (y_i-\bar{y}_j)^2
+\]
+
+Hem vist 
+
+  - $\frac{1}{`r res$n[1]`-1} \sum_{i \in \text{Finca 1}}  (y_i-\bar{y}_1)^2 = `r res$sd[1]`^2$
+  - $\frac{1}{`r res$n[2]`-1} \sum_{i \in \text{Finca 2}}  (y_i-\bar{y}_2)^2 = `r res$sd[2]`^2$
+  - $\frac{1}{`r res$n[3]`-1} \sum_{i \in \text{Finca 3}}  (y_i-\bar{y}_3)^2 = `r res$sd[3]`^2$
+  - $\frac{1}{`r res$n[4]`-1} \sum_{i \in \text{Finca 4}}  (y_i-\bar{y}_4)^2 = `r res$sd[4]`^2$
+
+d'on podem treure que
+
+  - $\sum_{i \in \text{Finca 1}}  (y_i-\bar{y}_1)^2 = `r res$n[1] -1` \times `r res$sd[1]`^2 = `r (res$n[1] -1) * res$sd[1]^2`$
+  - $\sum_{i \in \text{Finca 2}}  (y_i-\bar{y}_2)^2 = `r res$n[2] -1` \times `r res$sd[2]`^2 = `r (res$n[2] -1) * res$sd[2]^2`$
+  - $\sum_{i \in \text{Finca 3}}  (y_i-\bar{y}_3)^2 = `r res$n[3] -1` \times `r res$sd[3]`^2 = `r (res$n[3] -1) * res$sd[3]^2`$
+  - $\sum_{i \in \text{Finca 4}}  (y_i-\bar{y}_4)^2 = `r res$n[4] -1` \times `r res$sd[4]`^2 = `r (res$n[4] -1) * res$sd[4]^2`$
+  
+per tal d'obtenir
+
+\[
+SSError = `r paste((res$n-1) * res$sd^2, collapse='+')` = `r sum( (res$n-1) * res$sd^2 )`
+\]
+
+  * __la suma dels quadrats total (SSTotal)__
+
+\[
+SSTotal = \sum_{i=1}^{19}  (y_i-\bar{y})^2
+\]
+
+Hem vist que
+
+\[
+\frac{1}{`r NROW(df)`-1} \sum_{i=1}^{19}  (y_i-\bar{y})^2 = `r sd(df$pes)`^2
+\]
+
+d'on podem treure que
+
+\[
+SSTotal = `r NROW(df) -1` `r sd(df$pes)`^2 = `r (NROW(df) -1) * sd(df$pes)^2`
+\]
+
+Fixeu-vos que
+
+\[
+SSTotal = SSTract + SSError
+\]
+
+\[
+`r (NROW(df) -1) * sd(df$pes)^2` = `r sum(res$n * (mean(df$pes) - res$mean)^2)` + `r sum( (res$n-1) * res$sd^2 )`
+\]
+
+Amb aquestes sumes de quadrats ja podem crear la taula ANOVA 
+
+```{r, echo=FALSE, comment='  '}
+df$finca = as.factor(df$finca)
+anova(lm(pes~finca, data=df))
+```
+

@@ -1,0 +1,132 @@
+---
+title: "Problema 28"
+output: pdf_document
+---
+
+## Problema 28
+
+> Es vol controlar la contaminació difusa per nitrats en un determinat riu. Per aquesta raó s’ha mesurat la quantitat de nitrats (NO3 en mg/l) en 3 estacions de control. La primera estació està situada en el riu objecte del nostre estudi, les altres dues estan situades en els seus dos principals afluents. En cada estació s’han realitzat 10 mesures de la quantitat de nitrats. Les observacions en cada estació són independents. Els resultats obtinguts són els següents:
+
+```{r, include=FALSE}
+df = data.frame(est = 1:3,
+                n = c(10, 10, 10),
+                mean = c(10.5, 9.4, 12.4),
+                sd = c(2.4, 1.6, 2.0))
+```
+
+```{r, echo=FALSE, comment="        "}
+df
+```
+
+> Apliqueu un contrast a partir d’un model d’anàlisi de la variància per comprovar si la mitjana del contingut de nitrats és la mateixa en cada estació de control. 
+
+La mitjana global vindrà donada per
+
+```{r, include=FALSE}
+mean_all = sum(df$n * df$mean)/sum(df$n)
+```
+
+\[
+\hat{x} = \frac{`r paste(sprintf('%d\\times%4.1f', df$n, df$mean), collapse='+')`}{`r sum(df$n) `} = `r mean_all`
+\]
+
+La variància global vindrà donada per
+
+```{r, include=FALSE}
+var_all = sum((df$n-1) * df$sd^2)/(sum(df$n)-1)
+```
+
+\[
+s^2 = \frac{`r paste(sprintf('(%d-1)\\times%4.1f^2', df$n-1, df$sd), collapse='+')`}{`r sum(df$n) `-1} = `r var_all`
+\]
+
+Primerament podem calcular les mitjanes i desviacions de les nostres dades.
+
+Anem a realitzar el contrast ANOVA. Per això serà necessari calcular 
+
+  * __la suma dels quadrats dels tractament (SSTract)__
+
+Aquesta suma vé definida per la suma
+
+
+```{r, echo=FALSE, results='asis'}
+cat('\\[\n\\begin{array}{rcl}')
+cat('\\sum_{j=1}^4 n_j  \\;(\\bar{y}-\\bar{y}_j)^2 &=& ', paste(sprintf("%d \\;(%0.2f - %0.2f)^2", df$n, sum(df$n * df$mean)/sum(df$n), df$mean), collapse=' + '), '\\\\')
+cat(sprintf('& = & %5.4f', sum(df$n * (mean_all - df$mean)^2)))
+cat('\\end{array}\\]')
+```
+
+  * __la suma dels quadrats dels errors (SSError)__
+
+Per calcular la suma dels quadrats dels errors necessitem calcular
+
+\[
+SSError = \sum_{j=1}^4 \sum_{i \in \text{Estació j}}  (y_i-\bar{y}_j)^2
+\]
+
+Hem vist 
+
+  - $\frac{1}{`r df$n[1]`-1} \sum_{i \in \text{Estació 1}}  (y_i-\bar{y}_1)^2 = `r df$sd[1]`^2$
+  - $\frac{1}{`r df$n[2]`-1} \sum_{i \in \text{Estació 2}}  (y_i-\bar{y}_2)^2 = `r df$sd[2]`^2$
+  - $\frac{1}{`r df$n[3]`-1} \sum_{i \in \text{Estació 3}}  (y_i-\bar{y}_3)^2 = `r df$sd[3]`^2$
+
+d'on podem treure que
+
+  - $\sum_{i \in \text{Estació 1}}  (y_i-\bar{y}_1)^2 = `r df$n[1] -1` \times `r df$sd[1]`^2 = `r (df$n[1] -1) * df$sd[1]^2`$
+  - $\sum_{i \in \text{Estació 2}}  (y_i-\bar{y}_2)^2 = `r df$n[2] -1` \times `r df$sd[2]`^2 = `r (df$n[2] -1) * df$sd[2]^2`$
+  - $\sum_{i \in \text{Estació 3}}  (y_i-\bar{y}_3)^2 = `r df$n[3] -1` \times `r df$sd[3]`^2 = `r (df$n[3] -1) * df$sd[3]^2`$
+  
+per tal d'obtenir
+
+\[
+SSError = `r paste((df$n-1) * df$sd^2, collapse='+')` = `r sum( (df$n-1) * df$sd^2 )`
+\]
+
+  * __la suma dels quadrats total (SSTotal)__
+
+\[
+SSTotal = \sum_{i=1}^{`r sum(df$n)`}  (y_i-\bar{y})^2
+\]
+
+Hem vist que
+
+\[
+\frac{1}{`r sum(df$n)`-1} \sum_{i=1}^{`r sum(df$n)`}  (y_i-\bar{y})^2 = `r var_all`
+\]
+
+d'on podem treure que
+
+\[
+SSTotal = (`r sum(df$n)` -1)\; `r var_all` = `r (sum(df$n) -1) * var_all`
+\]
+
+Fixeu-vos que
+
+\[
+SSTotal = SSTract + SSError
+\]
+
+\[
+`r (sum(df$n) -1) * var_all` = `r sum(df$n * (mean_all - df$mean)^2)` + `r sum( (df$n-1) * df$sd^2 )`
+\]
+
+Amb aquestes sumes de quadrats ja podem crear la taula ANOVA 
+
+```{r, echo=FALSE, comment='   '}
+(SS <- c(SS.Tract = sum(df$n * (mean_all - df$mean)^2),
+         SS.Error = sum( (df$n-1) * df$sd^2 )))
+```
+
+```{r, echo=FALSE, comment='   '}
+(DF <- c(Df.Tract = NROW(df)-1,
+         Df.Error = sum(df$n)-NROW(df)))
+```
+
+```{r, echo=FALSE, comment='   '}
+Means <- SS/DF
+names(Means) = c('Mean.Tract' , 'Mean.Error')
+Means
+```
+
+  * F value: `r (F.stat<-Means['Mean.Tract']/Means['Mean.Error'])`
+  * p-value: `1-pf(5.608766, 2, 27)`

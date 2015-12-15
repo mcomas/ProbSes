@@ -6,7 +6,7 @@ output: pdf_document
 ## Problema 18
 
 ```{r, include=FALSE}
-temps = c(28.9, 15.2, 28.7, 72.5, 48.6, 52.4, 37.6, 49.5, 62.1, 54.5)
+temps = c(28.9 , 15.2 , 28.7 , 72.5 , 48.6 , 52.4 , 37.6 , 49.5 , 62.1, 54.5)
 ```
 
 > S'estudio el temps de vida (en hores) de 10 bateries de 9 volts seleccionades a l'atzar de la producció diària, i s'obtenen els següents resultats:
@@ -18,12 +18,23 @@ paste(temps, collapse=', ')
 > Ajudeu-vos d'un diagrama Q-Q per estudiar si la mostra anterior s'ajusta a una llei exponencial.
 
 ```{r}
-(temps <- sort(temps))
-(probs <- ppoints(length(temps)))
-(q.exp <- qexp(probs, rate = 1/mean(temps)))
-(q.emp <- quantile(temps, p=probs))
+(rate <- 1/mean(temps))
 
-plot(qexp(probs), q.emp, main="Exponential Q-Q plot")
-qqline(temps, distribution=qexp,col="blue", lty=2)
+(probs <- ppoints(length(temps)))
+(q.exp <- qexp(probs, rate = rate))
+(q.emp <- sort(temps))
+
+(q.observed <- quantile(temps, probs = c(0.25,0.75)))
+(q.theoretic <- qexp(c(0.25,0.75), rate=rate))
 ```
 
+```{r, fig.width=5, fig.height=4}
+plot(q.exp, q.emp, main="Exponential Q-Q plot")
+abline(lm(q.observed~q.theoretic))
+```
+
+Si volem fer-ho amb R automàticament, podem utilitzar la funció `qqPlot` del paquet `car`
+
+```{r, fig.width=5, fig.height=4}
+car::qqPlot(temps, distribution='exp')
+```
