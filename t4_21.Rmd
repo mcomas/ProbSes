@@ -1,0 +1,24 @@
+---
+title: "Problema 21"
+output: pdf_document
+---
+
+## Problema 21
+
+```{r}
+tab <- matrix(c(15, 42,
+                32, 42,
+                10, 59), nrow=2)
+colnames(tab) = c('30', '25', '20')
+rownames(tab) = c('si', 'no')
+```
+
+```{r}
+addmargins(tab)
+```
+
+```{r}
+test <- chisq.test(tab)
+test$expected
+test
+```
