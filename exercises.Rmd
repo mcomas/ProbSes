@@ -3,8 +3,6 @@ title: "Exercicis"
 output:
   pdf_document:
     toc: yes
-  html_document:
-    toc: yes
 ---
 
 ```{r, echo=FALSE, include=F}
