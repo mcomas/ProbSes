@@ -1,36 +1,133 @@
 ---
 title: "Tema 6. Exercici 2.1"
-output: html_document
+output: pdf_document
 ---
 
-Per tal de preveure, en funció dels anys d'antiguitat, el nombre de reparacions per mes d'un determinat model de màquina, s'escull una mostra aleatòria de 8 d'aquestes màquines. S'han observat durant un període d'aproximadamanet un any i s'ha calculat el nombre de reparacions per mes. Les dades obtingudes són les següents:
+> Per tal de preveure, en funció dels anys d'antiguitat, el nombre de reparacions per mes d'un determinat model de màquina, s'escull una mostra aleatòria de 8 d'aquestes màquines. S'han observat durant un període d'aproximadamanet un any i s'ha calculat el nombre de reparacions per mes. Les dades obtingudes són les següents:
 
-```{r}
+```{r, include=FALSE}
 library(dplyr)
 library(tidyr)
 d = data.frame(X   = c(2.3, 2.5, 3.4, 4.1, 4.7, 5.1, 5.8, 6.0),
                Y = c(2.1, 2.6, 4.3, 4.7, 5.0, 5.8, 6.4, 7.2))
+N = NROW(d)
 ```
 
-```{r}
-SX = sqrt( with(d, sum( (X-mean(X))^2 ))/9 )
-SY = sqrt( with(d, sum( (Y-mean(Y))^2 ))/9 )
-SXY = with(d, sum( (X-mean(X)) * (Y-mean(Y)) ))/9
-(r<-SXY / (SX*SY))
+```{r, echo=FALSE, comment='  '}
+cat(sprintf('%20s:%s \n', 'Reparacions/mes', paste(sprintf('%5.1f',d$Y), collapse=', ')))
+cat(sprintf('%20s:%s \n', 'Antiguitat (anys)', paste(sprintf('%5.1f',d$X), collapse=', ')))
 ```
 
-```{r}
+> a. Estudieu numèricament i gràficament si existeix una relació lineal entre les dues variables.	
+> b. Estimeu els paràmetres del model lineal
+> c. Doneu una estimació puntual del nombre de reparacions per mes d'una màquina de 5 anys d'antiguitat.
+> d. Comproveu com, a un nivell de significació $\alpha=0.10$, es pot considerar que $\beta_0=0$.
+> e. Contrasteu si $\beta_1$=0
+> f. Feu un interval de confiança de E(Y) per a $x=4.5$.
+
+a)
+
+Primerament  calcularem la correlació per veure si existeix una relació lineal entre elles.
+
+```{r, results='hold'}
+c('SX2' = SX2 <- with(d, sum( (X-mean(X))^2 ))/(N-1),
+  'SY2' = SY2 <- with(d, sum( (Y-mean(Y))^2 ))/(N-1),
+  'SXY' = SXY <- with(d, sum( (X-mean(X)) * (Y-mean(Y))) )/(N-1),
+  'r' = r<-SXY / ( (SX <- sqrt(SX2)) * (SY <- sqrt(SY2))) )
+```
+
+```{r, echo=FALSE, fig.width=4, fig.height=3.5}
 plot(d)
 ```
 
-```{r}
-(b1 <- SXY / (SX*SY) * SY / SX)
-```
+b)
+
+Per calcular el l'estimador del pendent de la recta podem utilitzar la relació:
 
 ```{r}
-(b0 <-  with(d, mean(Y) - b1 * mean(X)))
+b1 <- r * SY / SX
 ```
+
+\[
+b_1 = r \frac{S_Y}{S_X} = `r r` \frac{`r SY`}{`r SX`} = `r b1`
+\]
+
+```{r}
+b0 <-  with(d, mean(Y) - b1 * mean(X))
+```
+
+\[
+b_0 = \bar{y} - b_1 \bar{x} = `r with(d, mean(Y))` - `r b1` \times  `r with(d, mean(X))` = `r b0`
+\]
+
+c)
+
+Per donar una estimació puntual tenim que evaluar la recta de regressió:
 
 ```{r}
 b0 + 5 * b1
 ```
+
+d)
+
+Contrast per $\beta_0 = 0$
+
+\[
+t = \frac{b_0}{s_{b_0}} \sim t_{n-2}
+\]
+
+on
+
+\[
+s_{b_0}^2 = \text{MSE} (\frac{1}{n} + \frac{\bar{x}^2}{(n-1) S_X^2})
+\]
+
+Anem a calcular `SSReg`, `SSTot` i `SSErr`.
+
+Sabem que 
+
+\[
+\text{SSTot} = \text{SSReg} + \text{SSErr}
+\]
+
+i també sabem
+
+\[
+r^2 = \frac{\text{SSReg}}{\text{SSTot}}
+\]
+
+D'on 
+
+\[
+\text{SSErr} = (1-r^2) \text{SSTot}  = (1-r^2) (n-1) \text{Var}(Y)
+\]
+
+```{r}
+c('SSErr' = (SSE <- (1-r^2) * (N-1) * SY^2),
+  'MSErr' = (MSE <- SSE/(N-2)))
+```
+
+```{r}
+MSE * (1/N + mean(d$X)^2 / ( (N-1) * SX2))
+```
+
+
+equivalentment,
+
+\[
+s_{b_0}^2 = s_{b_1}^2 \frac{1}{n} \sum_{i=1}^n x_i^2
+\]
+
+on
+
+\[
+s_{b_1}^2 = \frac{\text{MSE}}{(n-1)S_X^2}
+\]
+
+
+Contrast per $\beta_1 = 0$
+
+\[
+t = \frac{b_1}{s_{b_1}} \sim t_{n-2}
+\]
+
