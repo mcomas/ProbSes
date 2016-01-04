@@ -1,0 +1,34 @@
+---
+title: "Tema 7. Problema 2.3"
+output: html_document
+---
+
+> Un magatzem majorista rep del proviïdor habitual una partida de 2000 bombetes. Per tal de controls la qualitat de la partida s'escull una mostra a l'atzar de 20 bombetes. Si aquesta conté més d'una bombeta defectuosa, es decideix no acceptar la partida.
+> 
+> Calculeu la probabilitat de:
+> 
+>   a.- Acceptar una partida que conté un 2% de bombetes defectuoses.
+>   b.- Rebutjar una partida que conté un 8 per mil de peces defectuoses.
+
+_a_
+
+Sigui $X$ la v.a. que ens dona el nombre de bombetes defectuoses. S'acceptarà la partida si $X \leq 1$. La variable $X$ la podem modelar mitjançant una distribució binomial amb paràmetres $n=20$ i $p=0.02$. Per tant,
+
+\[
+\begin{array}{rcl}
+P(X \leq 1) &=& F_{Bin(20,0.02)}(1)  = \binom{20}{0} 0.02^{0} (1-0.02)^{20-0} + \binom{20}{1} 0.02^{1} (1-0.02)^{20-1} \\
+ &=& 0.940101
+\end{array}
+\]
+
+_b_
+
+En aquest cas $X$ es modela amb una binomial amb $n=20$ i $p=0.008$ i es rebutja quan $X > 1$.
+
+\[
+\begin{array}{rcl}
+P(X > 1) &=& 1 - P(X \leq 1) = 1-F_{Bin(20,0.008)}(1)  \\
+ &=& 1 - \left[\binom{20}{0} 0.008^{0} (1-0.008)^{20-0} + \binom{20}{1} 0.008^{1} (1-0.008)^{20-1} \right] \\
+ &=& 0.01105019
+\end{array}
+\]

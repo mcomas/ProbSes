@@ -1,0 +1,37 @@
+---
+title: "Tema 7. Problema 2.4"
+output: html_document
+---
+
+> Un magatzem de fruites comercialitza les llimones en capses de 200 unitats. La proporció de llimones malmeses és del 0.45%. Un eventual comprador, abans de fer l'encàrrec d'uns quants centenars de capses de llimones, decideix fer un control de qualitat que consisteix en escollir a l'atzar una de les capses i comprovar la qualitat de les llimones. Si no hi ha cap llimona en mal estat formalitza la compra. Si hi ha més de 2 llimones malmeses rebutja l'encàrrec. Si la capse conté 1 o 2 llimones malmeses, escull a l'atzar un nova capsa i, si aquesta conté menys de 2 llimones dolentes, formalitza la compra. En qualsevol altre cas, decideix no fer la compra. Calculeu la probabilitat que el comprador formalitzi la compra.
+
+Bàsicament tenim el següent esquema,
+
+\[
+\left\{
+\begin{array}{lcl}
+\text{Si $X_1 = 0$} &\;\;& \text{es compra}   \\
+\text{Si $1\leq X_1 \leq 2$} &\;\;&  
+\text{aleshores } \left\{
+\begin{array}{lcl}
+\text{si $X_2 < 2$} &\;\;& \text{es compra}   \\
+\text{si $X_2 \geq 2$} &\;\;& \text{es rebutja}  
+\end{array}
+\right. \\
+\text{Si $X_1 > 2$} &\;\;& \text{es rebutja}   \\
+\end{array}
+\right.
+\]
+
+Sigui $X_i$ és v.a. que ens dona el nombre de llimones malmeses en la $i$-èssima pesada. Es formalitzarà la compra en els següents escenaris que $X_1 = 0$ o quan $1\leq X_1 \leq 2$ i $X_2 < 2$. Això és
+
+\[
+\begin{array}{rcl}
+P(\text{"formalitzar la compra""}) &=& P(\{X_1 = 0\} \cup \{ (1\leq X_1 \leq 2) \cap (X_2 < 2) \}) \\
+ &=& P(X_1 = 0) + P(1\leq X_1 \leq 2) P(X_2 < 2 \;|\; 1\leq X_1 \leq 2) \\
+ &=& P(X_1 = 0) + \left[P(X_1 = 1) + P(X_1 = 2)\right] \left[P(X_2 = 0) + P(X_2 = 1)\right] \\
+ &=& `r pbinom(0, 200, 0.0045)` + (`r dbinom(1, 200, 0.0045)` + `r dbinom(2, 200, 0.0045)`) (`r dbinom(0, 200, 0.0045)` + `r dbinom(1, 200, 0.0045)`) \\
+ &=& `r pbinom(0, 200, 0.0045) + (pbinom(2, 200, 0.0045)-pbinom(0, 200, 0.0045)) * pbinom(1, 200, 0.0045)`.
+\end{array}
+\]
+

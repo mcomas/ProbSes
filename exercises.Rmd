@@ -18,7 +18,7 @@ sel = substr(rmd, 1, 2) %in% c('t3')
 chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
 cat(chunks, sep = '\n')
 
-cat('# Tema 4. Contrastos d\'hipotesis \n\n')
+cat('# Tema 4. Inferència estadística \n\n')
 sel = substr(rmd, 1, 2) %in% c('t4')
 chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
 cat(chunks, sep = '\n')

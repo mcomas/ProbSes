@@ -1,0 +1,16 @@
+---
+title: "Tema 7. Problema 2.9"
+output: html_document
+---
+
+> Del magatzem d'una fàbrica de plaques  i peces metàl·liques s'ha escollit una mostra aleatòria de 400 cargols del model CM324. En la mostra s'ha observat que 260 dels cargols tenien alguna taca en la seva superfície. Trobeu l'interval del 95% de confiança per a la verdadera proporció de cargols amb alguna taca.
+
+L'interval de confiança per la proporció $\pi$ de cargols amb alguna taca vé donat per
+
+\[
+\begin{array}{c}
+\pi \in \left[ p - z_{0.925} \frac{\sqrt{p(1-p)}}{\sqrt{n}},  p + z_{0.925} \frac{\sqrt{p(1-p)}}{\sqrt{n}} \right] \\
+\pi \in \left[ 0.65 - 1.96  \frac{\sqrt{0.65(1-0.65)}}{\sqrt{400}},  0.65 + 1.96 \frac{\sqrt{0.65(1-0.65)}}{\sqrt{400}} \right] \\
+\pi \in \left[ `r 0.65 - 1.96*  sqrt(0.65*(1-0.65))/sqrt(400)`, `r 0.65 + 1.96*  sqrt(0.65*(1-0.65))/sqrt(400)` \right]
+\end{array}
+\]

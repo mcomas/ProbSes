@@ -1,0 +1,47 @@
+---
+title: "Tema 7. Problema 2.12"
+output: html_document
+---
+
+```{r, include=FALSE}
+x = c(13, 15, 9, 7, 12, 8, 4, 10, 3, 5, 8, 14, 10, 11, 14, 15, 7, 16, 8, 8, 9, 14, 17, 13, 9)
+```
+
+> Dins un projecte de millora de la qualitat, una indústria tèxtil decideix controlar el nombre d'imperfeccions trobades en cada peça de roba. S'estima que en mitjana el nombre d'imperfeccions per cada peça de roba és de 12. Es demana:
+>
+> a.- Calculateu la probabilitat que en una d'aquestes peces de roba es trobin entre 10 i 12 imperfeccions, ambdós valors inclosos.
+> b.- Calculeu la probabilitat que en una d'aquestes peces de roba es trobin menys de 8 o més de 16 imperfeccions.
+> c.- Inspeccionat un lot de 25 peces de roba, s'ha trobat els següents nombre de defectes en cada una d'elles:
+>
+> `r paste(x, sep=', ')`
+>
+> Es manté 12 com a nombre d'imperfeccions en mitjana? Realitzeu un gràfic de control.
+
+_a_
+
+Modelarem la v.a. nombre d'imperfeccions $X$ mitjançant un distribució Poison amb paràmetre $\lambda=12$. Per calcular la probabilitat de l'esdeveniment $10 \leq X \leq 12$ ens ajudarem d'aquesta distribució.
+
+\[
+P(10 \leq X \leq 12) = F_{Pois(\lambda=12)}(12) - F_{Pois(\lambda=12)}(9) = `r ppois(12, 12)` - `r ppois(9, 12)` = `r ppois(12, 12) - ppois(9, 12)`
+\]
+
+_b_
+
+\[
+P(X < 8 \cup 16 < X) = P(8 \leq X \leq 16) = 1 - (F_{Pois(\lambda=12)}(16) - F_{Pois(\lambda=12)}(7)) = 1 - (`r ppois(16, 12)` - `r ppois(7, 12)`) = `r 1 - (ppois(16, 12) - ppois(7, 12))`
+\]
+
+_c_
+
+  * CCL = $\bar{\lambda}$ = `r 12`
+  * LCL = $\bar{\lambda} - 3 \sqrt{\bar{\lambda}}$ = `r 12 - 3 * sqrt(12)`
+  * UCL = $\bar{\lambda} + 3 \sqrt{\bar{\lambda}}$ = `r 12 + 3 * sqrt(12)`
+
+```{r, width=6, height=4}
+plot(x, ylim=c(0,25), xlab='', ylab='Nombre d\'imperfeccions')
+abline(h=12 - 3 * sqrt(12))
+abline(h=12, lty=2)
+abline(h=12 + 3 * sqrt(12))
+```
+  
+
