@@ -1,6 +1,6 @@
 ---
 title: "Tema 7. Problema 2.4"
-output: html_document
+output: pdf_document
 ---
 
 > Un magatzem de fruites comercialitza les llimones en capses de 200 unitats. La proporció de llimones malmeses és del 0.45%. Un eventual comprador, abans de fer l'encàrrec d'uns quants centenars de capses de llimones, decideix fer un control de qualitat que consisteix en escollir a l'atzar una de les capses i comprovar la qualitat de les llimones. Si no hi ha cap llimona en mal estat formalitza la compra. Si hi ha més de 2 llimones malmeses rebutja l'encàrrec. Si la capse conté 1 o 2 llimones malmeses, escull a l'atzar un nova capsa i, si aquesta conté menys de 2 llimones dolentes, formalitza la compra. En qualsevol altre cas, decideix no fer la compra. Calculeu la probabilitat que el comprador formalitzi la compra.

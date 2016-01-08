@@ -1,6 +1,6 @@
 ---
 title: "Tema 7. Problema 2.9"
-output: html_document
+output: pdf_document
 ---
 
 > Del magatzem d'una fàbrica de plaques  i peces metàl·liques s'ha escollit una mostra aleatòria de 400 cargols del model CM324. En la mostra s'ha observat que 260 dels cargols tenien alguna taca en la seva superfície. Trobeu l'interval del 95% de confiança per a la verdadera proporció de cargols amb alguna taca.

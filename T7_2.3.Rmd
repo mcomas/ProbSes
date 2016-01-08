@@ -1,6 +1,6 @@
 ---
 title: "Tema 7. Problema 2.3"
-output: html_document
+output: pdf_document
 ---
 
 > Un magatzem majorista rep del proviïdor habitual una partida de 2000 bombetes. Per tal de controls la qualitat de la partida s'escull una mostra a l'atzar de 20 bombetes. Si aquesta conté més d'una bombeta defectuosa, es decideix no acceptar la partida.
