@@ -13,13 +13,18 @@ sel = substr(rmd, 1, 2) %in% c('t2')
 chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
 cat(chunks, sep = '\n')
 
-cat('# Tema 3. Intervals de confiança i qualitat \n\n')
+cat('# Tema 3. Inferència estadística: intervals de confiança i gràfics de control \n\n')
 sel = substr(rmd, 1, 2) %in% c('t3')
 chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
 cat(chunks, sep = '\n')
 
-cat('# Tema 4. Inferència estadística \n\n')
+cat('# Tema 4. Inferència estadística: contrastos d\'hipòtesis \n\n')
 sel = substr(rmd, 1, 2) %in% c('t4')
+chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
+cat(chunks, sep = '\n')
+
+cat('# Tema 5. Regressió lineal simple \n\n')
+sel = substr(rmd, 1, 2) %in% c('t5')
 chunks <- paste0("```{r child = '", rmd[sel], "'}\n```\n\n--------------------\n")
 cat(chunks, sep = '\n')
 
@@ -81,7 +86,7 @@ print_text()
 
 --------------------
 
-# Tema 3. Intervals de confiança i qualitat 
+# Tema 3. Inferència estadística: intervals de confiança i gràfics de control 
 
 ```{r child = 't3_05.Rmd'}
 ```
@@ -123,7 +128,7 @@ print_text()
 
 --------------------
 
-# Tema 4. Contrastos d'hipotesis 
+# Tema 4. Inferència estadística: contrastos d'hipòtesis 
 
 ```{r child = 't4_01.Rmd'}
 ```
@@ -179,3 +184,8 @@ print_text()
 ```
 
 --------------------
+
+# Tema 5. Regressió lineal simple 
+
+```{r child = 't5_01.Rmd'}
+```

@@ -1,0 +1,189 @@
+---
+title: "Problema 1"
+output: pdf_document
+---
+
+```{r orig, include=FALSE}
+library(dplyr)
+X = data.frame(
+  x = c(1,2,3,4,5),
+  y = c(0.22, 0.59, 1.01, 1.36, 1.42)
+)
+```
+
+## Problema 1
+
+> En un sistema informàtic multiusuari s'està estudiant el temps de resposta $Y$ de la unitat central en funció del nombre $X$ d'usuaris que simultàniament estan utilitzant el sistema. S'ha recollit la següent informació:
+
+```{r, echo=FALSE}
+knitr::kable(X %>% setNames(c('Usuaris', 'Temps')))
+```
+
+>   a. Estudieu numèricament i gràficament si existeix un relació lineal entre les dues variables
+>   b. Ajusteu un model lineal simple a l'anterior distribució. Doneu una interpretació del significat dels valors de $b_0$ i $b_1$ obtinguts.
+>   c. Trobeu un interval de confiança del 95% del pendent $\beta_1$ de la recta del model.
+>   d. Estudieu, a un nivell de significació $\alpha=0.10$, si es versemblant considerar que $\beta_0=0$.
+
+Treballarem amb els següent conjunt de dades:
+
+```{r orig}
+```
+
+__a__
+
+Amb R podem representar gràficament
+```{r fig.width=5, fig.height=4}
+with(X, plot(x, y, xlab='Usuaris (X)', ylab='Temps (Y)'))
+```
+
+Per calcular la covariància ens ajudarem de la següent taula:
+
+```{r, echo=FALSE}
+(df <- X %>% transmute(
+  '$x_i$' = x,
+  '$y_i$' = y,
+  '$(x_i-\\bar{x})^2$' = (x-mean(x))^2,
+  '$(y_i-\\bar{y})^2$' = (y-mean(y))^2,
+  '$(x_i-\\bar{x})(y_i-\\bar{y})$' = (x-mean(x))*(y-mean(y))
+  )) %>% knitr::kable()
+names(df) = c('x','y','xc2', 'yc2', 'xcyc')
+```
+
+D'on treiem que la variància d'X és
+
+\[
+S_X^2 = \frac{\sum_{i=1}^n (x_i-\bar{x})^2}{n-1} = \frac{`r paste(df$xc2, collapse='+')`}{`r NROW(df)-1`} = \frac{`r sum(df$xc2)`}{`r NROW(df)-1`} = `r (varX <-  sum(df$xc2)/(NROW(df)-1))`
+\]
+
+la de Y
+
+\[
+S_Y^2 = \frac{\sum_{i=1}^n (y_i-\bar{y})^2}{n-1} = \frac{`r paste(sprintf("%4.2f",df$yc2), collapse='+')`}{`r NROW(df)-1`} = \frac{`r sum(df$yc2)`}{`r NROW(df)-1`} = `r (varY <-  sum(df$yc2)/(NROW(df)-1))`
+\]
+
+i la covariància entre X i Y
+
+\[
+S_{XY} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{n-1} = \frac{`r paste(sprintf("%4.2f",df$xcyc), collapse='+')`}{`r NROW(df)-1`} = \frac{`r sum(df$xcyc)`}{`r NROW(df)-1`} = `r (covXY <- sum(df$xcyc)/(NROW(df)-1))`.
+\]
+
+La correlació vé donada per
+
+\[
+r_{XY} = \frac{S_{XY}}{S_X S_Y} = \frac{`r covXY`}{\sqrt{ `r varX` } \sqrt{`r varY`}} = `r (corXY <- covXY/sqrt(varX)/sqrt(varY))`
+\]
+
+Amb R la correlació es calcula amb la funció `cor`:
+
+```{r}
+with(X, cor(x,y))
+```
+
+__b__
+
+Amb R, un model lineal simple s'ajusta mitjançant la funció `lm`:
+
+```{r}
+model = lm(y~x, data=X)
+summary(model)
+```
+
+L'estimador del pendent $b_1$ el podem obtenir mitjançant
+
+\[
+b_1 = \frac{S_{XY}}{S_X} = \frac{`r covXY`}{`r varX`} = `r (b<-covXY/varX) `.
+\]
+
+Per calcular el terme independent $b_0$, obliguem que la recta passi per $(\bar{x}, \bar{y})$
+
+\[
+b_0 = \bar{y} - b_1 \bar{x} = `r mean(X$y)` - `r b` \times `r mean(X$x)` = `r (a <- mean(X$y) - b * mean(X$x))`
+\]
+
+El valor $b_0=`r a`$ ens informa de la velocitat mitjana de resposta del sistema informàtic quan hi han 0 usuaris. Mentres que el valor $b_1=`r b`$ ens informa de quin és l'augment que sofreix el temps de resposta en augmentar amb \emph{un} el nombre d'usuaris.
+
+__c__
+
+Amb R, si volem calcular un interval de confiança del 95% del pendent $b_1$ ho podem fer mitjançant la funció `confint.default`
+
+```{r}
+confint(model)
+```
+
+Veiem que ens retorna un interval de confiança tant pel terme independent com pel pendent. Per fer-ho amb la informació de què disposem, necessitem calcular primer la variància de $b_1$. De fet, a la sortida d'R del model ja l'hem calculat automàticament, i aquesta ha resultat ser $S^2_{b_1} = `r sqrt(vcov(model)[2,2])`^2 = `r vcov(model)[2,2]`$.
+
+Per calcular-ho manualment utilitzarem la següent expressió vista a teoria
+
+\[
+S^2_{b_1} = \frac{\text{MSE}}{\sum_{i=1}^n (x_i - \bar{x})^2} 
+\]
+
+Per obtenir al valor de MSE procedirem de la següent manera:
+
+  1. A partir de la relació $r_{XY}^2 = R^2 = \frac{\text{SSR}}{\text{SST}}$ calcularem el valor de $\text{SSR}$.
+  2. A partir de la relació $\text{SST} = \text{SSR} + \text{SSE}$ calcularem el valor de $\text{SSE}$.
+  3. Finalment, calcularem MSE com $\text{MSE} = \frac{SSE}{n-2}$ (suma de quadrats dividit pels graus de llibertat, en aquest cas $n-2$).
+
+Per obtenir l'SSR podem utilitzar la relació $r_{XY}^2 = \frac{\text{SSR}}{\text{SST}}$. Noteu que  $\text{SST}$ ja el tenim calculat i és 
+\[\text{SST} = `r paste(sprintf("%4.2f",df$yc2), collapse='+')` = `r sum(df$yc2)`.\]
+
+Per trobar $\text{SSR}$ utilitzem la següent relació
+
+\[
+\begin{array}{rcl}
+r_{XY}^2 &=&  \frac{\text{SSR}}{\text{SST}} \\ 
+`r corXY`^2 &=&  \frac{\text{SSR}}{`r sum(df$yc2)`} \\
+\text{SSR} &=& `r corXY^2 * sum(df$yc2)`
+\end{array}
+\]
+
+Finalment, és facil aïllar SSE de $\text{SST} = \text{SSR} + \text{SSE}$
+
+\[
+\begin{array}{rcl}
+`r sum(df$yc2)` &=& `r corXY^2 * sum(df$yc2)` + \text{SSE}\\
+\text{SSE} &=& `r sum(df$yc2) - corXY^2 * sum(df$yc2)` 
+\end{array}
+\]
+
+Només queda calcular MSE com $\text{MSE} = \frac{SSE}{n-2} = \frac{`r sum(df$yc2) - corXY^2 * sum(df$yc2)` }{`r NROW(X) -2`} = `r (MSE <- (sum(df$yc2) - corXY^2 * sum(df$yc2))/(NROW(X)-2))`$. Noteu que de fet, a la sortida d'R ja se'ns dona el valor de MSE, o més concretament $\sqrt{MSE} = `r sqrt(MSE)`$.
+
+Amb el valor de MSE ja podem calcular la variància del coeficient $b_1$ ($S_{b_1}^2$)
+
+\[
+S^2_{b_1} = \frac{\text{MSE}}{\sum_{i=1}^n (x_i - \bar{x})^2} = \frac{`r MSE`}{`r sum(df$xc2)`} = `r (sb <- MSE/sum(df$xc2))`
+\]
+
+L'interval de confiança és
+
+\[
+\begin{array}{rcl}
+\beta_1 &\in& \left[b_1 - t_{n-2,\alpha/2} S_{b_1}, b_1 + t_{n-2,\alpha/2} S_{b_1}\right]\\
+\beta_1 &\in& \left[`r b` - `r round(qt(1-0.05/2, NROW(X)-2),2)` \times \sqrt{`r sb`}, `r b` + `r round(qt(1-0.05/2, NROW(X)-2),2)` \times \sqrt{`r sb`}\right] \\
+\beta_1 &\in& \left[`r b - qt(1-0.05/2, NROW(X)-2) * sqrt(sb)`, `r b + qt(1-0.05/2, NROW(X)-2) * sqrt(sb)`\right].
+\end{array}
+\]
+
+__b__
+
+Primerament calcularem $S^2_{b_0}$.
+
+\[
+S^2_{b_0} = \text{MSE} \left[ \frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^n (x-\hat{x})^2} \right] = `r MSE` \left[ \frac{1}{`r NROW(X)`} + \frac{`r mean(X$x)`^2}{`r sum(df$xc2)`} \right] = `r (sb02 <- MSE * ( 1/NROW(X) + mean(X$x)^2/sum(df$xc2)))`
+\]
+
+Per contrastar si és versemblant assumir $\beta_0 = 0$ realitzarem el contrast
+
+\[
+\begin{array}{rcl}
+H_0 &:& \beta_0 = 0\\
+H_1 &:& \beta_0 \neq 0
+\end{array}
+\]
+
+Per això calculem l'estadístic de contrast
+\[
+t_{\text{obs}} = \frac{b_0 - 0}{S_{b_0}} = \frac{`r a`}{\sqrt{`r sb02`}} = `r a/sqrt(sb02)`.
+\]
+
+que segueix un distribució $t_{n-2}$. Si agafem les taules veurem que el p-valor associat a aquest estadístic de contrast és `r 2*(1-pt(abs(a/sqrt(sb02)), NROW(X)-2))`. Per tant, podem assumir que el valor de $\beta_0$ és igual a zero, o dit d'altre forma, no hem trobat evidències per veure que $\beta_0$ sigui diferent de zero.
