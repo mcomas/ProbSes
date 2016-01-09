@@ -3,7 +3,7 @@ title: "Problema 22"
 output: pdf_document
 ---
 
-## Problema 20
+## Problema 22
 
 > El diàmetre de les varetes metàl·liques VM032 és una característica important en la seva qualitat i és important realitzar-ne un control en el seu procés de producció. D’acord amb el disseny original, les especificacions per al diàmetre de les varetes són 0.50350±0.0010 polzades. És a dir, al voltant de 0.50polzades. La taula següent mostra els valors de les mitjanes ($\bar{x}$) i dels rangs ($R$) per a 20 mostres de 5 varetes cada una fabricades en un màquina-torn específic. Noteu que els valors que apareixen per a la mitjana en la taula són només les tres darreres xifres de la mesura. És a dir, 342 significa 0.50342. Els valors de R cal multiplicar-los per 10-4, és a dir, 8 representa 0.0008.
 

@@ -8,7 +8,7 @@ output: pdf_document
 > Una empresa publicitària vol estudiar fins a quin punt la durada dels anuncis publicitaris a la televisió influeix en la memòria del missatge per part de l'espectador. Amb aquesta finalitat, s'escull una mostra de 200 estudiants universitaris que són dividits aleatòriament en 3 grups per tal de dur a terme la següent experimentació. El primer grup (57 estudiants) visiona un programa de televisió el qual s'interromp per passar un anunci de 30 segons de durada d'una determinada marca de colònia. El segon grup (74 estudiants) visiona el mateix programa de televisió amb el mateix anunci publicitari, però resumit en 25 segons de durada. Finalment, el tercer grup (69 estudiants) fa el mateix però amb una versió encara més reduïda de l'anunci que només dura 20 segons. Dos dies més tard es pregunta als estudiants si recorden o no la marca de colònia de l'anunci. Els resultats obtinguts es resumeixen en la següent taula:
 
 
-```{r, echo=FALSE}
+```{r, results='asis', echo=FALSE}
 tab <- matrix(c(15, 42,
                 32, 42,
                 10, 59), nrow=2)
