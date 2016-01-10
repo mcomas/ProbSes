@@ -1,0 +1,130 @@
+---
+title: "Problema 1"
+output: pdf_document
+---
+
+```{r, include=FALSE}
+n=14
+sy = 361
+sy2 = 9435
+sx = 460
+sx2 = 15334
+sxy = 11981
+d = function(x) sprintf("%d", x)
+f = function(x) sprintf("%4.2f", x)
+```
+
+> Donades dues variables x i y, es vol estudiar si hi pot haver relació de tipus lineal entre elles. Es coneixen les següents dades: 
+
+\[
+n=`r n`;\;\sum y_i = `r d(sy)`;\;\sum y_i^2 = `r d(sy2)`;\;\sum x_i = `r d(sx)`;\;\sum x_i^2 = `r d(sx2)`;\;\sum x_i y_i = `r d(sxy)`
+\]
+
+> Calculeu la recta de regressió i contrasteu si la regressió és significativa.
+
+Utilitzant les mitjanes $\bar{x} = \frac{`r sx`}{`r n`} = `r f(mx<-sx/n)`$ i $\bar{y} = \frac{`r sy`}{`r n`} = `r f(my<-sy/n)`$ calculem primer les sumes de quadrats $\sum (x_i-\bar{x})^2$, $\sum (y_i-\bar{y})^2$ i $\sum (x_i-\bar{x})(y_i-\bar{y})$
+
+\[
+\begin{array}{rcl}
+\sum (x_i-\bar{x})^2 &=& \sum x_i^2 - 2 x_i \bar{x} + \bar{x}^2 \\
+&=& \sum x_i^2 - \sum 2 x_i \bar{x} + \sum \bar{x}^2 \\
+&=& \sum x_i^2 - 2 \bar{x} \sum x_i + n \bar{x}^2 \\
+&=& `r d(sx2)` - 2 \times `r f(mx)` \times `r d(sx)` + `r n` \times `r f(mx)`^2 \\
+&=& `r f(sx2c <- sx2 - 2 * mx * sx + n * mx^2)`
+\end{array}
+\]
+
+\[
+\begin{array}{rcl}
+\sum (y_i-\bar{y})^2 &=& \sum y_i^2 - 2 y_i \bar{y} + \bar{y}^2 \\
+&=& \sum y_i^2 - \sum 2 y_i \bar{y} + \sum \bar{y}^2 \\
+&=& \sum y_i^2 - 2 \bar{y} \sum y_i + n \bar{y}^2 \\
+&=& `r d(sy2)` - 2 \times `r f(my)` \times `r d(sy)` + `r n` \times `r f(my)`^2 \\
+&=& `r f(sy2c <- sy2 - 2 * my * sy + n * my^2)`
+\end{array}
+\]
+
+\[
+\begin{array}{rcl}
+\sum (x_i-\bar{x})(y_i-\bar{y}) &=& \sum x_i y_i - x_i \bar{y} - \bar{x} y_i + \bar{x}\bar{y} \\
+&=& \sum x_i y_i - \sum x_i \bar{y} - \sum \bar{x} y_i + \sum \bar{x}\bar{y} \\
+&=& \sum x_i y_i - \bar{y} \sum x_i - \bar{x} \sum y_i + n \bar{x}\bar{y} \\
+&=& `r d(sxy)` - `r f(my)` \times `r d(sx)` - `r f(mx)` \times `r d(sy)` + `r n` \times `r f(mx)` \times `r f(my)` \\
+&=& `r f(sxyc <- sxy - my * sx - mx * sy + n * mx * my)`.
+\end{array}
+\]
+
+
+Amb les sumes de quadrats calculades podem calcular la variància de $X$ i  $Y$ ($S_X^2$ i $S_y^2$) i la covariància entre $X$ i $Y$ ($S_{XY}$)
+
+\[
+\begin{array}{l}
+S_X^2 = \frac{\sum (x_i-\bar{x})^2}{n-1} = \frac{`r f(sx2c)`}{`r n-1`} = `r f(varX <- sx2c/(n-1))`;\\
+S_Y^2 = \frac{\sum (y_i-\bar{y})^2}{n-1} = \frac{`r f(sy2c)`}{`r n-1`} = `r f(varY <- sy2c/(n-1))`;\\
+S_{XY} = \frac{\sum (x_i-\bar{x})(y_i-\bar{y})}{n-1} = \frac{`r f(sxyc)`}{`r n-1`} = `r f(covXY <- sxyc/(n-1))`;\\
+\end{array}
+\]
+
+Aprofitem per calcular la correlació
+
+\[
+r_{XY} = \frac{S_{XY}}{S_X S_Y} = \frac{`r f(covXY)`}{\sqrt{ `r f(varX)` } \sqrt{`r f(varY)`}} = `r f(corXY <- covXY/sqrt(varX)/sqrt(varY))`
+\]
+
+L'estimador del pendent $b_1$ el podem obtenir mitjançant
+
+\[
+b_1 = \frac{S_{XY}}{S_X} = \frac{`r f(covXY)`}{`r f(varX)`} = `r f(b1<-covXY/varX) `.
+\]
+
+Per calcular el terme independent $b_0$, obliguem que la recta passi per $(\bar{x}, \bar{y})$
+
+\[
+b_0 = \bar{y} - b_1 \bar{x} = `r f(my)` - `r f(b1)` \times `r f(mx)` = `r f(b0 <- my - b1 * mx)`
+\]
+
+Per contrastar si la regressió és significativa, dit d'altre manera, si podem rebutjar $H_0$ a
+
+\[
+\begin{array}{rcl}
+H_0 &:& \text{La regressió \emph{no} és significativa}  \\
+H_1 &:& \text{La regessió és significativa}
+\end{array}
+\]
+
+necessitem calcular l'estadístic de contrast
+
+\[
+F_{obs} = \frac{MSM}{MSE}
+\]
+
+que segueix una distribució $F_{1, n-2}$. Per calcular MSM i MSE ens ajudarem de la taula
+
+|            |  Gr. llib. |  SS (Suma quad.)             |  MS (Mitj. quad.)   |
+|------------|------------|------------------------------|---------------------|
+| Model      |    1       | $\sum (\hat{y}_i-\bar{y})^2$ |          SSM/1      |
+| Errors     |    n-2     | $\sum (y_i-\hat{y}_i)^2$     |          SSE/(n-2)  |
+| Totals     |    n-1     | $\sum (y_i - \bar{y})^2=`r sy2`$     |          SST/(n-1)  |
+
+SST ja l'hem calculat (`r (SST <- sy2)`). Utilitzant la relació
+
+\[
+r_{XY}^2 = R^2 = \frac{\text{SSM}}{\text{SST}}
+\]
+
+podem obtenir $\text{SSM} = `r f(corXY)`^2 \times `r SST` = `r f(SSM <- corXY^2 * SST)`$. Per calcular SSE utilitzarem la relació
+
+\[
+\text{SST} = \text{SSM} + \text{SSE}
+\]
+
+d'on trobem $\text{SSE} = `r f(SST)` - `r f(SSM)` = `r f(SSE <- SST - SSM)`$.
+
+
+|         |  Gr. llib. |  SS (Suma quad.)  |  MS (Mitj. quad.)   |  $F_{obs}$  |
+|---------|------------|-------------------|---------------------------|------------------|
+| Model   |    1       |  `r f(SSM)`       |    `r f(MSM<-SSM/1)`      |  `r f(SSM/(SSE/n-2))`  |
+| Errors  |  `r n-2`   |  `r f(SSE)`       |    `r f(MSE <- SSE/(n-2))`|                  |
+| Totals  |  `r n-1`   |  `r f(SST)`       |    `r f(MST<-SST/(n-1))`  |                  |
+
+Utitzant les taules trobem que el $p$-valor associat a `r f(SSM/(SSE/n-2))` amb una Fisher amb $1$ i $`r n-2`$ graus de llibertat és $`r f(pf(SSM/(SSE/n-2), 1, n-2, lower.tail=F))`$.

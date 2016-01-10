@@ -15,7 +15,7 @@ X = data.frame(
 
 > En un sistema informàtic multiusuari s'està estudiant el temps de resposta $Y$ de la unitat central en funció del nombre $X$ d'usuaris que simultàniament estan utilitzant el sistema. S'ha recollit la següent informació:
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, results='asis'}
 knitr::kable(X %>% setNames(c('Usuaris', 'Temps')))
 ```
 
@@ -38,7 +38,7 @@ with(X, plot(x, y, xlab='Usuaris (X)', ylab='Temps (Y)'))
 
 Per calcular la covariància ens ajudarem de la següent taula:
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, results='asis'}
 (df <- X %>% transmute(
   '$x_i$' = x,
   '$y_i$' = y,
