@@ -47,33 +47,43 @@ Per calcular la covariància ens ajudarem de la següent taula:
   '$(x_i-\\bar{x})(y_i-\\bar{y})$' = (x-mean(x))*(y-mean(y))
   )) %>% knitr::kable()
 names(df) = c('x','y','xc2', 'yc2', 'xcyc')
+n = NROW(df)
 ```
 
-D'on treiem que la variància d'X és
+De les dues primeres columnes en podem calcular la mitjana de X i Y
 
 \[
-S_X^2 = \frac{\sum_{i=1}^n (x_i-\bar{x})^2}{n-1} = \frac{`r paste(df$xc2, collapse='+')`}{`r NROW(df)-1`} = \frac{`r sum(df$xc2)`}{`r NROW(df)-1`} = `r (varX <-  sum(df$xc2)/(NROW(df)-1))`
+\begin{array}{l}
+\bar{x} = \frac{\sum_{i=1}^n x_i}{n} = \frac{`r paste(df$x, collapse='+')`}{`r n`} = `r (x.mean <- sum(df$x) / n)` \\
+\bar{y} = \frac{\sum_{i=1}^n y_i}{n} = \frac{`r paste(df$y, collapse='+')`}{`r n`} = `r (y.mean <- sum(df$y) / n)`.
+\end{array}
+\]
+
+Amb les mitjanes $\bar{x}$ i $\bar{y}$ podem calcular les altres columnes, d'on treiem que la variància d'X és
+
+\[
+S_X^2 = \frac{\sum_{i=1}^n (x_i-\bar{x})^2}{n-1} = \frac{`r paste(df$xc2, collapse='+')`}{`r n-1`} = \frac{`r sum(df$xc2)`}{`r n-1`} = `r (varX <-  sum(df$xc2)/(n-1))`,
 \]
 
 la de Y
 
 \[
-S_Y^2 = \frac{\sum_{i=1}^n (y_i-\bar{y})^2}{n-1} = \frac{`r paste(sprintf("%4.2f",df$yc2), collapse='+')`}{`r NROW(df)-1`} = \frac{`r sum(df$yc2)`}{`r NROW(df)-1`} = `r (varY <-  sum(df$yc2)/(NROW(df)-1))`
+S_Y^2 = \frac{\sum_{i=1}^n (y_i-\bar{y})^2}{n-1} = \frac{`r paste(sprintf("%4.2f",df$yc2), collapse='+')`}{`r n-1`} = \frac{`r sum(df$yc2)`}{`r n-1`} = `r (varY <-  sum(df$yc2)/(n-1))`
 \]
 
 i la covariància entre X i Y
 
 \[
-S_{XY} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{n-1} = \frac{`r paste(sprintf("%4.2f",df$xcyc), collapse='+')`}{`r NROW(df)-1`} = \frac{`r sum(df$xcyc)`}{`r NROW(df)-1`} = `r (covXY <- sum(df$xcyc)/(NROW(df)-1))`.
+S_{XY} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{n-1} = \frac{`r paste(sprintf("%4.2f",df$xcyc), collapse='+')`}{`r n-1`} = \frac{`r sum(df$xcyc)`}{`r n-1`} = `r (covXY <- sum(df$xcyc)/(n-1))`.
 \]
 
-La correlació vé donada per
+Per mesurar el grau de relació lineal entre les variales ens ajudarem de la correlació. Aquesta vé donada per
 
 \[
 r_{XY} = \frac{S_{XY}}{S_X S_Y} = \frac{`r covXY`}{\sqrt{ `r varX` } \sqrt{`r varY`}} = `r (corXY <- covXY/sqrt(varX)/sqrt(varY))`
 \]
 
-Amb R la correlació es calcula amb la funció `cor`:
+d'on veiem que certament hi ha un correlació forta entre les variables entre el nombre d'usuaris i el temps de resposta. Amb R, la correlació es calcula amb la funció `cor`:
 
 ```{r}
 with(X, cor(x,y))
@@ -91,16 +101,16 @@ summary(model)
 L'estimador del pendent $b_1$ el podem obtenir mitjançant
 
 \[
-b_1 = \frac{S_{XY}}{S_X} = \frac{`r covXY`}{`r varX`} = `r (b<-covXY/varX) `.
+b_1 = \frac{S_{XY}}{S_X} = \frac{`r covXY`}{`r varX`} = `r (b1<-covXY/varX) `.
 \]
 
 Per calcular el terme independent $b_0$, obliguem que la recta passi per $(\bar{x}, \bar{y})$
 
 \[
-b_0 = \bar{y} - b_1 \bar{x} = `r mean(X$y)` - `r b` \times `r mean(X$x)` = `r (a <- mean(X$y) - b * mean(X$x))`
+b_0 = \bar{y} - b_1 \bar{x} = `r y.mean` - `r b1` \times `r x.mean` = `r (b0 <- y.mean - b1 * x.mean)`
 \]
 
-El valor $b_0=`r a`$ ens informa de la velocitat mitjana de resposta del sistema informàtic quan hi han 0 usuaris. Mentres que el valor $b_1=`r b`$ ens informa de quin és l'augment que sofreix el temps de resposta en augmentar amb \emph{un} el nombre d'usuaris.
+El valor $b_0=`r b0`$ ens informa de la velocitat mitjana de resposta del sistema informàtic quan hi han 0 usuaris. Mentres que el valor $b_1=`r b1`$ ens informa de quin és l'augment que sofreix el temps de resposta en augmentar amb \emph{un} el nombre d'usuaris.
 
 __c__
 
@@ -112,43 +122,41 @@ confint(model)
 
 Veiem que ens retorna un interval de confiança tant pel terme independent com pel pendent. Per fer-ho amb la informació de què disposem, necessitem calcular primer la variància de $b_1$. De fet, a la sortida d'R del model ja l'hem calculat automàticament, i aquesta ha resultat ser $S^2_{b_1} = `r sqrt(vcov(model)[2,2])`^2 = `r vcov(model)[2,2]`$.
 
-Per calcular-ho manualment utilitzarem la següent expressió vista a teoria
+Per calcular-ho manualment ens ajudarem de la taula de suma de quadrats
+
+|            |  Gr. llib. |  SS (Suma quad.)             |  MS (Mitj. quad.)   |
+|------------|------------|------------------------------|---------------------|
+| Model      |    1       | $\sum (\hat{y}_i-\bar{y})^2$ |          SSM/1      |
+| Errors     |    n-2     | $\sum (y_i-\hat{y}_i)^2$     |          SSE/(n-2)  |
+| Totals     |    n-1     | $\sum (y_i - \bar{y})^2$     |          SST/(n-1)  |
+
+SST ja l'hem calculat previament $\text{SST} = `r paste(sprintf("%4.2f",df$yc2), collapse='+')` = `r (SST <- sum(df$yc2))`$. Utilitzant la relació
 
 \[
-S^2_{b_1} = \frac{\text{MSE}}{\sum_{i=1}^n (x_i - \bar{x})^2} 
+r_{XY}^2 = R^2 = \frac{\text{SSM}}{\text{SST}}
 \]
 
-Per obtenir al valor de MSE procedirem de la següent manera:
-
-  1. A partir de la relació $r_{XY}^2 = R^2 = \frac{\text{SSR}}{\text{SST}}$ calcularem el valor de $\text{SSR}$.
-  2. A partir de la relació $\text{SST} = \text{SSR} + \text{SSE}$ calcularem el valor de $\text{SSE}$.
-  3. Finalment, calcularem MSE com $\text{MSE} = \frac{SSE}{n-2}$ (suma de quadrats dividit pels graus de llibertat, en aquest cas $n-2$).
-
-Per obtenir l'SSR podem utilitzar la relació $r_{XY}^2 = \frac{\text{SSR}}{\text{SST}}$. Noteu que  $\text{SST}$ ja el tenim calculat i és 
-\[\text{SST} = `r paste(sprintf("%4.2f",df$yc2), collapse='+')` = `r sum(df$yc2)`.\]
-
-Per trobar $\text{SSR}$ utilitzem la següent relació
+podem obtenir $\text{SSM} = `r corXY`^2 \times `r SST` = `r (SSM <- corXY^2 * SST)`$. Per calcular SSE utilitzarem la relació
 
 \[
-\begin{array}{rcl}
-r_{XY}^2 &=&  \frac{\text{SSR}}{\text{SST}} \\ 
-`r corXY`^2 &=&  \frac{\text{SSR}}{`r sum(df$yc2)`} \\
-\text{SSR} &=& `r corXY^2 * sum(df$yc2)`
-\end{array}
+\text{SST} = \text{SSM} + \text{SSE}
 \]
 
-Finalment, és facil aïllar SSE de $\text{SST} = \text{SSR} + \text{SSE}$
+d'on trobem $\text{SSE} = `r SST` - `r SSM` = `r (SSE <- SST - SSM)`.
 
-\[
-\begin{array}{rcl}
-`r sum(df$yc2)` &=& `r corXY^2 * sum(df$yc2)` + \text{SSE}\\
-\text{SSE} &=& `r sum(df$yc2) - corXY^2 * sum(df$yc2)` 
-\end{array}
-\]
+|            |  Gr. llib. |  SS (Suma quad.)             |  MS (Mitj. quad.)        |
+|------------|------------|------------------------------|--------------------------|
+| Model      |    1       | `r SSM`                      |     `r (MSM<-SSM/1)`     |
+| Errors     |  `r n-2`   |  `r SSE`                     |    `r (MSE <- SSE/(n-2))`|
+| Totals     |  `r n-1`   |  `r SST`                     |    `r (MST<-SST/(n-1))`  |
 
-Només queda calcular MSE com $\text{MSE} = \frac{SSE}{n-2} = \frac{`r sum(df$yc2) - corXY^2 * sum(df$yc2)` }{`r NROW(X) -2`} = `r (MSE <- (sum(df$yc2) - corXY^2 * sum(df$yc2))/(NROW(X)-2))`$. Noteu que de fet, a la sortida d'R ja se'ns dona el valor de MSE, o més concretament $\sqrt{MSE} = `r sqrt(MSE)`$.
+Amb R, podríem obtenir la taula mitjançant la comanda `anova`
 
-Amb el valor de MSE ja podem calcular la variància del coeficient $b_1$ ($S_{b_1}^2$)
+```{r}
+anova(model)
+```
+
+Ja estem en condicions de calcular la variancia de $b_1$
 
 \[
 S^2_{b_1} = \frac{\text{MSE}}{\sum_{i=1}^n (x_i - \bar{x})^2} = \frac{`r MSE`}{`r sum(df$xc2)`} = `r (sb <- MSE/sum(df$xc2))`
@@ -159,8 +167,8 @@ L'interval de confiança és
 \[
 \begin{array}{rcl}
 \beta_1 &\in& \left[b_1 - t_{n-2,\alpha/2} S_{b_1}, b_1 + t_{n-2,\alpha/2} S_{b_1}\right]\\
-\beta_1 &\in& \left[`r b` - `r round(qt(1-0.05/2, NROW(X)-2),2)` \times \sqrt{`r sb`}, `r b` + `r round(qt(1-0.05/2, NROW(X)-2),2)` \times \sqrt{`r sb`}\right] \\
-\beta_1 &\in& \left[`r b - qt(1-0.05/2, NROW(X)-2) * sqrt(sb)`, `r b + qt(1-0.05/2, NROW(X)-2) * sqrt(sb)`\right].
+\beta_1 &\in& \left[`r b1` - `r round(qt(1-0.05/2, NROW(X)-2),2)` \times \sqrt{`r sb`}, `r b1` + `r round(qt(1-0.05/2, NROW(X)-2),2)` \times \sqrt{`r sb`}\right] \\
+\beta_1 &\in& \left[`r b1 - qt(1-0.05/2, NROW(X)-2) * sqrt(sb)`, `r b1 + qt(1-0.05/2, NROW(X)-2) * sqrt(sb)`\right].
 \end{array}
 \]
 
@@ -183,7 +191,7 @@ H_1 &:& \beta_0 \neq 0
 
 Per això calculem l'estadístic de contrast
 \[
-t_{\text{obs}} = \frac{b_0 - 0}{S_{b_0}} = \frac{`r a`}{\sqrt{`r sb02`}} = `r a/sqrt(sb02)`.
+t_{\text{obs}} = \frac{b_0 - 0}{S_{b_0}} = \frac{`r b0`}{\sqrt{`r sb02`}} = `r b0/sqrt(sb02)`.
 \]
 
-que segueix un distribució $t_{n-2}$. Si agafem les taules veurem que el p-valor associat a aquest estadístic de contrast és `r 2*(1-pt(abs(a/sqrt(sb02)), NROW(X)-2))`. Per tant, podem assumir que el valor de $\beta_0$ és igual a zero, o dit d'altre forma, no hem trobat evidències per veure que $\beta_0$ sigui diferent de zero.
+que segueix un distribució $t_{n-2}$. Si agafem les taules veurem que el p-valor associat a aquest estadístic de contrast és `r 2*(1-pt(abs(b0/sqrt(sb02)), NROW(X)-2))`. Per tant, podem assumir que el valor de $\beta_0$ és igual a zero, o dit d'altre forma, no hem trobat evidències per veure que $\beta_0$ sigui diferent de zero.
